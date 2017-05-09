@@ -23,6 +23,7 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
+        //this is how loading images works
         loadedImg = new Image("resources/images/omaia.png");
 
 
@@ -33,7 +34,9 @@ public class MainGameController {
     }
 
     public void onMouseClick (MouseEvent e){
-        System.out.println("Clic at "+ e.getX() + " : " + e.getY());
+        //System.out.println("Clic at "+ e.getX() + " : " + e.getY());
+
+        //this is how you can print an image on the canvas
         gc.drawImage(loadedImg,e.getX(),e.getY());
     }
 }
