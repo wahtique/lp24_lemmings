@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 
@@ -25,7 +26,8 @@ public class MainGameController {
 
         //this is how loading images works
         loadedImg = new Image("resources/images/omaia.png");
-
+      //  System.out.println(loadedImg.getPixelReader().getColor(0,0));
+        System.out.println(loadedImg.getWidth());
 
 
     }
@@ -38,6 +40,13 @@ public class MainGameController {
         //System.out.println("Clic at "+ e.getX() + " : " + e.getY());
 
         //this is how you can print an image on the canvas
-        gc.drawImage(loadedImg,e.getX(),e.getY());
+
+        centeredDrawImage(loadedImg,e.getX(),e.getY(),gc);
+        ImageView test = new ImageView(loadedImg);
+
+    }
+
+    public void centeredDrawImage(Image img, double x, double y, GraphicsContext gc){
+        gc.drawImage(img,x-img.getWidth()/2,y-img.getHeight()/2);
     }
 }
