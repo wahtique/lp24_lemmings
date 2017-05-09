@@ -1,2 +1,5 @@
 /src/resources 
-/META-INF
+/src/META-INF
+*.log
+*.iml
+.idea
