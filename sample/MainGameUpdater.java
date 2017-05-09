@@ -19,6 +19,13 @@ public class MainGameUpdater extends AnimationTimer{
         startTime = previousTime;
     }
 
+    public void start(MainGameController mainGame){
+        super.start();
+        this.mainGame = mainGame;
+        previousTime = System.nanoTime();
+        startTime = previousTime;
+    }
+
     public void handle(long currentNanoTime) {
         double deltaTime = (currentNanoTime - previousTime) / 1000000000.0 * timeSpeed;
 

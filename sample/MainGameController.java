@@ -15,10 +15,9 @@ public class MainGameController {
 
     public void start(){
         gc = canvas.getGraphicsContext2D();
+
         timeSetter = new MainGameUpdater();
-        timeSetter.start();
-        timeSetter.setMainGame(this);
-        timeSetter.start();
+        timeSetter.start(this);
 
 
 
