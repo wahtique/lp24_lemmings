@@ -27,6 +27,7 @@ public class MainGameController {
         loadedImg = new Image("resources/images/omaia.png");
 
 
+
     }
 
     public void update(double deltaTime) {
