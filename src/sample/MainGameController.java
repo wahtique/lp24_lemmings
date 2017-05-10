@@ -8,12 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 
 public class MainGameController {
     @FXML
     private Canvas canvas;
+
+    @FXML
+    private BorderPane panneau;
 
     private Image loadedImg;
     private WritableImage modifiable;
@@ -44,6 +48,7 @@ public class MainGameController {
 
     public void update(double deltaTime) {
        // System.out.println("FPS : "+ 1/deltaTime );
+       autoSetCanvasDim();
     }
 
     public void onMouseClick (MouseEvent e){
@@ -80,5 +85,27 @@ public class MainGameController {
         img.setX(x);
         img.setY(y);
         gc.drawImage(img.getImage(),img.getX(),img.getY());
+    }
+
+    public void autoSetCanvasDim(){
+        System.out.println((panneau.getHeight() / panneau.getPrefHeight()) * (panneau.getPrefHeight() / panneau.getPrefWidth()) );
+        if (panneau.getWidth()>panneau.getHeight()) {
+            canvas.setScaleX(panneau.getHeight() / panneau.getPrefHeight());
+
+            canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
+
+        }else{
+            canvas.setScaleY(panneau.getWidth() / panneau.getPrefWidth());
+
+            canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
+
+        }
+    }
+    public void dumbAutoSetCanvasDim(){
+        System.out.println( panneau.getPrefHeight() / panneau.getPrefWidth());
+        canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
+        canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
+
+
     }
 }
