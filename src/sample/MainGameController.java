@@ -33,6 +33,11 @@ public class MainGameController {
 
         //  System.out.println(loadedImg.getPixelReader().getColor(0,0));
         System.out.println(loadedImg.getWidth());
+        //TODO: dynamic scaling with the resize of the window
+        canvas.setScaleX(2);
+        canvas.setScaleY(2);
+
+        //gc.scale(2, 2);
         notCenteredDrawImage(new ImageView(modifiable),10,10,gc);
 
     }
@@ -47,9 +52,9 @@ public class MainGameController {
 
         // writer.setColor((int)(e.getX() -200),(int)(e.getY()-200), Color.color(1, 0.0078, 0));
         //writer.setColor((int)(loadedImg.getWidth())-1,(int)(loadedImg.getHeight())-1, Color.color(1, 0.0078, 0));
-        System.out.println((int)(e.getX())-1);
-        //FORMULA: (int)(mouse.getX()-imagepositionX)-1 (all coordinates are canvas relative)
-        writer.setColor((int)(e.getX()-30)-1,(int)(e.getY()-30)-1, Color.color(1, 0.0078, 0));
+        
+        //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
+        writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
 
         notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
         //System.out.println("Clic at "+ e.getX() + " : " + e.getY());
