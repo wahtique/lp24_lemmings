@@ -10,6 +10,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import org.omg.CORBA.Environment;
 
 
 public class MainGameController {
@@ -21,6 +22,7 @@ public class MainGameController {
 
     private Image loadedImg;
     private WritableImage modifiable;
+    private Sprite test;
 
     GraphicsContext gc;
     MainGameUpdater timeSetter;
@@ -31,18 +33,11 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        //this is how loading images works
-        loadedImg = new Image("resources/images/omaia.png");
-        modifiable = new WritableImage(loadedImg.getPixelReader(),(int)loadedImg.getWidth(),(int)loadedImg.getHeight());
+        test = new Sprite("resources/images/omaia.png");
+        test.setPosition(10,10);
 
-        //  System.out.println(loadedImg.getPixelReader().getColor(0,0));
-        System.out.println(loadedImg.getWidth());
-        //TODO: dynamic scaling with the resize of the window
-        canvas.setScaleX(2);
-        canvas.setScaleY(2);
+        test.drawImage(gc);
 
-        //gc.scale(2, 2);
-        notCenteredDrawImage(new ImageView(modifiable),10,10,gc);
 
     }
 
@@ -52,43 +47,20 @@ public class MainGameController {
     }
 
     public void onMouseClick (MouseEvent e){
-        PixelWriter writer = modifiable.getPixelWriter();
 
-
-        // writer.setColor((int)(e.getX() -200),(int)(e.getY()-200), Color.color(1, 0.0078, 0));
-        //writer.setColor((int)(loadedImg.getWidth())-1,(int)(loadedImg.getHeight())-1, Color.color(1, 0.0078, 0));
-        
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
-        writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
+//        System.out.println(e.getX()+" : "+e.getY());
+        test.modifyPixelCanvasRef((int)((e.getX())),(int)((e.getY())), Color.color(1, 0.0078, 0));
 
-        notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
-        //System.out.println("Clic at "+ e.getX() + " : " + e.getY());
-        System.out.println("Width: "+ loadedImg.getWidth() + " Heigth : " + loadedImg.getHeight());
-    //    System.out.println(""+ loadedImg.getPixelReader(). + " : " + e.getY());
+        // writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
 
-        //this is how you can print an image on the canvas
-
-    //    centeredDrawImage(new ImageView(modifiable),e.getX(),e.getY(),gc);
-     //   ImageView test = new ImageView(loadedImg);
-
+      //  notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
+        test.drawImage(gc);
     }
 
-    public void centeredDrawImage(Image img, double x, double y, GraphicsContext gc){
-        gc.drawImage(img,x-img.getWidth()/2,y-img.getHeight()/2);
-    }
-    public void centeredDrawImage(ImageView img, double x, double y, GraphicsContext gc){
-        img.setX(x-img.getImage().getWidth()/2);
-        img.setY(y-img.getImage().getHeight()/2);
-        gc.drawImage(img.getImage(),img.getX(),img.getY());
-    }
-    public void notCenteredDrawImage(ImageView img, double x, double y, GraphicsContext gc){
-        img.setX(x);
-        img.setY(y);
-        gc.drawImage(img.getImage(),img.getX(),img.getY());
-    }
 
     public void autoSetCanvasDim(){
-        System.out.println((panneau.getHeight() / panneau.getPrefHeight()) * (panneau.getPrefHeight() / panneau.getPrefWidth()) );
+
         if (panneau.getWidth()>panneau.getHeight()) {
             canvas.setScaleX(panneau.getHeight() / panneau.getPrefHeight());
 
@@ -102,7 +74,7 @@ public class MainGameController {
         }
     }
     public void dumbAutoSetCanvasDim(){
-        System.out.println( panneau.getPrefHeight() / panneau.getPrefWidth());
+
         canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
         canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
 
