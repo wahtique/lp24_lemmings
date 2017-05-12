@@ -22,9 +22,7 @@ public class Sprite {
     }
 
     public Sprite(String url){
-        Image image = new Image(url);
-        writeImage = new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight());
-        renderedImage = new ImageView(writeImage);
+        setImage(url);
     }
 
 
@@ -57,7 +55,18 @@ public class Sprite {
         //TODO
         //renderedImage.setScaleX(-renderedImage.getScaleX());
     }
+    public float getLayer(){
+        return layer;
+    }
+    public void setLayer(float layer){
+        this.layer = layer;
+    }
 
+    public void setImage(String url){
+        Image image = new Image(url);
+        writeImage = new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight());
+        renderedImage = new ImageView(writeImage);
+    }
 
     protected boolean modifyPixel(int x,int y,Color color){
 

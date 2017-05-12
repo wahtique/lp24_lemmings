@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class AnimatedSprite extends Sprite{
     //TODO doing it
-    private boolean isLooping;
 
+    private boolean isLooping;
     private ArrayList<WritableImage> listOfImages;
     private int currentImage = 0;
     private float framerate = 6;
