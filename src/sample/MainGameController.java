@@ -3,14 +3,10 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import org.omg.CORBA.Environment;
+
 
 
 public class MainGameController {
@@ -20,8 +16,7 @@ public class MainGameController {
     @FXML
     private BorderPane panneau;
 
-    private Image loadedImg;
-    private WritableImage modifiable;
+    private Color currentColor = Color.color(1, 0.0078, 0);
     private Sprite test;
 
     GraphicsContext gc;
@@ -39,6 +34,7 @@ public class MainGameController {
         test.drawImage(gc);
 
 
+
     }
 
     public void update(double deltaTime) {
@@ -47,11 +43,14 @@ public class MainGameController {
     }
 
     public void onMouseClick (MouseEvent e){
-
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
 //        System.out.println(e.getX()+" : "+e.getY());
-        test.modifyPixelCanvasRef((int)((e.getX())),(int)((e.getY())), Color.color(1, 0.0078, 0));
-
+        if (e.isPrimaryButtonDown()) {
+            test.modifyPixelCanvasRef((int) ((e.getX())), (int) ((e.getY())), currentColor);
+        }else if (e.isSecondaryButtonDown()){
+            currentColor = test.getPixelColorCanvasRef((int)e.getX(),(int)e.getY());
+        }
         // writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
 
       //  notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
