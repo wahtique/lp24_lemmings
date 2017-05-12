@@ -51,9 +51,7 @@ public class MainGameController {
         }else if (e.isSecondaryButtonDown()){
             currentColor = test.getPixelColorCanvasRef((int)e.getX(),(int)e.getY());
         }
-        // writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
 
-      //  notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
         test.drawImage(gc);
     }
 
