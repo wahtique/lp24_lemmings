@@ -3,16 +3,21 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+
 
 
 public class MainGameController {
     @FXML
     private Canvas canvas;
 
-    private Image loadedImg;
+    @FXML
+    private BorderPane panneau;
 
+    private Color currentColor = Color.color(1, 0.0078, 0);
+    private Sprite test;
 
     GraphicsContext gc;
     MainGameUpdater timeSetter;
@@ -23,8 +28,10 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        //this is how loading images works
-        loadedImg = new Image("resources/images/omaia.png");
+        test = new Sprite("resources/images/omaia.png");
+        test.setPosition(10,10);
+
+        test.drawImage(gc);
 
 
 
@@ -32,12 +39,44 @@ public class MainGameController {
 
     public void update(double deltaTime) {
        // System.out.println("FPS : "+ 1/deltaTime );
+       autoSetCanvasDim();
     }
 
     public void onMouseClick (MouseEvent e){
-        //System.out.println("Clic at "+ e.getX() + " : " + e.getY());
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+        //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
+//        System.out.println(e.getX()+" : "+e.getY());
+        if (e.isPrimaryButtonDown()) {
+            test.modifyPixelCanvasRef((int) ((e.getX())), (int) ((e.getY())), currentColor);
+        }else if (e.isSecondaryButtonDown()){
+            currentColor = test.getPixelColorCanvasRef((int)e.getX(),(int)e.getY());
+        }
+        // writer.setColor((int)((e.getX()-30)),(int)((e.getY()-30)), Color.color(1, 0.0078, 0));
 
-        //this is how you can print an image on the canvas
-        gc.drawImage(loadedImg,e.getX(),e.getY());
+      //  notCenteredDrawImage(new ImageView(modifiable),30,30,gc);
+        test.drawImage(gc);
+    }
+
+
+    public void autoSetCanvasDim(){
+
+        if (panneau.getWidth()>panneau.getHeight()) {
+            canvas.setScaleX(panneau.getHeight() / panneau.getPrefHeight());
+
+            canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
+
+        }else{
+            canvas.setScaleY(panneau.getWidth() / panneau.getPrefWidth());
+
+            canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
+
+        }
+    }
+    public void dumbAutoSetCanvasDim(){
+
+        canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
+        canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
+
+
     }
 }
