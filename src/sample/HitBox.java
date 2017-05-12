@@ -11,20 +11,22 @@ public class HitBox extends Sprite {
         super(url);
     }
 
-    public boolean isInHitbox(int x,int y){
-        return !(this.getPixelColorCanvasRef(x,y).getOpacity() == 0);
+    public boolean isInHitbox(Vector pos){
+       // System.out.print(".");
+        return (this.getPixelColorCanvasRef(pos).getOpacity() != 0);
+
     }
 
-    public boolean deletePoint(int x,int y){
-        return this.modifyPixelCanvasRef(x,y, Color.color(0,0,0,0)) ;
+    public boolean deletePoint(Vector pos){
+        return this.modifyPixelCanvasRef(pos, Color.color(0,0,0,0)) ;
     }
 
-    public boolean willBeColliding(int posX,int posY,HitBox other){
+    public boolean willBeColliding(Vector pos,HitBox other){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
             for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
-                if (this.getPixelColor(x,y).getOpacity() != 0){
-                    if (other.isInHitbox(x+posX,y+posY)){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    if (other.isInHitbox(new Vector( x+pos.getX(),y+pos.getY() ))){
                         return true;
                     }
                 }

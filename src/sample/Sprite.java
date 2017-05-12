@@ -15,40 +15,40 @@ public class Sprite {
     protected float layer;
     protected ImageView renderedImage;
     protected WritableImage writeImage;
+    protected Vector position;
 
     public Sprite(){
         renderedImage = null;
         writeImage = null;
+        position = new Vector(0,0);
     }
 
     public Sprite(String url){
         setImage(url);
+        position = new Vector(0,0);
+    }
+
+    protected Vector fromCanvasToLocal(Vector v){
+        return v.add(position.mulScal(-1));
     }
 
 
-
-
-    public boolean modifyPixelCanvasRef(int x,int y,Color color){
-        x = (int) (x- renderedImage.getX());
-        y = (int) (y- renderedImage.getY());
-
-        return modifyPixel(x,y,color);
+    public boolean modifyPixelCanvasRef(Vector pos,Color color){
+        return modifyPixel(fromCanvasToLocal(pos),color);
     }
 
     public void drawImage(GraphicsContext gc){
-        gc.drawImage( renderedImage.getImage(), renderedImage.getX(), renderedImage.getY());
+        gc.drawImage( renderedImage.getImage(), position.getX(), position.getY());
     }
 
-    public void setPosition(double x, double y){
-         renderedImage.setX(x);
-         renderedImage.setY(y);
+    public void setPosition(Vector p){
+         position = p;
     }
 
-    public Color getPixelColorCanvasRef(int x,int y){
-        x = (int) (x- renderedImage.getX());
-        y = (int) (y- renderedImage.getY());
+    public Color getPixelColorCanvasRef(Vector pos){
 
-        return getPixelColor(x,y);
+
+        return getPixelColor(fromCanvasToLocal(pos));
     }
 
     public void flipX(){
@@ -68,21 +68,21 @@ public class Sprite {
         renderedImage = new ImageView(writeImage);
     }
 
-    protected boolean modifyPixel(int x,int y,Color color){
+    protected boolean modifyPixel(Vector pos,Color color){
 
-        if (isInImage(x,y)) {
-            writeImage.getPixelWriter().setColor(x, y, color);
+        if (isInImage(pos)) {
+            writeImage.getPixelWriter().setColor((int)pos.getX(),(int)pos.getY(), color);
             return true;
         }else{
             return false;
         }
 
     }
-    protected boolean isInImage(int x,int y){
-        if (x<0 || y<0){
+    protected boolean isInImage(Vector pos){
+        if (pos.getX() <0 || pos.getY() <0){
             return false;
         }else {
-            if (writeImage.getWidth() > x && writeImage.getHeight() > y) {
+            if (writeImage.getWidth() > pos.getX() && writeImage.getHeight() > pos.getY() ) {
                 return true;
             } else {
                 return false;
@@ -90,14 +90,17 @@ public class Sprite {
         }
     }
 
-    protected Color getPixelColor(int x, int y) {
-        if (isInImage(x,y)) {
-            return writeImage.getPixelReader().getColor(x, y);
+    protected Color getPixelColor(Vector pos) {
+        if (isInImage(pos)) {
+            return writeImage.getPixelReader().getColor((int)pos.getX(),(int) pos.getY());
 
         }else{
             return Color.color(0,0,0,0);
         }
 
+    }
+    public Vector getPosition(){
+        return position;
     }
 
 }

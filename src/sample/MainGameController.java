@@ -31,8 +31,8 @@ public class MainGameController {
 
         test = new HitBox("resources/images/omaia.png");
         star = new HitBox("resources/images/star.png");
-        test.setPosition(10,10);
-        star.setPosition(10,10);
+        test.setPosition(new Vector(100,100));
+        star.setPosition(new Vector(9,9));
         test.drawImage(gc);
         star.drawImage(gc);
 
@@ -40,22 +40,29 @@ public class MainGameController {
     }
 
     public void update(double deltaTime) {
-       // System.out.println("FPS : "+ 1/deltaTime );
+       //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
     }
 
     public void onMouseClick (MouseEvent e){
+        double time = System.nanoTime();
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
-            test.modifyPixelCanvasRef((int) ((e.getX())), (int) ((e.getY())), currentColor);
-            System.out.println(test.willBeColliding(15,10,star));
-        }else if (e.isSecondaryButtonDown()){
-            currentColor = test.getPixelColorCanvasRef((int)e.getX(),(int)e.getY());
-        }
+//            test.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
+            star.setPosition(new Vector(e.getX(),e.getY()));
+            System.out.println("\n"+test.willBeColliding(test.position,star));
 
+            System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
+        }else if (e.isSecondaryButtonDown()){
+//            currentColor = test.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
+            System.out.println(test.isInHitbox(new Vector(e.getX(),e.getY())));
+
+        }
         test.drawImage(gc);
+        star.drawImage(gc);
+
     }
 
 
