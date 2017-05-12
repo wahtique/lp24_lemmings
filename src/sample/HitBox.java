@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
  */
 public class HitBox extends Sprite {
 
+    public HitBox(String url){
+        super(url);
+    }
+
     public boolean isInHitbox(int x,int y){
         return !(this.getPixelColorCanvasRef(x,y).getOpacity() == 0);
     }

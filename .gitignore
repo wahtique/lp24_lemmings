@@ -1,7 +1,6 @@
 /src/resources 
 /src/META-INF
 *.log
-*.iml
 .idea
 
 ### JetBrains template

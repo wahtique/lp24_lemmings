@@ -17,7 +17,8 @@ public class MainGameController {
     private BorderPane panneau;
 
     private Color currentColor = Color.color(1, 0.0078, 0);
-    private Sprite test;
+    private HitBox test;
+    private HitBox star;
 
     GraphicsContext gc;
     MainGameUpdater timeSetter;
@@ -28,11 +29,12 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        test = new Sprite("resources/images/omaia.png");
+        test = new HitBox("resources/images/omaia.png");
+        star = new HitBox("resources/images/star.png");
         test.setPosition(10,10);
-
+        star.setPosition(10,10);
         test.drawImage(gc);
-
+        star.drawImage(gc);
 
 
     }
@@ -48,6 +50,7 @@ public class MainGameController {
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
             test.modifyPixelCanvasRef((int) ((e.getX())), (int) ((e.getY())), currentColor);
+            System.out.println(test.willBeColliding(15,10,star));
         }else if (e.isSecondaryButtonDown()){
             currentColor = test.getPixelColorCanvasRef((int)e.getX(),(int)e.getY());
         }
