@@ -119,5 +119,16 @@ public class GameSession implements Serializable
         }
     }
 
+    /**Clone constructor. Mainily used bby colling loadGameSession to get a GameSession to clone.
+     * @param toClone the GameSession we want to copy
+     * @return nothing. it's a constructor.*/
+    public GameSession(GameSession toClone)
+    {
+        this.playerName = toClone.getPlayerName();
+        this.numberOfStudents = toClone.getNumberOfStudents();
+        this.level = toClone.level;
+        this.students = new ArrayList<>(toClone.getStudents());
+    }
+
 
 }
