@@ -7,7 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application
+{
 
     private FXMLLoader loader;
 
@@ -30,8 +31,14 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args)
+    {
+        GameSession g = new GameSession("William",3);
+        System.out.println(g);
+        g.saveGameSession();
+
+        GameSession gbis = new GameSession("William");
+        System.out.println(gbis);
     }
 
 

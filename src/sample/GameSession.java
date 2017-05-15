@@ -94,32 +94,30 @@ public class GameSession implements Serializable
         }
     }
 
-    /**Method loading a saved game session. The vrification its existence should be done before
-     * @param name the name of the gamesession to be loaded. We assume it exist when the method is called
-     * @return  a gameSession built from its persistent representation
-     * */
-    public GameSession loadGameSession(String name)
+    /**Constructor used to load a game. The existence of the savedgame should be tested before*/
+    public GameSession(String name)
     {
         try
         {
-            FileInputStream fin = new FileInputStream("savedGanmes/"+name);
+            FileInputStream fin = new FileInputStream("savedGames/"+name);
             ObjectInputStream oin = new ObjectInputStream(fin);
 
             GameSession session = (GameSession) oin.readObject();
-
+            this.playerName = session.getPlayerName();
+            this.numberOfStudents = session.getNumberOfStudents();
+            this.level = session.level;
+            this.students = new ArrayList<>(session.getStudents());
             oin.close();
             fin.close();
-            return session;
 
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return null;
         }
     }
 
-    /**Clone constructor. Mainily used bby colling loadGameSession to get a GameSession to clone.
+    /**Clone constructor.
      * @param toClone the GameSession we want to copy
      * @return nothing. it's a constructor.*/
     public GameSession(GameSession toClone)
@@ -130,5 +128,14 @@ public class GameSession implements Serializable
         this.students = new ArrayList<>(toClone.getStudents());
     }
 
-
+    @Override
+    public String toString()
+    {
+        return "GameSession{" +
+                "playerName='" + playerName + '\'' +
+                ", level=" + level +
+                ", students=" + students +
+                ", numberOfStudents=" + numberOfStudents +
+                '}';
+    }
 }
