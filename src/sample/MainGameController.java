@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 
 
 public class MainGameController {
@@ -17,11 +18,13 @@ public class MainGameController {
     private BorderPane panneau;
 
     private Color currentColor = Color.color(1, 0.0078, 0);
-    private HitBox test;
+    private HitBox omaia;
     private HitBox star;
 
     GraphicsContext gc;
     MainGameUpdater timeSetter;
+
+    private AnimatedSprite anim;
 
     public void start(){
         gc = canvas.getGraphicsContext2D();
@@ -29,11 +32,17 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        test = new HitBox("resources/images/omaia.png");
+        omaia = new HitBox("resources/images/omaia.png");
         star = new HitBox("resources/images/star.png");
-        test.setPosition(new Vector(100,100));
+        ArrayList<String> urls = new ArrayList<String>();
+        urls.add("resources/images/omaia.png");
+        urls.add("resources/images/star.png");
+        urls.add("resources/images/omaia.png");
+
+        anim = new AnimatedSprite(urls);
+        omaia.setPosition(new Vector(100,100));
         star.setPosition(new Vector(9,9));
-        test.drawImage(gc);
+        omaia.drawImage(gc);
         star.drawImage(gc);
 
 
@@ -42,6 +51,9 @@ public class MainGameController {
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
+       gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+       anim.update(deltaTime);
+       anim.drawImage(gc);
     }
 
     public void onMouseClick (MouseEvent e){
@@ -50,17 +62,17 @@ public class MainGameController {
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
-//            test.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
+//            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
             star.setPosition(new Vector(e.getX(),e.getY()));
-            System.out.println("\n"+test.willBeColliding(test.position,star));
+            System.out.println("\n"+ omaia.willBeColliding(omaia.position,star));
 
             System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
         }else if (e.isSecondaryButtonDown()){
-//            currentColor = test.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
-            System.out.println(test.isInHitbox(new Vector(e.getX(),e.getY())));
+//            currentColor = omaia.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
+            System.out.println(omaia.isInHitbox(new Vector(e.getX(),e.getY())));
 
         }
-        test.drawImage(gc);
+        omaia.drawImage(gc);
         star.drawImage(gc);
 
     }

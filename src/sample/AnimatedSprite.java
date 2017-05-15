@@ -12,20 +12,31 @@ import java.util.ArrayList;
  * Created by naej on 12/05/17.
  */
 public class AnimatedSprite extends Sprite{
-    //TODO doing it
 
     private boolean isLooping;
     private ArrayList<WritableImage> listOfImages;
     private int currentImage = 0;
-    private float framerate = 6;
+    private int framerate = 6;
     private double currentTime =0;
 
     public AnimatedSprite(String url){
+        super();
+        listOfImages = new ArrayList<WritableImage>();
         Image image = new Image(url);
         listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
-    public boolean modifyPixel(int x,int y,Color color){
+
+    public AnimatedSprite(ArrayList<String> urls){
+        super();
+        listOfImages = new ArrayList<WritableImage>();
+        for (String url: urls){
+            Image image = new Image(url);
+            listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
+        }
+        renderedImage = new ImageView(listOfImages.get(currentImage));
+    }
+   /* public boolean modifyPixel(int x,int y,Color color){
         if (x<0 || y<0){
             return false;
         }else {
@@ -45,14 +56,9 @@ public class AnimatedSprite extends Sprite{
         return modifyPixel(x,y,color);
     }
 
-
+*/
     public void drawImage(GraphicsContext gc){
         gc.drawImage(renderedImage.getImage(), renderedImage.getX(), renderedImage.getY());
-    }
-
-    public void setPosition(double x, double y){
-        renderedImage.setX(x);
-        renderedImage.setY(y);
     }
 
     public void update(double deltaTime){
@@ -60,6 +66,9 @@ public class AnimatedSprite extends Sprite{
         if (currentTime > getAnimationLength()){
             currentTime -= getAnimationLength();
         }
+        currentImage = (int) ( (currentTime/getAnimationLength())*listOfImages.size());
+        System.out.println(currentImage);
+        renderedImage.setImage(listOfImages.get(currentImage));
 
     }
 
