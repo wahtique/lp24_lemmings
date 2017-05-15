@@ -25,10 +25,15 @@ public class GameSession implements Serializable
     /**Number of students / lemmings we will have to manage*/
     private int numberOfStudents;
 
+    /**The profile settings we will use when we play.
+     *When creating a new game, it will use the general settings.
+     * When loading, we will use the parameters already existing.*/
+    private Parameters profileSettings;
+
     /**Method creating a new game session from scratch. Used mainly to start a new game.
      * @param playerName The name of the player AND the savegame
      * @param numberOfStudents The number of students we will play with*/
-    public GameSession(String playerName, int numberOfStudents)
+    public GameSession(String playerName, int numberOfStudents) throws Exception
     {
         this.playerName = playerName;
         this.numberOfStudents = numberOfStudents;
@@ -39,6 +44,7 @@ public class GameSession implements Serializable
         {
             students.add(new StudentData());
         }
+        this.profileSettings = new Parameters();
     }
 
     public int getLevel()
@@ -107,6 +113,7 @@ public class GameSession implements Serializable
             this.numberOfStudents = session.getNumberOfStudents();
             this.level = session.level;
             this.students = new ArrayList<>(session.getStudents());
+            this.profileSettings = session.getProfileSettings();
             oin.close();
             fin.close();
 
@@ -117,17 +124,6 @@ public class GameSession implements Serializable
         }
     }
 
-    /**Clone constructor.
-     * @param toClone the GameSession we want to copy
-     * @return nothing. it's a constructor.*/
-    public GameSession(GameSession toClone)
-    {
-        this.playerName = toClone.getPlayerName();
-        this.numberOfStudents = toClone.getNumberOfStudents();
-        this.level = toClone.level;
-        this.students = new ArrayList<>(toClone.getStudents());
-    }
-
     @Override
     public String toString()
     {
@@ -136,6 +132,17 @@ public class GameSession implements Serializable
                 ", level=" + level +
                 ", students=" + students +
                 ", numberOfStudents=" + numberOfStudents +
+                ", profileSettings=" + profileSettings +
                 '}';
+    }
+
+    public Parameters getProfileSettings()
+    {
+        return profileSettings;
+    }
+
+    public void setProfileSettings(Parameters profileSettings)
+    {
+        this.profileSettings = profileSettings;
     }
 }
