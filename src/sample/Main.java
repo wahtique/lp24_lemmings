@@ -39,6 +39,7 @@ public class Main extends Application
 
         GameSession gbis = new GameSession("William");
         System.out.println(gbis);
+        launch(args);
     }
 
 
