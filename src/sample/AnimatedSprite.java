@@ -85,36 +85,7 @@ public class AnimatedSprite extends Sprite{
         }
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
-   /* public boolean modifyPixel(int x,int y,Color color){
-        if (x<0 || y<0){
-            return false;
-        }else {
-            if (listOfImages.get(currentImage).getWidth() > x && listOfImages.get(currentImage).getHeight() > y) {
-                listOfImages.get(currentImage).getPixelWriter().setColor(x, y, color);
-                return true;
-            } else {
-                return false;
-            }
-        }
 
-    }
-    public boolean modifyPixelCanvasRef(int x,int y,Color color){
-        x = (int) (x- renderedImage.getX());
-        y = (int) (y- renderedImage.getY());
-
-        return modifyPixel(x,y,color);
-    }
-
-*//*
-    public void drawImage(GraphicsContext gc) {
-        if (!isFlipped) {
-            gc.drawImage(renderedImage.getImage(), renderedImage.getX(), renderedImage.getY());
-        }else{
-            gc.drawImage(renderedImage.getImage(), renderedImage.getX(),renderedImage.getY(), renderedImage.getImage().getWidth(), renderedImage.getImage().getHeight(), renderedImage.getImage().getWidth(),0,-renderedImage.getImage().getWidth(),renderedImage.getImage().getHeight());
-
-        }
-    }
-*/
     public void update(double deltaTime){
         currentTime += deltaTime;
         if (currentTime > getAnimationLength()){
