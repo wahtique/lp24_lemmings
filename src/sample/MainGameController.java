@@ -7,7 +7,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 
 public class MainGameController {
@@ -26,7 +36,7 @@ public class MainGameController {
 
     private AnimatedSprite anim;
 
-    public void start(){
+    public void start() throws IOException, URISyntaxException {
         gc = canvas.getGraphicsContext2D();
 
         timeSetter = new MainGameUpdater();
@@ -34,16 +44,37 @@ public class MainGameController {
 
         omaia = new HitBox("resources/images/omaia.png");
         star = new HitBox("resources/images/star.png");
+
         ArrayList<String> urls = new ArrayList<String>();
-        urls.add("resources/Anim/taiste/taiste0000.png");
-        urls.add("resources/Anim/taiste/taiste0001.png");
-        urls.add("resources/Anim/taiste/taiste0002.png");
-        urls.add("resources/Anim/taiste/taiste0003.png");
+        URI uri = this.getClass().getResource("/resources/Anim/taiste").toURI();
+        Path myPath;
+        if (uri.getScheme().equals("jar")) {
+            System.out.println("I'm in a JAR !");
+            FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+            myPath = fileSystem.getPath("/resources/Anim/taiste");
+        } else {
+            myPath = Paths.get(uri);
+        }
+        //myPath = Paths.get(uri);
+        Stream<Path> walk = Files.walk(myPath, 1);
 
+        for (Iterator<Path> it = walk.iterator(); it.hasNext();){
+            //System.out.println(it.next().getFileName());
+            urls.add("resources/Anim/taiste/" + it.next().getFileName().toString());
+        }
+        urls.sort(new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                return s.compareTo(t1);
+            }
+        });
+        urls.remove(0);
 
+        System.out.println(urls);
         //anim = new AnimatedSprite("resources/Anim/taiste");
-        anim = new AnimatedSprite(urls);
-     //   anim.flipX();
+        anim = new AnimatedSprite( urls);
+
+        //  anim.flipX();
 
         omaia.setPosition(new Vector(100,100));
         star.setPosition(new Vector(9,9));

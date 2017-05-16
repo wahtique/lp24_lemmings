@@ -39,6 +39,7 @@ public class AnimatedSprite extends Sprite{
         super();
         listOfImages = new ArrayList<WritableImage>();
         for (String url: urls){
+            System.out.println(url);
             Image image = new Image(url);
             listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
         }
@@ -80,7 +81,7 @@ public class AnimatedSprite extends Sprite{
             currentTime -= getAnimationLength();
         }
         currentImage = (int) ( (currentTime/getAnimationLength())*listOfImages.size());
-        System.out.println(currentImage);
+     //   System.out.println(currentImage);
         renderedImage.setImage(listOfImages.get(currentImage));
 
     }

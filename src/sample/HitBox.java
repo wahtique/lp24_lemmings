@@ -37,7 +37,7 @@ public class HitBox extends Sprite {
 
     @Override
     public boolean flipX(){
-        System.out.println("WARNING : the hitbox is not really flipped !");
+        System.out.println("WARNING : the hitbox is not flipped !");
         return false;
     }
 }
