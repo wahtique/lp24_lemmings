@@ -35,11 +35,16 @@ public class MainGameController {
         omaia = new HitBox("resources/images/omaia.png");
         star = new HitBox("resources/images/star.png");
         ArrayList<String> urls = new ArrayList<String>();
-        urls.add("resources/images/omaia.png");
-        urls.add("resources/images/star.png");
-        urls.add("resources/images/omaia.png");
+        urls.add("resources/Anim/taiste/taiste0000.png");
+        urls.add("resources/Anim/taiste/taiste0001.png");
+        urls.add("resources/Anim/taiste/taiste0002.png");
+        urls.add("resources/Anim/taiste/taiste0003.png");
 
+
+        //anim = new AnimatedSprite("resources/Anim/taiste");
         anim = new AnimatedSprite(urls);
+     //   anim.flipX();
+
         omaia.setPosition(new Vector(100,100));
         star.setPosition(new Vector(9,9));
         omaia.drawImage(gc);
@@ -51,7 +56,7 @@ public class MainGameController {
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-       gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+       //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
        anim.update(deltaTime);
        anim.drawImage(gc);
     }
@@ -63,6 +68,7 @@ public class MainGameController {
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
 //            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
+            omaia.flipX();
             star.setPosition(new Vector(e.getX(),e.getY()));
             System.out.println("\n"+ omaia.willBeColliding(omaia.position,star));
 
@@ -72,6 +78,7 @@ public class MainGameController {
             System.out.println(omaia.isInHitbox(new Vector(e.getX(),e.getY())));
 
         }
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         omaia.drawImage(gc);
         star.drawImage(gc);
 

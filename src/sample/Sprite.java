@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
  * Created by naej on 11/05/17.
  */
 public class Sprite {
-
+    protected boolean isFlipped;
     protected float layer;
     protected ImageView renderedImage;
     protected WritableImage writeImage;
@@ -21,6 +21,7 @@ public class Sprite {
         renderedImage = null;
         writeImage = null;
         position = new Vector(0,0);
+        isFlipped = false;
     }
 
     public Sprite(String url){
@@ -37,8 +38,16 @@ public class Sprite {
         return modifyPixel(fromCanvasToLocal(pos),color);
     }
 
-    public void drawImage(GraphicsContext gc){
-        gc.drawImage( renderedImage.getImage(), position.getX(), position.getY());
+    public void drawImage(GraphicsContext gc) {
+        if (!isFlipped) {
+            gc.drawImage(renderedImage.getImage(), position.getX(), position.getY());
+        }else{
+            gc.drawImage(renderedImage.getImage(),
+                    0, 0,
+                    renderedImage.getImage().getWidth(), renderedImage.getImage().getHeight(),
+                    position.getX()+renderedImage.getImage().getWidth(), position.getY(),
+                    -renderedImage.getImage().getWidth(),renderedImage.getImage().getHeight());
+        }
     }
 
     public void setPosition(Vector p){
@@ -51,10 +60,6 @@ public class Sprite {
         return getPixelColor(fromCanvasToLocal(pos));
     }
 
-    public void flipX(){
-        //TODO
-        //renderedImage.setScaleX(-renderedImage.getScaleX());
-    }
     public float getLayer(){
         return layer;
     }
@@ -103,4 +108,8 @@ public class Sprite {
         return position;
     }
 
+    public boolean flipX(){
+        isFlipped = !isFlipped;
+        return isFlipped;
+    }
 }
