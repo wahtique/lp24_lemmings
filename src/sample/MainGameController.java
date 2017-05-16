@@ -45,34 +45,11 @@ public class MainGameController {
         omaia = new HitBox("resources/images/omaia.png");
         star = new HitBox("resources/images/star.png");
 
-        ArrayList<String> urls = new ArrayList<String>();
-        URI uri = this.getClass().getResource("/resources/Anim/taiste").toURI();
-        Path myPath;
-        if (uri.getScheme().equals("jar")) {
-            System.out.println("I'm in a JAR !");
-            FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-            myPath = fileSystem.getPath("/resources/Anim/taiste");
-        } else {
-            myPath = Paths.get(uri);
-        }
-        //myPath = Paths.get(uri);
-        Stream<Path> walk = Files.walk(myPath, 1);
 
-        for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-            //System.out.println(it.next().getFileName());
-            urls.add("resources/Anim/taiste/" + it.next().getFileName().toString());
-        }
-        urls.sort(new Comparator<String>() {
-            @Override
-            public int compare(String s, String t1) {
-                return s.compareTo(t1);
-            }
-        });
-        urls.remove(0);
+        String url = "/resources/Anim/taiste";
 
-        System.out.println(urls);
-        //anim = new AnimatedSprite("resources/Anim/taiste");
-        anim = new AnimatedSprite( urls);
+        anim = new AnimatedSprite("/resources/Anim/taiste");
+
 
         //  anim.flipX();
 

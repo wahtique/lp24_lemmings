@@ -7,7 +7,14 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 /**
  * Created by naej on 12/05/17.
@@ -23,15 +30,48 @@ public class AnimatedSprite extends Sprite{
     public AnimatedSprite(String url){
         super();
         listOfImages = new ArrayList<WritableImage>();
-        File folder = new File(url);
-        if (folder.listFiles() != null) {
-            for (File fich : folder.listFiles()) {
-                Image image = new Image(fich.getPath());
-                listOfImages.add(new WritableImage(image.getPixelReader(), (int) image.getWidth(), (int) image.getHeight()));
+        try {
+            URI uri = this.getClass().getResource(url).toURI();
+            Path myPath;
+
+
+            if (uri.getScheme().equals("jar")) {
+                FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+                myPath = fileSystem.getPath(url);
+            } else {
+                myPath = Paths.get(uri);
             }
-        }else{
-            System.out.println("tamere");
+
+            Stream<Path> walk = Files.walk(myPath, 1);
+            ArrayList<String> urls = new ArrayList<String>();
+
+            for (Iterator<Path> it = walk.iterator(); it.hasNext();){
+                String temp = it.next().getFileName().toString();
+                if (temp.endsWith(".png")) {
+                    urls.add(url+"/" + temp);
+                }
+            }
+
+            urls.sort(new Comparator<String>() {
+                @Override
+                public int compare(String s, String t1) {
+                    return s.compareTo(t1);
+                }
+            });
+
+            for(String nameOfImage:urls){
+                System.out.println(nameOfImage);
+                Image image = new Image(nameOfImage);
+                listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Can't instantiate AnimatedSprite !!!");
+            System.exit(1);
         }
+
+
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
 
