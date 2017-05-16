@@ -76,15 +76,15 @@ public class MainGameController {
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
 //            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
-            omaia.flipX();
-            star.setPosition(new Vector(e.getX(),e.getY()));
-            System.out.println("\n"+ omaia.willBeColliding(omaia.position,star));
-
+           // omaia.flipX();
+            //anim.setPosition(new Vector(e.getX(),e.getY()));
+            System.out.println(omaia.willBeColliding(omaia.position,star));
+            timeSetter.setTimeSpeed(0);
             System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
         }else if (e.isSecondaryButtonDown()){
 //            currentColor = omaia.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
             System.out.println(omaia.isInHitbox(new Vector(e.getX(),e.getY())));
-
+            timeSetter.setTimeSpeed(2);
         }
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         omaia.drawImage(gc);
