@@ -57,4 +57,8 @@ public class PhysicalObject {
         this.speed = speed.add(this.forces.mulScal(deltaTime));
         this.position = position.add(this.speed.mulScal(deltaTime));
     }
+
+    public Vector futurePosition( double deltaTime){
+        return position.add(this.speed.add(this.forces.mulScal(deltaTime)).mulScal(deltaTime));
+    }
 }
