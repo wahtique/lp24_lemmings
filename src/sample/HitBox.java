@@ -88,9 +88,31 @@ public class HitBox extends Sprite {
                 }
             }
         }
-        return lower.getY()-higher.getY();
-
+        if (higher != null) {
+            return lower.getY() - higher.getY();
+        }else {
+            return 0;
+        }
     }
+    public double getCollisionDepthY(Vector pos, HashSet<HitBox> others){
+        Vector higher =null;
 
+        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    Vector temp = new Vector( x+pos.getX(),y+pos.getY() );
+                    if (others.stream().anyMatch(o->o.isInHitbox(temp))){
+                        higher = temp;
+                    }
+
+                }
+            }
+        }
+        if (higher != null) {
+            return renderedImage.getImage().getHeight() - higher.getY();
+        }else{
+            return 0;
+        }
+    }
 
 }
