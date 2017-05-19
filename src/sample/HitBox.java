@@ -40,4 +40,20 @@ public class HitBox extends Sprite {
         System.out.println("WARNING : the hitbox is not flipped !");
         return false;
     }
+
+    public Vector getHigherCollidingPoint(Vector pos, HitBox other){
+        Vector temp =null;
+        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    if (other.isInHitbox(new Vector( x+pos.getX(),y+pos.getY() ))){
+                        if (temp ==null || y+pos.getY() < temp.getY()){
+                            temp = new Vector( x+pos.getX(),y+pos.getY() );
+                        }
+                    }
+                }
+            }
+        }
+        return temp;
+    }
 }

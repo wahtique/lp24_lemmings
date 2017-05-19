@@ -28,7 +28,7 @@ class Vector {
         }
     }
 
-    public String toSring(){
+    public String toString(){
         return (" [" +x +" , " +y +" ] lenght: " +length());
     }
 
