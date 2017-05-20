@@ -42,7 +42,7 @@ public class MainGameUpdater extends AnimationTimer{
     }
 
     public void setTimeSpeed(float timeSpeed) {
-        timeSpeed = timeSpeed;
+        this.timeSpeed = timeSpeed;
     }
 
     public void setMainGame(MainGameController mainGame) {
