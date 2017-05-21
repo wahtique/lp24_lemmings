@@ -14,7 +14,7 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        loader = new FXMLLoader();
+        /*loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("sample.fxml"));
         loader.setBuilderFactory(new JavaFXBuilderFactory());
 
@@ -26,19 +26,23 @@ public class Main extends Application
 
         primaryStage.show();
 
-        ((MainGameController) loader.getController()).start();
+        ((MainGameController) loader.getController()).start();*/
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.show();
 
     }
 
 
     public static void main(String[] args) throws Exception
     {
-        GameSession g = new GameSession("William",3);
+       /* GameSession g = new GameSession("William",3);
         System.out.println(g);
         g.saveGameSession();
 
         GameSession gbis = new GameSession("William");
-        System.out.println(gbis);
+        System.out.println(gbis);*/
         launch(args);
     }
 
