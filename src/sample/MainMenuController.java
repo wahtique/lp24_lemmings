@@ -38,6 +38,8 @@ public class MainMenuController
     private Button settingsBackButton;
     @FXML
     private Button creditsScreenBackButton;
+    @FXML
+    private Button newGameLaunch;
 
 
     public MainMenuController()
@@ -56,26 +58,30 @@ public class MainMenuController
     {
         //we start by selecting detecting which FXML to use
         Button source = (Button) event.getSource();
+        Stage stage = (Stage)source.getScene().getWindow();
         if (source == newGameButton )
         {
-            switchToScene("newGameMenu", (Stage)source.getScene().getWindow());
+            switchToScene("newGameMenu", stage);
         }
         else if (source == loadGameButton)
         {
-            switchToScene("loadGameMenu",(Stage)source.getScene().getWindow());
+            switchToScene("loadGameMenu",stage);
         }
         else if(source == settingsButton)
         {
-            switchToScene("settingsMenu",(Stage)source.getScene().getWindow());
+            switchToScene("settingsMenu",stage);
         }
         else if(source == creditsButton)
         {
-            switchToScene("creditsScreen",(Stage)source.getScene().getWindow());
+            switchToScene("creditsScreen",stage);
         }
         else if(source == quitButton)
         {
-            Stage stage = (Stage) quitButton.getScene().getWindow();
             stage.close();
+        }
+        else if(source == newGameLaunch)
+        {
+            switchToScene("sample",stage);
         }
         else
         {
@@ -96,7 +102,7 @@ public class MainMenuController
     {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fin = new FileInputStream("src/sample/" + sceneName +".fxml");
-        AnchorPane root = (AnchorPane) loader.load(fin);
+        Parent root = loader.load(fin);
         Scene sc = new Scene(root);
         stage.setScene(sc);
         stage.show();
