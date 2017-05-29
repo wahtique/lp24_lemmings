@@ -3,6 +3,7 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * @author William
@@ -81,7 +83,13 @@ public class MainMenuController
         }
         else if(source == newGameLaunch)
         {
-            switchToScene("sample",stage);
+            FXMLLoader loader = switchToScene("sample",stage);
+
+            try {
+                ((MainGameController) loader.getController()).start();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
         else
         {
@@ -96,9 +104,10 @@ public class MainMenuController
      * Method switching to another scene in the same stage
      * @paranm sceneName String corresponding to the name of the FXML, without file extension
      * @param stage the stage on which we operate. Gotta find a better way to access it.
+     * @return loader the FXML loader of the scene
     */
     @FXML
-    private void switchToScene(String sceneName, Stage stage) throws IOException
+    private FXMLLoader switchToScene(String sceneName, Stage stage) throws IOException
     {
         FXMLLoader loader = new FXMLLoader();
         FileInputStream fin = new FileInputStream("src/sample/" + sceneName +".fxml");
@@ -107,6 +116,7 @@ public class MainMenuController
         stage.setScene(sc);
         stage.show();
         fin.close();
+        return loader;
     }
 
 }
