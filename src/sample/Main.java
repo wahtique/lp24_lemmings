@@ -2,7 +2,6 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,10 +14,10 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception{
         /*loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("sample.fxml"));
+        loader.setLocation(getClass().getResource("mainGame.fxml"));
         loader.setBuilderFactory(new JavaFXBuilderFactory());
 
-        Parent root = (Parent) loader.load(getClass().getResource("sample.fxml").openStream());
+        Parent root = (Parent) loader.load(getClass().getResource("mainGame.fxml").openStream());
 
         primaryStage.setTitle("Hello World");
 
@@ -27,7 +26,7 @@ public class Main extends Application
         primaryStage.show();
 
         ((MainGameController) loader.getController()).start();*/
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
