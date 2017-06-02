@@ -40,7 +40,7 @@ public class MainGameController {
 
         String url = "/resources/Anim/taiste";
 
-        anim = new AnimatedSprite("/resources/Anim/taiste");
+        anim = new AnimatedSprite("/resources/Anim/taiste",false);
 
 
         //  anim.flipX();
