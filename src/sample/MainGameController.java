@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-
+import java.util.HashSet;
 
 
 public class MainGameController {
@@ -23,6 +23,8 @@ public class MainGameController {
     private HitBox omaia;
     private HitBox star;
 
+    HashSet<HitBox> omaias = new HashSet<>();
+
     GraphicsContext gc;
     MainGameUpdater timeSetter;
 
@@ -34,9 +36,9 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        omaia = new HitBox("resources/images/omaia.png");
-        star = new HitBox("resources/images/star.png");
-
+        omaia = new HitBox("resources/images/LevelTest.png");
+        star = new HitBox("resources/images/Lfeet.png");
+        omaias.add(omaia);
 
         String url = "/resources/Anim/taiste";
 
@@ -54,11 +56,12 @@ public class MainGameController {
     }
 
     public void update(double deltaTime) {
-       //System.out.println("FPS : "+ 1/deltaTime );
-       autoSetCanvasDim();
-       //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-       anim.update(deltaTime);
-       anim.drawImage(gc);
+        //System.out.println("FPS : "+ 1/deltaTime );
+        autoSetCanvasDim();
+        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+        anim.update(deltaTime);
+
+        anim.drawImage(gc);
     }
 
     public void onMouseClick (MouseEvent e){
@@ -68,14 +71,17 @@ public class MainGameController {
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
 //            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
-           // omaia.flipX();
+            // omaia.flipX();
             star.setPosition(new Vector(e.getX(),e.getY()));
             Vector temp = null;
+            System.out.println(""+ star.willBeColliding(star.position,omaias));
+            System.out.println(""+ star.getCollisionDepthY(star.position,omaias));
+            /*
             temp = omaia.getHigherCollidingPoint(omaia.position,star);
             if (temp != null){
                 System.out.println(temp);
             }
-
+*/
 
             System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
         }else if (e.isSecondaryButtonDown()){

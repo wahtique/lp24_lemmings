@@ -42,7 +42,9 @@ public class HitBox extends Sprite {
             for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
                 if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
                     Vector temp = new Vector( x+pos.getX(),y+pos.getY() );
-                    return others.stream().anyMatch(o->o.isInHitbox(temp));
+                    if (others.stream().anyMatch(o->o.isInHitbox(temp))){
+                        return true;
+                    }
                 }
             }
         }
@@ -74,22 +76,31 @@ public class HitBox extends Sprite {
     public double getCollisionDepthY(Vector pos, HitBox other){
         Vector higher =null;
         Vector lower =null;
-        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
-            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+        for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+            for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
                 if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
                     if (other.isInHitbox(new Vector( x+pos.getX(),y+pos.getY() ))){
-                        if (higher ==null || y+pos.getY() < higher.getY()){
-                            higher = new Vector( x+pos.getX(),y+pos.getY() );
-                        }
-                        if (lower == null || y+pos.getY()> lower.getY()){
-                            lower = new Vector( x+pos.getX(),y+pos.getY() );
-                        }
+
+                        higher = new Vector( x,y );
+                        /*if (lower == null || y+pos.getY()> lower.getY()){
+                            lower = new Vector( x,y );
+                        }*/
+                        break;
+
+
                     }
                 }
+
             }
+            if (higher != null){
+                break;
+            }
+
         }
         if (higher != null) {
-            return lower.getY() - higher.getY();
+            System.out.println(""+ (renderedImage.getImage().getHeight() - higher.getY()));
+            return (renderedImage.getImage().getHeight() - higher.getY());
+            //return lower.getY() - higher.getY();
         }else {
             return 0;
         }
@@ -97,15 +108,19 @@ public class HitBox extends Sprite {
     public double getCollisionDepthY(Vector pos, HashSet<HitBox> others){
         Vector higher =null;
 
-        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
-            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+        for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+            for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
                 if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
                     Vector temp = new Vector( x+pos.getX(),y+pos.getY() );
                     if (others.stream().anyMatch(o->o.isInHitbox(temp))){
-                        higher = temp;
+                        higher = new Vector(x,y);
+                        break;
                     }
 
                 }
+            }
+            if (higher != null){
+                break;
             }
         }
         if (higher != null) {
