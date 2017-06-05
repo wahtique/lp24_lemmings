@@ -20,10 +20,8 @@ public class MainGameController {
     private BorderPane panneau;
 
     private Color currentColor = Color.color(1, 0.0078, 0);
-    private HitBox omaia;
-    private HitBox star;
+    private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
 
-    HashSet<HitBox> omaias = new HashSet<>();
 
     GraphicsContext gc;
     MainGameUpdater timeSetter;
@@ -35,53 +33,43 @@ public class MainGameController {
 
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
-
-        omaia = new HitBox("resources/images/LevelTest.png");
-        star = new HitBox("resources/images/Lfeet.png");
-        omaias.add(omaia);
+        test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,1),"resources/images/Lfeet.png","resources/images/Lbody.png");
+        test.getLemmingsList().add(roger);
 
         String url = "/resources/Anim/taiste";
 
         anim = new AnimatedSprite("/resources/Anim/taiste");
 
 
-        //  anim.flipX();
-
-        omaia.setPosition(new Vector(100,100));
-        star.setPosition(new Vector(9,9));
-        omaia.drawImage(gc);
-        star.drawImage(gc);
-
-
     }
 
     public void update(double deltaTime) {
-        //System.out.println("FPS : "+ 1/deltaTime );
-        autoSetCanvasDim();
-        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        anim.update(deltaTime);
+       //System.out.println("FPS : "+ 1/deltaTime );
+       autoSetCanvasDim();
+       gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+       test.update(deltaTime);
+       test.drawLevel(gc);
 
-        anim.drawImage(gc);
     }
 
     public void onMouseClick (MouseEvent e){
+        test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
+        /*
         double time = System.nanoTime();
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
 //            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
-            // omaia.flipX();
+           // omaia.flipX();
             star.setPosition(new Vector(e.getX(),e.getY()));
             Vector temp = null;
-            System.out.println(""+ star.willBeColliding(star.position,omaias));
-            System.out.println(""+ star.getCollisionDepthY(star.position,omaias));
-            /*
             temp = omaia.getHigherCollidingPoint(omaia.position,star);
             if (temp != null){
                 System.out.println(temp);
             }
-*/
+
 
             System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
         }else if (e.isSecondaryButtonDown()){
@@ -93,7 +81,7 @@ public class MainGameController {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         omaia.drawImage(gc);
         star.drawImage(gc);
-
+*/
     }
 
 

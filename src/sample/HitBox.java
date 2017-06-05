@@ -124,6 +124,7 @@ public class HitBox extends Sprite {
             }
         }
         if (higher != null) {
+            System.out.println("" +(this.renderedImage.getImage().getHeight() - higher.getY()));
             return renderedImage.getImage().getHeight() - higher.getY();
         }else{
             return 0;

@@ -5,9 +5,9 @@ package sample;
  * Created by yann on 12/05/17.
  */
 public class PhysicalObject {
-    Vector position;
-    Vector speed;
-    Vector forces;
+    protected Vector position;
+    protected Vector speed;
+    protected Vector forces;
 
     public PhysicalObject(Vector position, Vector speed, Vector forces) {
         this.position = position;
