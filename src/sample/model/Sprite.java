@@ -5,12 +5,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import sample.view.DrawAble;
 
 
 /**
  * Created by naej on 11/05/17.
  */
-public class Sprite {
+public class Sprite implements DrawAble {
     protected boolean isFlipped;
     protected float layer;
     protected ImageView renderedImage;
@@ -38,7 +39,7 @@ public class Sprite {
         return modifyPixel(fromCanvasToLocal(pos),color);
     }
 
-    public void drawImage(GraphicsContext gc) {
+    public void draw(GraphicsContext gc) {
         if (!isFlipped) {
             gc.drawImage(renderedImage.getImage(), position.getX(), position.getY());
         }else{

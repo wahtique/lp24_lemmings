@@ -56,7 +56,7 @@ public class AnimatedSprite extends Sprite {
             });
 
             for(String nameOfImage:urls){
-                System.out.println(nameOfImage);
+             //   System.out.println(nameOfImage);
                 Image image = new Image(nameOfImage);
                 listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
 
@@ -105,7 +105,7 @@ public class AnimatedSprite extends Sprite {
             });
 
             for(String nameOfImage:urls){
-                System.out.println(nameOfImage);
+        //        System.out.println(nameOfImage);
                 Image image = new Image(nameOfImage);
                 listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
 
