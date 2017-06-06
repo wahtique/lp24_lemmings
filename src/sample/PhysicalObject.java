@@ -5,9 +5,9 @@ package sample;
  * Created by yann on 12/05/17.
  */
 public class PhysicalObject {
-    Vector position;
-    Vector speed;
-    Vector forces;
+    protected Vector position;
+    protected Vector speed;
+    protected Vector forces;
 
     public PhysicalObject(Vector position, Vector speed, Vector forces) {
         this.position = position;
@@ -56,5 +56,9 @@ public class PhysicalObject {
     public void update(double deltaTime){
         this.speed = speed.add(this.forces.mulScal(deltaTime));
         this.position = position.add(this.speed.mulScal(deltaTime));
+    }
+
+    public Vector futurePosition( double deltaTime){
+        return position.add(this.speed.add(this.forces.mulScal(deltaTime)).mulScal(deltaTime));
     }
 }

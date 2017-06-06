@@ -2,6 +2,8 @@ package sample;
 
 import javafx.scene.paint.Color;
 
+import java.util.HashSet;
+
 /**
  * Created by naej on 12/05/17.
  */
@@ -34,6 +36,21 @@ public class HitBox extends Sprite {
         }
         return false;
     }
+    public boolean willBeColliding(Vector pos,HashSet<HitBox> others){
+
+        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    Vector temp = new Vector( x+pos.getX(),y+pos.getY() );
+                    if (others.stream().anyMatch(o->o.isInHitbox(temp))){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public boolean flipX(){
@@ -56,4 +73,62 @@ public class HitBox extends Sprite {
         }
         return temp;
     }
+    public double getCollisionDepthY(Vector pos, HitBox other){
+        Vector higher =null;
+        Vector lower =null;
+        for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+            for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    if (other.isInHitbox(new Vector( x+pos.getX(),y+pos.getY() ))){
+
+                        higher = new Vector( x,y );
+                        /*if (lower == null || y+pos.getY()> lower.getY()){
+                            lower = new Vector( x,y );
+                        }*/
+                        break;
+
+
+                    }
+                }
+
+            }
+            if (higher != null){
+                break;
+            }
+
+        }
+        if (higher != null) {
+            System.out.println(""+ (renderedImage.getImage().getHeight() - higher.getY()));
+            return (renderedImage.getImage().getHeight() - higher.getY());
+            //return lower.getY() - higher.getY();
+        }else {
+            return 0;
+        }
+    }
+    public double getCollisionDepthY(Vector pos, HashSet<HitBox> others){
+        Vector higher =null;
+
+        for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+            for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+                if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
+                    Vector temp = new Vector( x+pos.getX(),y+pos.getY() );
+                    if (others.stream().anyMatch(o->o.isInHitbox(temp))){
+                        higher = new Vector(x,y);
+                        break;
+                    }
+
+                }
+            }
+            if (higher != null){
+                break;
+            }
+        }
+        if (higher != null) {
+            System.out.println("" +(this.renderedImage.getImage().getHeight() - higher.getY()));
+            return renderedImage.getImage().getHeight() - higher.getY();
+        }else{
+            return 0;
+        }
+    }
+
 }
