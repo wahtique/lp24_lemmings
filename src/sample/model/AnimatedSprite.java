@@ -1,14 +1,10 @@
-package sample;
+package sample.model;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +15,7 @@ import java.util.stream.Stream;
 /**
  * Created by naej on 12/05/17.
  */
-public class AnimatedSprite extends Sprite{
+public class AnimatedSprite extends Sprite {
 
     private boolean isLooping;
     private ArrayList<WritableImage> listOfImages;

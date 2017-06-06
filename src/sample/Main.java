@@ -26,7 +26,7 @@ public class Main extends Application
         primaryStage.show();
 
         ((MainGameController) loader.getController()).start();*/
-        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/mainMenu.fxml"));
         primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();

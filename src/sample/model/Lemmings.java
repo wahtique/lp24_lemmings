@@ -1,10 +1,8 @@
-package sample;
+package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.HashSet;
-
-import static java.lang.Math.sqrt;
 
 /**
  * Created by yann on 12/05/17.

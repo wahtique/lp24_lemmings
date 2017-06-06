@@ -1,6 +1,6 @@
-package sample;
+package sample.model;
 
-class Vector {
+public class Vector {
     private double x;
     private double y;
 

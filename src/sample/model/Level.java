@@ -1,6 +1,8 @@
-package sample;
+package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
+import sample.model.HitBox;
+import sample.model.Lemmings;
 
 import java.util.HashSet;
 

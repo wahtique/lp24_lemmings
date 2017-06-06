@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.MainMenuController">
    <children>
       <Button fx:id="newGameBackButton" layoutX="109.0" layoutY="268.0" mnemonicParsing="false" onAction="#switchSceneOnButtonAction" text="Back to Main Menu" />
       <Button fx:id="newGameLaunch" layoutX="136.0" layoutY="188.0" mnemonicParsing="false" onAction="#switchSceneOnButtonAction" text="STALUTO" />

@@ -1,4 +1,4 @@
-package sample;
+package sample.controler;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import sample.controler.MainGameController;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.net.URISyntaxException;
  */
 public class MainMenuController
 {
-    private static final String FXMLfolder = "src/sample/" ;
+    private static final String FXMLfolder = "src/sample/view/" ;
 
     @FXML
     private Button newGameButton;

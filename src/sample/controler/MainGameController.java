@@ -1,4 +1,4 @@
-package sample;
+package sample.controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -6,6 +6,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import sample.model.Vector;
+import sample.model.AnimatedSprite;
+import sample.model.HitBox;
+import sample.model.Lemmings;
+import sample.model.Level;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
