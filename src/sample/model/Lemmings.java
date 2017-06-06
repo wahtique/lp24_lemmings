@@ -1,13 +1,14 @@
 package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
+import sample.view.DrawAble;
 
 import java.util.HashSet;
 
 /**
  * Created by yann on 12/05/17.
  */
-public class Lemmings extends PhysicalObject {
+public class Lemmings extends PhysicalObject implements DrawAble{
     private HitBox feet;
     private HitBox body;
     private LemmingsStates state;
@@ -36,7 +37,7 @@ public class Lemmings extends PhysicalObject {
                         this.position.setX(position.add(this.speed.mulScal(deltaTime)).getX());
                         this.position.setY(this.position.getY()-this.feet.getCollisionDepthY(this.position,terrain));
                     }else{
-                        System.out.println("Collide: " +this.toString());
+                 //       System.out.println("Collide: " +this.toString());
                         this.speed.setX(-this.speed.getX());
                         this.speed = speed.add(this.forces.mulScal(deltaTime));
                         this.position = position.add(this.speed.mulScal(deltaTime));
@@ -66,7 +67,7 @@ public class Lemmings extends PhysicalObject {
             case Vomit: break;
             default: break;
         }
-        System.out.println(this.toString());
+        //System.out.println(this.toString());
         this.setPositionHitbox(this.position);
     }
 
@@ -91,9 +92,13 @@ public class Lemmings extends PhysicalObject {
         this.lemData = lemData;
     }
 
-    public void drawLemmings(GraphicsContext gc){
-        this.body.drawImage(gc);
-        this.feet.drawImage(gc);
+    public void draw(GraphicsContext gc){
+        this.body.draw(gc);
+        this.feet.draw(gc);
+    }
+
+    public float getLayer(){
+        return 0;
     }
 
     public String toString(){

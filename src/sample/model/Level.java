@@ -1,8 +1,6 @@
 package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
-import sample.model.HitBox;
-import sample.model.Lemmings;
 
 import java.util.HashSet;
 
@@ -45,8 +43,8 @@ public class Level {
     }
 
     public void drawLevel(GraphicsContext gc){
-        lemmingsList.forEach(l-> l.drawLemmings(gc));
-        terrain.forEach(t-> t.drawImage(gc));
+        lemmingsList.forEach(l-> l.draw(gc));
+        terrain.forEach(t-> t.draw(gc));
     }
 }
 

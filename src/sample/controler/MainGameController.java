@@ -2,15 +2,10 @@ package sample.controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import sample.model.Vector;
-import sample.model.AnimatedSprite;
-import sample.model.HitBox;
-import sample.model.Lemmings;
-import sample.model.Level;
+import sample.model.*;
+import sample.view.Drawer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -24,37 +19,44 @@ public class MainGameController {
     @FXML
     private BorderPane panneau;
 
-    private Color currentColor = Color.color(1, 0.0078, 0);
+   // private Color currentColor = Color.color(1, 0.0078, 0);
     private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
 
-
-    GraphicsContext gc;
+    Drawer drawer;
     MainGameUpdater timeSetter;
 
     private AnimatedSprite anim;
 
     public void start() throws IOException, URISyntaxException {
-        gc = canvas.getGraphicsContext2D();
+        drawer = Drawer.getDrawer();
+        drawer.setCanvas(canvas);
 
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
+
+
         test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,1),"resources/images/Lfeet.png","resources/images/Lbody.png");
+        test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
         test.getLemmingsList().add(roger);
-
-        String url = "/resources/Anim/taiste";
-
-        anim = new AnimatedSprite("/resources/Anim/taiste",false);
+        test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
 
+        anim = new AnimatedSprite("/resources/Anim/taiste",true);
+        anim.setLayer(-2);
+        drawer.addSomethingToDraw(anim);
+        Sprite omaia = new Sprite("resources/images/omaia.png");
+        omaia.setLayer(-1);
+        drawer.addSomethingToDraw(omaia);
     }
 
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-       gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+       anim.update(deltaTime);
        test.update(deltaTime);
-       test.drawLevel(gc);
+       drawer.draw();
+     //  test.drawLevel(canvas.getGraphicsContext2D());
 
     }
 
@@ -84,12 +86,10 @@ public class MainGameController {
             timeSetter.setTimeSpeed(2);
         }
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        omaia.drawImage(gc);
-        star.drawImage(gc);
+        omaia.draw(gc);
+        star.draw(gc);
 */
     }
-
-
     public void autoSetCanvasDim(){
 
         if (panneau.getWidth()>panneau.getHeight()) {
@@ -112,3 +112,5 @@ public class MainGameController {
 
     }
 }
+
+
