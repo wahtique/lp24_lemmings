@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import sample.model.*;
 import sample.view.Drawer;
 
@@ -17,7 +18,7 @@ public class MainGameController {
     private Canvas canvas;
 
     @FXML
-    private BorderPane panneau;
+    private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
     private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
@@ -30,7 +31,9 @@ public class MainGameController {
     public void start() throws IOException, URISyntaxException {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-
+        Sprite bg = new Sprite("resources/images/testlevel/bg.png");
+        bg.setLayer(-10);
+        drawer.addSomethingToDraw(bg);
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
@@ -51,7 +54,7 @@ public class MainGameController {
     }
 
     public void update(double deltaTime) {
-       //System.out.println("FPS : "+ 1/deltaTime );
+       System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
        anim.update(deltaTime);
        test.update(deltaTime);
@@ -64,7 +67,6 @@ public class MainGameController {
         test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         /*
         double time = System.nanoTime();
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
 //        System.out.println(e.getX()+" : "+e.getY());
         if (e.isPrimaryButtonDown()) {
