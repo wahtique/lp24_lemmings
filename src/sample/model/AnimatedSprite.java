@@ -3,6 +3,7 @@ package sample.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -131,5 +132,18 @@ public class AnimatedSprite extends Sprite {
 
     public boolean isEnded(){
         return currentTime > getAnimationLength();
+    }
+
+    @Override
+    public void replaceColor(Color startColor, Color replacementColor, int precision){
+        for(WritableImage image : listOfImages) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                for (int y = 0; y < image.getHeight(); y++) {
+                    if (areColorsEqualsTolerance(image.getPixelReader().getColor(x,y), startColor, precision)) {
+                        image.getPixelWriter().setColor(x,y, replacementColor);
+                    }
+                }
+            }
+        }
     }
 }

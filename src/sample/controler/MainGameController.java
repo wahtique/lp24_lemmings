@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import sample.model.*;
 import sample.view.Drawer;
 
@@ -48,6 +49,7 @@ public class MainGameController {
 
         //anim = new AnimatedSprite("/resources/Anim/taiste",true);
         anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
+        anim.replaceColor(Color.rgb(0,255,0), Color.rgb(0,0,0),100);
         anim.setLayer(2);
         drawer.addSomethingToDraw(anim);
 
