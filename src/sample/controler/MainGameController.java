@@ -3,7 +3,6 @@ package sample.controler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import sample.model.*;
 import sample.view.Drawer;
@@ -23,8 +22,7 @@ public class MainGameController {
    // private Color currentColor = Color.color(1, 0.0078, 0);
     private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
 
-    Drawer drawer;
-    MainGameUpdater timeSetter;
+    private Drawer drawer;
 
     private AnimatedSprite anim;
 
@@ -34,27 +32,29 @@ public class MainGameController {
         Sprite bg = new Sprite("resources/images/testlevel/bg.png");
         bg.setLayer(-10);
         drawer.addSomethingToDraw(bg);
-        timeSetter = new MainGameUpdater();
+
+        MainGameUpdater timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
 
         test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/testLemming.png");
+        Lemmings roger2 = new Lemmings(new Vector(50,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
         test.getLemmingsList().add(roger);
+        test.getLemmingsList().add(roger2);
         test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
 
-        anim = new AnimatedSprite("/resources/Anim/taiste",true);
-        anim.setLayer(-2);
+        //anim = new AnimatedSprite("/resources/Anim/taiste",true);
+        anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
+        anim.setLayer(2);
         drawer.addSomethingToDraw(anim);
-        Sprite omaia = new Sprite("resources/images/omaia.png");
-        omaia.setLayer(-1);
-        drawer.addSomethingToDraw(omaia);
+
     }
 
     public void update(double deltaTime) {
-       System.out.println("FPS : "+ 1/deltaTime );
+       //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
        anim.update(deltaTime);
        test.update(deltaTime);
@@ -65,6 +65,7 @@ public class MainGameController {
 
     public void onMouseClick (MouseEvent e){
         test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
+
         /*
         double time = System.nanoTime();
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale

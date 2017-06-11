@@ -5,15 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.model.AnimatedSprite;
 
 public class Main extends Application
 {
 
-    private FXMLLoader loader;
+  //  private FXMLLoader loader;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        AnimatedSprite anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
         Parent root = FXMLLoader.load(getClass().getResource("view/mainMenu.fxml"));
         primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
         primaryStage.setScene(new Scene(root, 1280, 720));
