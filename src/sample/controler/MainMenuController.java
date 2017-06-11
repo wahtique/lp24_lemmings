@@ -112,7 +112,7 @@ public class MainMenuController
     {
         FXMLLoader loader = new FXMLLoader();
         /*FileInputStream fin = new FileInputStream(FXMLfolder + sceneName +".fxml");*/
-        Parent root = loader.load(Thread.currentThread().getContextClassLoader().getResource(FXMLfolder + sceneName +".fxml"));
+        Parent root = loader.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(FXMLfolder + sceneName +".fxml"));
         Scene sc = new Scene(root);
         stage.setScene(sc);
         stage.show();
