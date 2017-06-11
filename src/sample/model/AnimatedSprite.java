@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -40,11 +43,17 @@ public class AnimatedSprite extends Sprite {
 
             Stream<Path> walk = Files.walk(myPath, 1);
             ArrayList<String> urls = new ArrayList<String>();
+            String config = "";
 
             for (Iterator<Path> it = walk.iterator(); it.hasNext();){
                 String temp = it.next().getFileName().toString();
+                //System.out.println(temp);
                 if (temp.endsWith(".png")) {
                     urls.add(url+"/" + temp);
+
+                }else if(temp.endsWith(".txt")){
+                    config = url+"/"+temp;
+                    System.out.println(config);
                 }
             }
 
@@ -61,7 +70,28 @@ public class AnimatedSprite extends Sprite {
                 listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
 
             }
+            if (!config.equals("")) {
+                System.out.println(config);
+                BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(config)));
+                String line = input.readLine() ;
+                while(line!=null){
+                    //System.out.println(line);
 
+                    String[] words = line.split("=");
+                    if(words[0].contentEquals("framerate")){
+                        framerate = Integer.parseInt(words[1]);
+                        //System.out.println("framerate="+framerate);
+                    }else if (words[0].contentEquals("looping")){
+                        isLooping = words[1].equals("true");
+                        //System.out.println("isLooping="+isLooping);
+                    }
+
+                    line = input.readLine();
+                }
+//                System.out.println(input.readLine());
+//                System.out.println(input.readLine());
+
+            }
         } catch (Exception e) {
             System.out.println("Can't instantiate AnimatedSprite !!!");
             System.exit(1);
@@ -69,56 +99,6 @@ public class AnimatedSprite extends Sprite {
 
 
         renderedImage = new ImageView(listOfImages.get(currentImage));
-    }
-
-
-    public AnimatedSprite(String url,boolean isLooping){
-        super();
-        listOfImages = new ArrayList<WritableImage>();
-        try {
-            URI uri = this.getClass().getResource(url).toURI();
-            Path myPath;
-
-
-            if (uri.getScheme().equals("jar")) {
-                FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-                myPath = fileSystem.getPath(url);
-            } else {
-                myPath = Paths.get(uri);
-            }
-
-            Stream<Path> walk = Files.walk(myPath, 1);
-            ArrayList<String> urls = new ArrayList<String>();
-
-            for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-                String temp = it.next().getFileName().toString();
-                if (temp.endsWith(".png")) {
-                    urls.add(url+"/" + temp);
-                }
-            }
-
-            urls.sort(new Comparator<String>() {
-                @Override
-                public int compare(String s, String t1) {
-                    return s.compareTo(t1);
-                }
-            });
-
-            for(String nameOfImage:urls){
-        //        System.out.println(nameOfImage);
-                Image image = new Image(nameOfImage);
-                listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
-
-            }
-
-        } catch (Exception e) {
-            System.out.println("Can't instantiate AnimatedSprite !!!");
-            System.exit(1);
-        }
-
-
-        renderedImage = new ImageView(listOfImages.get(currentImage));
-        this.isLooping = isLooping;
     }
 
     public AnimatedSprite(ArrayList<String> urls){
