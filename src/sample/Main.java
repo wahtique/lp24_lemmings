@@ -14,7 +14,6 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        AnimatedSprite anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
         Parent root = FXMLLoader.load(getClass().getResource("view/mainMenu.fxml"));
         primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
         primaryStage.setScene(new Scene(root, 1280, 720));

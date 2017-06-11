@@ -80,13 +80,13 @@ public class AnimatedSprite extends Sprite {
                     String[] words = line.split("=");
                     if(words[0].contentEquals("framerate")){
                         framerate = Integer.parseInt(words[1]);
-                        System.out.println("framerate="+framerate);
+                        //System.out.println("framerate="+framerate);
                     }else if (words[0].contentEquals("looping")){
                         isLooping = words[1].equals("true");
-                        System.out.println("isLooping="+isLooping);
+                        //System.out.println("isLooping="+isLooping);
                     }
 
-                    line = input.readLine() ;
+                    line = input.readLine();
                 }
 //                System.out.println(input.readLine());
 //                System.out.println(input.readLine());
@@ -101,56 +101,6 @@ public class AnimatedSprite extends Sprite {
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
 
-/*
-    public AnimatedSprite(String url,boolean isLooping){
-        super();
-        listOfImages = new ArrayList<WritableImage>();
-        try {
-            URI uri = this.getClass().getResource(url).toURI();
-            Path myPath;
-
-
-            if (uri.getScheme().equals("jar")) {
-                FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-                myPath = fileSystem.getPath(url);
-            } else {
-                myPath = Paths.get(uri);
-            }
-
-            Stream<Path> walk = Files.walk(myPath, 1);
-            ArrayList<String> urls = new ArrayList<String>();
-
-            for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-                String temp = it.next().getFileName().toString();
-                if (temp.endsWith(".png")) {
-                    urls.add(url+"/" + temp);
-                }
-            }
-
-            urls.sort(new Comparator<String>() {
-                @Override
-                public int compare(String s, String t1) {
-                    return s.compareTo(t1);
-                }
-            });
-
-            for(String nameOfImage:urls){
-        //        System.out.println(nameOfImage);
-                Image image = new Image(nameOfImage);
-                listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
-
-            }
-
-        } catch (Exception e) {
-            System.out.println("Can't instantiate AnimatedSprite !!!");
-            System.exit(1);
-        }
-
-
-        renderedImage = new ImageView(listOfImages.get(currentImage));
-        this.isLooping = isLooping;
-    }
-*/
     public AnimatedSprite(ArrayList<String> urls){
         super();
         listOfImages = new ArrayList<WritableImage>();
