@@ -20,7 +20,7 @@ public class MainGameController {
     private BorderPane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
+    private Level test = new Level(new HashSet<Collidable>(), new HashSet<Lemmings>());
 
     Drawer drawer;
     MainGameUpdater timeSetter;
@@ -45,7 +45,7 @@ public class MainGameController {
         anim = new AnimatedSprite("/resources/Anim/taiste",true);
         anim.setLayer(-2);
         drawer.addSomethingToDraw(anim);
-        Sprite omaia = new Sprite("resources/images/omaia.png");
+        Sprite omaia = new Sprite("resources/images/testlevel/bg.png");
         omaia.setLayer(-1);
         drawer.addSomethingToDraw(omaia);
     }
@@ -53,7 +53,7 @@ public class MainGameController {
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-       anim.update(deltaTime);
+//       anim.update(deltaTime);
        test.update(deltaTime);
        drawer.draw();
      //  test.drawLevel(canvas.getGraphicsContext2D());

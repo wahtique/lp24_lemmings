@@ -152,4 +152,9 @@ public class AnimatedSprite extends Sprite {
     public boolean isEnded(){
         return currentTime > getAnimationLength();
     }
+    public void reset(){
+        currentTime =0;
+        currentImage=0;
+        renderedImage.setImage(listOfImages.get(currentImage));
+    }
 }
