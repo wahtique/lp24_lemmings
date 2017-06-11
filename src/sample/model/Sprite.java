@@ -114,11 +114,11 @@ public class Sprite implements DrawAble {
         return isFlipped;
     }
 
-    public void replaceColor(Color startColor,Color replacementColor,int precision){
+    public void replaceColor(Color startColor,Color replacementColor,int tolerance){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
             for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
-                if (areColorsEqualsTolerance(this.getPixelColor(new Vector(x,y)),startColor,precision)){
+                if (areColorsEqualsTolerance(this.getPixelColor(new Vector(x,y)),startColor, tolerance)){
                     this.modifyPixel(new Vector(x,y),replacementColor);
                 }
             }
