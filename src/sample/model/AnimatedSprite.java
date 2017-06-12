@@ -70,7 +70,7 @@ public class AnimatedSprite extends Sprite {
 
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
-
+/*
 
     public AnimatedSprite(String url,boolean isLooping){
         super();
@@ -120,7 +120,7 @@ public class AnimatedSprite extends Sprite {
         renderedImage = new ImageView(listOfImages.get(currentImage));
         this.isLooping = isLooping;
     }
-
+*/
     public AnimatedSprite(ArrayList<String> urls){
         super();
         listOfImages = new ArrayList<WritableImage>();
