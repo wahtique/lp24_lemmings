@@ -31,14 +31,18 @@ public class AnimatedSprite extends Sprite {
         listOfImages = new ArrayList<WritableImage>();
 
         try {
-
             URI uri = this.getClass().getResource(url).toURI();
 
             Path myPath;
 
 
             if (uri.getScheme().equals("jar")) {
-                FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+                FileSystem fileSystem;
+                try {
+                    fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+                }catch (Exception e){
+                    fileSystem = FileSystems.getFileSystem(uri);
+                }
                 myPath = fileSystem.getPath(url);
             } else {
                 myPath = Paths.get(uri);
@@ -50,13 +54,13 @@ public class AnimatedSprite extends Sprite {
 
             for (Iterator<Path> it = walk.iterator(); it.hasNext(); ) {
                 String temp = it.next().getFileName().toString();
-                //System.out.println(temp);
+          //      System.out.println(temp);
                 if (temp.endsWith(".png")) {
                     urls.add(url + "/" + temp);
-//                    System.out.println(temp);
+                   // System.out.println(temp);
                 } else if (temp.endsWith(".txt")) {
                     config = url + "/" + temp;
-//                    System.out.println(config);
+                   // System.out.println(config);
                 }
             }
 
@@ -68,13 +72,14 @@ public class AnimatedSprite extends Sprite {
             });
 
             for (String nameOfImage : urls) {
-                //   System.out.println(nameOfImage);
+                //System.out.println(nameOfImage);
                 Image image = new Image(nameOfImage);
                 listOfImages.add(new WritableImage(image.getPixelReader(), (int) image.getWidth(), (int) image.getHeight()));
 
             }
+
             if (!config.equals("")) {
-                System.out.println(config);
+              //  System.out.println(config);
                 BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(config)));
                 String line = input.readLine();
                 while (line != null) {
@@ -95,9 +100,10 @@ public class AnimatedSprite extends Sprite {
 //                System.out.println(input.readLine());
 
             }
+
         } catch (Exception e) {
             System.out.println("Can't instantiate AnimatedSprite !!!");
-            System.exit(1);
+            e.printStackTrace();
         }
 
 

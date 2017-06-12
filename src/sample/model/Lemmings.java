@@ -32,10 +32,11 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.state = LemmingsStates.Walk;
         animation = new TreeMap<LemmingsStates, AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
-        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
-        animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS"));
-        animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
-        animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct"));
+        System.out.println("created walk");
+        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling/"));
+        animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS/"));
+        animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS/"));
+        animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct/"));
     }
     public Lemmings(Vector position, Vector speed, String feet, String body) {
         super(position, speed);
@@ -47,7 +48,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
         animation = new TreeMap<LemmingsStates, AnimatedSprite>();
-        animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
+        animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk"));
         animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
         animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS"));
         animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
