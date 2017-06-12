@@ -17,7 +17,7 @@ public class Vomit extends PhysicalObject implements Collidable {
     public Vomit() {
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
         this.fall = true;
-        this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png")
+        this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png");
         this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling/"));
         this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/falling/dissolving"));
     }

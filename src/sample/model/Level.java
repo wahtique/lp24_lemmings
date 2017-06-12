@@ -32,16 +32,18 @@ public class Level {
     public Level(HashSet<Collidable> terrain, HashSet<Lemmings> lemmingss) {
         this.terrain = terrain;
         this.lemmingsList = lemmingss;
+
     }
 
     public Level() {
         this.terrain = null;
         this.lemmingsList = null;
+        this.vomits= null;
     }
 
     public void update(double deltatime){
         lemmingsList.forEach(l -> l.update(deltatime,this));
-        vomits.forEach(l -> l.update(deltatime,this));
+        //vomits.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){
