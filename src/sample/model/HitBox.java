@@ -1,5 +1,6 @@
 package sample.model;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import java.util.HashSet;
@@ -124,6 +125,11 @@ public class HitBox extends Sprite implements Collidable {
         }else{
             return 0;
         }
+
+
+    }
+    public Image getImage(){
+        return renderedImage.getImage();
     }
 
 }

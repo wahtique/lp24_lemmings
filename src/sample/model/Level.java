@@ -24,6 +24,9 @@ public class Level {
         return terrain;
     }
 
+    public HashSet<Vomit> getVomits(){
+        return vomits;
+    }
     public void setTerrain(HashSet<Collidable> terrain) {
         this.terrain = terrain;
     }
@@ -32,7 +35,7 @@ public class Level {
     public Level(HashSet<Collidable> terrain, HashSet<Lemmings> lemmingss) {
         this.terrain = terrain;
         this.lemmingsList = lemmingss;
-
+        this.vomits = new HashSet<>();
     }
 
     public Level() {
@@ -51,4 +54,3 @@ public class Level {
         terrain.forEach(t-> t.draw(gc));
     }
 }
-
