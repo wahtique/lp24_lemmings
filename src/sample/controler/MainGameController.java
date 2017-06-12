@@ -29,7 +29,7 @@ public class MainGameController {
     public void start() throws IOException, URISyntaxException {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        Sprite bg = new Sprite("resources/images/testlevel/bg.png");
+        Sprite bg = new Sprite("resources/levels/testlevel1/bg-5.png");
         bg.setLayer(-10);
         drawer.addSomethingToDraw(bg);
 
@@ -37,7 +37,7 @@ public class MainGameController {
         timeSetter.start(this);
 
 
-        test.getTerrain().add(new HitBox("resources/levels/testlevel1/terrain.png"));
+        test.getTerrain().add(new HitBox("resources/levels/testlevel1/terrain1.png"));
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0), new Vector(0,100),
                                         "resources/Lemming/hitboxes/walk/feets.png",

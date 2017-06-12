@@ -29,6 +29,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
         animation = new TreeMap<LemmingsStates,AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
         animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
+        animation.put(LemmingsStates.Pls,new AnimatedSprite("/resources/Lemming/Anim/PLS"));
     }
 
     public void setPositionHitbox(Vector p){
@@ -60,12 +61,12 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
                             this.speed.setY(speed.add(forces.mulScal(deltaTime)).getY());
                             this.position.setY(position.add(this.speed.mulScal(deltaTime)).getY());
                         }else {
-                            if(this.speed.getY() < 10000000){
+                            if(this.speed.getY() < 300){
                                 this.state = LemmingsStates.Walk;
                                 this.speed.setY(0);
                             }else {
                                 this.state = LemmingsStates.Pls;
-                                level.getLemmingsList().remove(this);
+
                                 level.getTerrain().add(this);
                                 this.animation.get(state).reset();
                             }
