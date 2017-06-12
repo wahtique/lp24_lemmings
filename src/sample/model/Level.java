@@ -41,11 +41,12 @@ public class Level {
     public Level() {
         this.terrain = null;
         this.lemmingsList = null;
+        this.vomits= null;
     }
 
     public void update(double deltatime){
         lemmingsList.forEach(l -> l.update(deltatime,this));
-        vomits.forEach(l -> l.update(deltatime,this));
+        //vomits.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){
@@ -53,4 +54,3 @@ public class Level {
         terrain.forEach(t-> t.draw(gc));
     }
 }
-
