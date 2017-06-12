@@ -25,6 +25,7 @@ public class MainGameController {
     private Drawer drawer;
 
     private AnimatedSprite anim;
+    MainGameUpdater timeSetter;
 
     public void start() throws IOException, URISyntaxException {
         drawer = Drawer.getDrawer();
@@ -33,7 +34,7 @@ public class MainGameController {
         bg.setLayer(-10);
         drawer.addSomethingToDraw(bg);
 
-        MainGameUpdater timeSetter = new MainGameUpdater();
+        timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
 
@@ -112,6 +113,9 @@ public class MainGameController {
     }
     public void onButton1(){
         test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.LeavePls);
+    }
+    public void accelWorld(){
+        timeSetter.setTimeSpeed(2);
     }
 }
 

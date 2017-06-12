@@ -22,7 +22,7 @@
             <Button mnemonicParsing="false" onAction="#onButton1" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
          </children>
          <opaqueInsets>
             <Insets />
