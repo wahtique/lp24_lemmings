@@ -20,7 +20,8 @@ public class Lemmings extends PhysicalObject implements DrawAble{
         this.feet = new HitBox(feet);
         this.body = new HitBox(body);
         this.body.replaceColor(Color.rgb (0,255,0), Color.rgb (255,255,255),150);
-       // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
+
+        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
     }
