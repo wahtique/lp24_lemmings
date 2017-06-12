@@ -110,5 +110,8 @@ public class MainGameController {
 
 
     }
+    public void onButton1(){
+        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.LeavePls);
+    }
 }
 
