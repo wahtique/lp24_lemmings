@@ -44,7 +44,7 @@ public class MainGameController {
                                         "resources/Lemming/hitboxes/walk/feets.png",
                                         "resources/Lemming/hitboxes/walk/body.png");
         test.getLemmingsList().add(roger);
-        test.getLemmingsList().add(roger2);
+
         test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
 
