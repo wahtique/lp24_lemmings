@@ -1,6 +1,7 @@
 package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 
 import java.util.HashSet;
@@ -20,6 +21,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
         super(position, speed, forces);
         this.feet = new HitBox(feet);
         this.body = new HitBox(body);
+        this.body.replaceColor(Color.rgb (0,255,0), Color.rgb (255,255,255),150);
+
+        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
         animation = new TreeMap<LemmingsStates,AnimatedSprite>();

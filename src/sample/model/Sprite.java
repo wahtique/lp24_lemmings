@@ -113,4 +113,52 @@ public class Sprite implements DrawAble {
         isFlipped = !isFlipped;
         return isFlipped;
     }
+
+    public void replaceColor(Color startColor,Color replacementColor,int tolerance){
+
+        for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
+            for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
+                if (areColorsEqualsTolerance(this.getPixelColor(new Vector(x,y)),startColor, tolerance)){
+                    this.modifyPixel(new Vector(x,y),replacementColor);
+                }
+            }
+        }
+    }
+    public boolean areColorsEqualsTolerance(Color c1,Color c2,int tolerance){
+        if (c1.equals(c2)){
+            return true;
+        }else if(   areIntEqualsTolerance((int) (c1.getBlue()*255),   (int) (c2.getBlue()*255),tolerance)  &&
+                    areIntEqualsTolerance((int) (c1.getGreen()*255),  (int) (c2.getGreen()*255),tolerance)  &&
+                    areIntEqualsTolerance((int) (c1.getRed()*255),    (int) (c2.getRed()*255),tolerance)    ){
+         //   System.out.println("b :" + c1.getBlue() + " + " + c2.getBlue() + " = " + areIntEqualsTolerance((int) c1.getBlue(),   (int) c2.getBlue(),tolerance));
+           // System.out.println("g :" + areIntEqualsTolerance((int) c1.getGreen(),   (int) c2.getGreen(),tolerance));
+            //System.out.println("r :" + areIntEqualsTolerance((int) c1.getRed(),   (int) c2.getRed(),tolerance));
+
+            return true;
+        }else{
+            return false;
+        }
+    }/*
+    public boolean areColorsEqualsPrecision(Color c1,Color c2,int precision){
+        if (c1.equals(c2)){
+            return true;
+        }else if((int) (c1.getBlue()* precision) == (int) (c2.getBlue()* precision) &&
+                (int) (c1.getRed()* precision) == (int) (c2.getRed()* precision) &&
+                (int) (c1.getGreen()* precision) == (int) (c2.getGreen()* precision) ){
+            c1.ge
+            return true;
+        }else{
+            return false;
+        }
+    }*/
+    public boolean areIntEqualsTolerance(int i1,int i2,int tolerance){
+        if (i1 == i2){
+            return true;
+        }else if(i1 >= i2 - tolerance && i1 <= i2 + tolerance){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+

@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  */
 public class MainMenuController
 {
-    private static final String FXMLfolder = "src/sample/view/" ;
+    private static final String FXMLfolder = "sample/view/" ;
 
     @FXML
     private Button newGameButton;
@@ -111,12 +111,12 @@ public class MainMenuController
     private FXMLLoader switchToScene(String sceneName, Stage stage) throws IOException
     {
         FXMLLoader loader = new FXMLLoader();
-        FileInputStream fin = new FileInputStream(FXMLfolder + sceneName +".fxml");
-        Parent root = loader.load(fin);
+        /*FileInputStream fin = new FileInputStream(FXMLfolder + sceneName +".fxml");*/
+        Parent root = loader.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(FXMLfolder + sceneName +".fxml"));
         Scene sc = new Scene(root);
         stage.setScene(sc);
         stage.show();
-        fin.close();
+        /*fin.close();*/
         return loader;
     }
 

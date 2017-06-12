@@ -30,9 +30,11 @@ public class GameSession implements Serializable
      * When loading, we will use the parameters already existing.*/
     private Parameters profileSettings;
 
-    /**Method creating a new game session from scratch. Used mainly to start a new game.
+    /**
+     * Method creating a new game session from scratch. Used mainly to start a new game.
      * @param playerName The name of the player AND the savegame
-     * @param numberOfStudents The number of students we will play with*/
+     * @param numberOfStudents The number of students we will play with
+     */
     public GameSession(String playerName, int numberOfStudents) throws Exception
     {
         this.playerName = playerName;
@@ -72,8 +74,10 @@ public class GameSession implements Serializable
         return numberOfStudents;
     }
 
-    /**Method saving the game in the default save folder.
-     * @return boolean true if the save was successful, false otherwise*/
+    /**
+    * Method saving the game in the default save folder.
+    * @return boolean true if the save was successful, false otherwise
+    */
     public boolean saveGameSession()
     {
         try

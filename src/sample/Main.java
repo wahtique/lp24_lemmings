@@ -5,28 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.model.AnimatedSprite;
 
 public class Main extends Application
 {
 
-    private FXMLLoader loader;
+  //  private FXMLLoader loader;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        /*loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("mainGame.fxml"));
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
-
-        Parent root = (Parent) loader.load(getClass().getResource("mainGame.fxml").openStream());
-
-        primaryStage.setTitle("Hello World");
-
-        primaryStage.setScene(new Scene(root, 600, 400));
-
-        primaryStage.show();
-
-        ((MainGameController) loader.getController()).start();*/
         Parent root = FXMLLoader.load(getClass().getResource("view/mainMenu.fxml"));
         primaryStage.setTitle("UTBM DRUNKARDS EXTREM SUCCESS PLAN");
         primaryStage.setScene(new Scene(root, 1280, 720));
