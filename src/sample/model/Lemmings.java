@@ -24,7 +24,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
         this.state = LemmingsStates.Walk;
         animation = new TreeMap<LemmingsStates,AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
-        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Anim/taiste/"));
+        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
     }
 
     public void setPositionHitbox(Vector p){
