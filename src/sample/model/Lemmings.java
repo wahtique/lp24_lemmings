@@ -67,7 +67,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
                                 this.state = LemmingsStates.Walk;
                             }else {
                                 this.state = LemmingsStates.Pls;
-
+                                this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
+                                this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomitdetect.png");
                                 level.getTerrain().add(this);
                                 this.animation.get(state).reset();
                             }
@@ -75,6 +76,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
                         }break;
             case LeavePls: if( this.animation.get(state).isEnded()){
                 this.state = LemmingsStates.Walk;
+                this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+                this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
                 level.getTerrain().remove(this);
             };
             break;

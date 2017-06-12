@@ -10,24 +10,29 @@ import java.util.TreeMap;
  * Created by yann on 09/06/17.
  */
 public class Vomit extends PhysicalObject implements Collidable {
-    Boolean Fall;
+    Boolean fall;
     HitBox hitBox;
     TreeMap<Boolean,AnimatedSprite> animation;
 
     public Vomit() {
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
-        this.animation.put(true,new AnimatedSprite(""));
-        this.animation.put(false,new AnimatedSprite(""));
+        this.fall = true;
+        this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png")
+        this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling/"));
+        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/falling/dissolving"));
     }
 
-    public void update(double deltaTime){
-        this.speed = speed.add(this.forces.mulScal(deltaTime));
-        this.position = position.add(this.speed.mulScal(deltaTime));
+    public void update(double deltaTime, Level level){
+        if(this.willBeColliding(futurePosition(deltaTime),level.getTerrain())){
+            this.speed = speed.add(this.forces.mulScal(deltaTime));
+            this.position = position.add(this.speed.mulScal(deltaTime));
+        }
+
     }
 
     @Override
     public void draw(GraphicsContext gc) {
-        this.animation.get(Fall).draw(gc);
+        this.animation.get(fall).draw(gc);
     }
 
     @Override

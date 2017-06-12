@@ -10,6 +10,7 @@ import java.util.HashSet;
 public class Level {
     private HashSet<Lemmings> lemmingsList;
     private HashSet<Collidable> terrain;
+    private HashSet<Vomit> vomits;
 
     public HashSet<Lemmings> getLemmingsList() {
         return lemmingsList;
@@ -40,6 +41,7 @@ public class Level {
 
     public void update(double deltatime){
         lemmingsList.forEach(l -> l.update(deltatime,this));
+        vomits.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){

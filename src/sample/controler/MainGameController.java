@@ -31,8 +31,11 @@ public class MainGameController {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
         Sprite bg = new Sprite("resources/levels/testlevel1/bg-5.png");
+        Sprite fg = new Sprite("resources/levels/testlevel1/fg1.png");
         bg.setLayer(-10);
+        fg.setLayer(10);
         drawer.addSomethingToDraw(bg);
+        drawer.addSomethingToDraw(fg);
 
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
