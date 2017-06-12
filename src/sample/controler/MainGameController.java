@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import sample.model.*;
 import sample.view.Drawer;
 
@@ -38,9 +37,9 @@ public class MainGameController {
         timeSetter.start(this);
 
 
-        test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
+        test.getTerrain().add(new HitBox("resources/levels/testlevel1/terrain.png"));
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0), new Vector(0,100),
                                         "resources/Lemming/hitboxes/walk/feets.png",
                                         "resources/Lemming/hitboxes/walk/body.png");
         test.getLemmingsList().add(roger);
