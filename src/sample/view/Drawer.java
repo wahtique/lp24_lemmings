@@ -40,5 +40,10 @@ public class Drawer {
     public void addSomethingToDraw(DrawAble something){
         toDraw.add(something);
     }
-
+    public void deleteSomethigToDraw(DrawAble something){
+        toDraw.remove(something);
+    }
+    public void clearDrawer(){
+        toDraw.clear();
+    }
 }
