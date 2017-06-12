@@ -13,6 +13,7 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         /*loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("mainGame.fxml"));
         loader.setBuilderFactory(new JavaFXBuilderFactory());

@@ -37,20 +37,13 @@ public class MainGameController {
 
         test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
-        anim = new AnimatedSprite("/resources/Anim/taiste");
-        System.out.println("Bfore lemming");
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
-        System.out.println("After lemming");
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),
+                                        "resources/Lemming/hitboxes/walk/feets.png",
+                                        "resources/Lemming/hitboxes/walk/body.png");
         test.getLemmingsList().add(roger);
         test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
 
-
-        anim.setLayer(-2);
-        drawer.addSomethingToDraw(anim);
-        Sprite omaia = new Sprite("resources/images/testlevel/bg.png");
-        omaia.setLayer(-1);
-        drawer.addSomethingToDraw(omaia);
     }
 
     public void update(double deltaTime) {
