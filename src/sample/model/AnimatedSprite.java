@@ -25,12 +25,14 @@ public class AnimatedSprite extends Sprite {
     private int currentImage = 0;
     private int framerate = 6;
     private double currentTime =0;
-
     public AnimatedSprite(String url){
         super();
         listOfImages = new ArrayList<WritableImage>();
+
         try {
+
             URI uri = this.getClass().getResource(url).toURI();
+
             Path myPath;
 
 
@@ -50,10 +52,10 @@ public class AnimatedSprite extends Sprite {
                 //System.out.println(temp);
                 if (temp.endsWith(".png")) {
                     urls.add(url+"/" + temp);
-
+//                    System.out.println(temp);
                 }else if(temp.endsWith(".txt")){
                     config = url+"/"+temp;
-                    System.out.println(config);
+//                    System.out.println(config);
                 }
             }
 
@@ -65,7 +67,7 @@ public class AnimatedSprite extends Sprite {
             });
 
             for(String nameOfImage:urls){
-             //   System.out.println(nameOfImage);
+                //   System.out.println(nameOfImage);
                 Image image = new Image(nameOfImage);
                 listOfImages.add(new WritableImage(image.getPixelReader(),(int)image.getWidth(),(int)image.getHeight()));
 
@@ -100,6 +102,8 @@ public class AnimatedSprite extends Sprite {
 
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
+
+
 
     public AnimatedSprite(ArrayList<String> urls){
         super();

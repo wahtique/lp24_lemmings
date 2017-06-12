@@ -21,7 +21,7 @@ public class MainGameController {
     private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
+    private Level test = new Level(new HashSet<Collidable>(), new HashSet<Lemmings>());
 
     private Drawer drawer;
 
@@ -40,25 +40,20 @@ public class MainGameController {
 
         test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/testLemming.png");
-        Lemmings roger2 = new Lemmings(new Vector(50,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),
+                                        "resources/Lemming/hitboxes/walk/feets.png",
+                                        "resources/Lemming/hitboxes/walk/body.png");
         test.getLemmingsList().add(roger);
         test.getLemmingsList().add(roger2);
         test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
-
-        //anim = new AnimatedSprite("/resources/Anim/taiste",true);
-        anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
-        anim.replaceColor(Color.rgb(0,255,0), Color.rgb(0,0,0),100);
-        anim.setLayer(2);
-        drawer.addSomethingToDraw(anim);
 
     }
 
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-       anim.update(deltaTime);
+//       anim.update(deltaTime);
        test.update(deltaTime);
        drawer.draw();
      //  test.drawLevel(canvas.getGraphicsContext2D());
@@ -117,5 +112,4 @@ public class MainGameController {
 
     }
 }
-
 

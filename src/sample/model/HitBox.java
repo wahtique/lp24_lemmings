@@ -7,7 +7,7 @@ import java.util.HashSet;
 /**
  * Created by naej on 12/05/17.
  */
-public class HitBox extends Sprite {
+public class HitBox extends Sprite implements Collidable {
 
     public HitBox(String url){
         super(url);
@@ -23,7 +23,7 @@ public class HitBox extends Sprite {
         return this.modifyPixelCanvasRef(pos, Color.color(0,0,0,0)) ;
     }
 
-    public boolean willBeColliding(Vector pos,HitBox other){
+    public boolean willBeColliding(Vector pos, Collidable other){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
             for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
@@ -36,7 +36,7 @@ public class HitBox extends Sprite {
         }
         return false;
     }
-    public boolean willBeColliding(Vector pos,HashSet<HitBox> others){
+    public boolean willBeColliding(Vector pos, HashSet<Collidable> others){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
             for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
@@ -73,18 +73,14 @@ public class HitBox extends Sprite {
         }
         return temp;
     }
-    public double getCollisionDepthY(Vector pos, HitBox other){
+    public double getCollisionDepthY(Vector pos, Collidable other){
         Vector higher =null;
-        Vector lower =null;
         for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
             for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
                 if (this.getPixelColor(new Vector(x,y)).getOpacity() != 0){
                     if (other.isInHitbox(new Vector( x+pos.getX(),y+pos.getY() ))){
 
                         higher = new Vector( x,y );
-                        /*if (lower == null || y+pos.getY()> lower.getY()){
-                            lower = new Vector( x,y );
-                        }*/
                         break;
 
 
@@ -100,12 +96,11 @@ public class HitBox extends Sprite {
         if (higher != null) {
            // System.out.println(""+ (renderedImage.getImage().getHeight() - higher.getY()));
             return (renderedImage.getImage().getHeight() - higher.getY());
-            //return lower.getY() - higher.getY();
         }else {
             return 0;
         }
     }
-    public double getCollisionDepthY(Vector pos, HashSet<HitBox> others){
+    public double getCollisionDepthY(Vector pos, HashSet<Collidable> others){
         Vector higher =null;
 
         for (int y =0;y<this.renderedImage.getImage().getHeight();y++){

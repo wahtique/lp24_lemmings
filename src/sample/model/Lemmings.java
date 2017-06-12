@@ -5,15 +5,17 @@ import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 
 import java.util.HashSet;
+import java.util.TreeMap;
 
 /**
  * Created by yann on 12/05/17.
  */
-public class Lemmings extends PhysicalObject implements DrawAble{
+public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
     private HitBox feet;
     private HitBox body;
     private LemmingsStates state;
     private StudentData lemData;
+    private TreeMap<LemmingsStates,AnimatedSprite> animation;
 
     public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body) {
         super(position, speed, forces);
@@ -24,6 +26,9 @@ public class Lemmings extends PhysicalObject implements DrawAble{
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
+        animation = new TreeMap<LemmingsStates,AnimatedSprite>();
+        animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
+        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
     }
 
     public void setPositionHitbox(Vector p){
@@ -32,50 +37,52 @@ public class Lemmings extends PhysicalObject implements DrawAble{
         this.body.setPosition(p);
     }
 
-    public void update(double deltaTime, HashSet<HitBox> terrain){
+    public void update(double deltaTime, Level level){
         switch (state){
             case Walk:
-                if(isGrounded(terrain,deltaTime)){
-                    if (!this.body.willBeColliding(this.futurePosition(deltaTime),terrain)){
+                if(isGrounded(level.getTerrain(),deltaTime)){
+                    if (!this.body.willBeColliding(this.futurePosition(deltaTime),level.getTerrain())){
                         this.speed.setX(speed.add(this.forces.mulScal(deltaTime)).getX());
                         this.position.setX(position.add(this.speed.mulScal(deltaTime)).getX());
-                        this.position.setY(this.position.getY()-this.feet.getCollisionDepthY(this.position,terrain));
+                        this.position.setY(this.position.getY()-this.feet.getCollisionDepthY(this.position,level.getTerrain()));
                     }else{
-                 //       System.out.println("Collide: " +this.toString());
+                 //       System.out.println("Collide: " +this.toString());             Il se retourne docilement:
                         this.speed.setX(-this.speed.getX());
                         this.speed = speed.add(this.forces.mulScal(deltaTime));
                         this.position = position.add(this.speed.mulScal(deltaTime));
-                        this.position.setY(this.position.getY()-this.feet.getCollisionDepthY(this.position,terrain));
+                        this.position.setY(this.position.getY()-this.feet.getCollisionDepthY(this.position,level.getTerrain()));
+                        this.animation.get(state).flipX();
                     }
                 }else{
                             this.state = LemmingsStates.Falling;
                         }break;
-            case Falling: if(!isGrounded(terrain,deltaTime)){
+            case Falling: if(!isGrounded(level.getTerrain(),deltaTime)){
                             this.speed.setY(speed.add(forces.mulScal(deltaTime)).getY());
                             this.position.setY(position.add(this.speed.mulScal(deltaTime)).getY());
                         }else {
                             if(this.speed.getY() < 10000000){
                                 this.state = LemmingsStates.Walk;
+                                this.speed.setY(0);
                             }else {
-                                this.state = LemmingsStates.AnimPls;
+                                this.state = LemmingsStates.Pls;
+                                level.getLemmingsList().remove(this);
+                                level.getTerrain().add(this);
+                                this.animation.get(state).reset();
                             }
                         }break;
-            case AnimPls: if(true){
-                this.state = LemmingsStates.Pls;
-                terrain.add(this.body);
-            }else{
-
-            }break;
-            case Pls: break;
-            case LeavePls: if(true) break;
+            case LeavePls: if( this.animation.get(state).isEnded()){
+                this.state = LemmingsStates.Walk;
+            };
             case Vomit: break;
             default: break;
         }
         //System.out.println(this.toString());
+        this.animation.get(state).update(deltaTime);
+        this.animation.get(state).setPosition(this.position);
         this.setPositionHitbox(this.position);
     }
 
-    public boolean isGrounded(HashSet<HitBox> terrain, double deltatime){
+    public boolean isGrounded(HashSet<Collidable> terrain, double deltatime){
         return this.feet.willBeColliding(this.futurePosition(deltatime),terrain);
     }
     public void forward(){}
@@ -97,15 +104,34 @@ public class Lemmings extends PhysicalObject implements DrawAble{
     }
 
     public void draw(GraphicsContext gc){
-        this.body.draw(gc);
-        this.feet.draw(gc);
+        this.animation.get(state).draw(gc);
     }
 
     public float getLayer(){
         return 0;
     }
 
+    public boolean willBeColliding(Vector pos, HashSet<Collidable> others){
+        return this.body.willBeColliding(pos, others);
+    }
+    public boolean willBeColliding(Vector pos, Collidable other){
+        return this.body.willBeColliding(pos, other);
+
+    }
+    public boolean isInHitbox(Vector pos){
+        return this.body.isInHitbox(pos);
+    }
+
+    public double getCollisionDepthY(Vector pos, Collidable other){
+        return this.body.getCollisionDepthY(pos,other);
+    }
+
+    public double getCollisionDepthY(Vector pos, HashSet<Collidable> others){
+        return this.body.getCollisionDepthY(pos,others);
+    }
+
     public String toString(){
         return "[ " +this.state +" pos:" +this.position.toString() + " ]";
     }
 }
+

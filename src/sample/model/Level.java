@@ -9,7 +9,7 @@ import java.util.HashSet;
  */
 public class Level {
     private HashSet<Lemmings> lemmingsList;
-    private HashSet<HitBox> terrain;
+    private HashSet<Collidable> terrain;
 
     public HashSet<Lemmings> getLemmingsList() {
         return lemmingsList;
@@ -19,16 +19,16 @@ public class Level {
         this.lemmingsList = lemmingsList;
     }
 
-    public HashSet<HitBox> getTerrain() {
+    public HashSet<Collidable> getTerrain() {
         return terrain;
     }
 
-    public void setTerrain(HashSet<HitBox> terrain) {
+    public void setTerrain(HashSet<Collidable> terrain) {
         this.terrain = terrain;
     }
 
 
-    public Level(HashSet<HitBox> terrain, HashSet<Lemmings> lemmingss) {
+    public Level(HashSet<Collidable> terrain, HashSet<Lemmings> lemmingss) {
         this.terrain = terrain;
         this.lemmingsList = lemmingss;
     }
@@ -39,7 +39,7 @@ public class Level {
     }
 
     public void update(double deltatime){
-        lemmingsList.forEach(l -> l.update(deltatime,terrain));
+        lemmingsList.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){
