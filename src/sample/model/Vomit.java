@@ -14,7 +14,7 @@ public class Vomit extends PhysicalObject implements Collidable {
     Boolean isFalling;
     HitBox hitBox;
     TreeMap<Boolean,AnimatedSprite> animation;
-
+/*
     public Vomit() {
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
         this.isFalling = true;
@@ -22,35 +22,38 @@ public class Vomit extends PhysicalObject implements Collidable {
         this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling"));
         this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
         Drawer.getDrawer().addSomethingToDraw(this);
-    }
+    }*/
     public Vomit(Vector pos){
+        super(pos);
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
         this.isFalling = true;
         this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png");
         this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling"));
-        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/falling"));
+        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
         Drawer.getDrawer().addSomethingToDraw(this);
         setPosition(pos);
 
     }
 
     public void update(double deltaTime, Level level){
-        this.speed = speed.add(this.forces.mulScal(deltaTime));
-        this.position = position.add(this.speed.mulScal(deltaTime));
-        this.animation.get(isFalling).setPosition(position);
-    //TODO: debug vomit
-        /*
+//        this.speed = speed.add(this.forces.mulScal(deltaTime));
+//        setPosition( position.add(this.speed.mulScal(deltaTime)));
+
+
         if(isFalling && !this.willBeColliding(futurePosition(deltaTime),level.getTerrain())){
             this.speed = speed.add(this.forces.mulScal(deltaTime));
             this.position = position.add(this.speed.mulScal(deltaTime));
         }else if(isFalling){
             this.isFalling = false;
         }else {
+            this.speed = new Vector(0,10);
+            this.position = position.add(this.speed.mulScal(deltaTime));
             if (!corrupt(level)){
                 removethis(level);
             }
         }
-*/
+
+        setPosition(position);
 
         this.animation.get(isFalling).update(deltaTime);
 
@@ -61,9 +64,11 @@ public class Vomit extends PhysicalObject implements Collidable {
     public void setPosition(Vector pos){
         this.position = pos;
         this.animation.get(isFalling).setPosition(position);
+        this.hitBox.setPosition(pos);
     }
 
     private void removethis(Level level){
+        System.out.println("Am i removed ?");
         Drawer.getDrawer().deleteSomethigToDraw(this);
         level.getVomits().remove(this);
     }
@@ -72,12 +77,14 @@ public class Vomit extends PhysicalObject implements Collidable {
         for (Collidable other:level.getTerrain()) {
             for (int x = 0; x < this.hitBox.getImage().getWidth(); x++) {
                 for (int y = 0; y < this.hitBox.getImage().getHeight(); y++) {
-                    if (other.isInHitbox(new Vector(x + position.getX(), y + position.getY()))) {
-                        if (!corruptPoint(other, new Vector(x + position.getX(), y + position.getY()))) {
-                            return false;
+                    if(this.hitBox.isInHitbox(new Vector(x + position.getX(), y + position.getY()))){
+                        if (other.isInHitbox(new Vector(x + position.getX(), y + position.getY()))) {
+                            if (!corruptPoint(other, new Vector(x + position.getX(), y + position.getY()))) {
+                                return false;
+                            }
                         }
-                    }
 
+                    }
                 }
 
             }
@@ -89,9 +96,11 @@ public class Vomit extends PhysicalObject implements Collidable {
 
         if (other.getClass() == Lemmings.class) {
             ((Lemmings) other).setState(LemmingsStates.LeavePls);
+          //  System.out.println("LemmingAwaken");
             return false;
         } else {
             ((HitBox) other).deletePoint(pos);
+          //  System.out.println("Dissolving");
             return true;
         }
 
@@ -111,6 +120,7 @@ public class Vomit extends PhysicalObject implements Collidable {
     @Override
     public void draw(GraphicsContext gc) {
         this.animation.get(isFalling).draw(gc);
+       // this.hitBox.draw(gc);
     }
 
     @Override

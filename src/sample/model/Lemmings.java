@@ -12,6 +12,9 @@ import java.util.TreeMap;
  * Created by yann on 12/05/17.
  */
 public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
+    double time = 2;
+    double ttime=0;
+    double nbbrick=0;
     private HitBox feet;
     private HitBox body;
     private LemmingsStates state;
@@ -34,7 +37,22 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
         animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct"));
     }
+    public Lemmings(Vector position, Vector speed, String feet, String body) {
+        super(position, speed);
+        this.feet = new HitBox(feet);
+        this.body = new HitBox(body);
+        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
 
+        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
+        this.lemData = new StudentData();
+        this.state = LemmingsStates.Walk;
+        animation = new TreeMap<LemmingsStates, AnimatedSprite>();
+        animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
+        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
+        animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS"));
+        animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
+        animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct"));
+    }
     public void setPositionHitbox(Vector p) {
         super.setPosition(p);
         this.feet.setPosition(p);
@@ -42,9 +60,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     }
 
     public void update(double deltaTime, Level level) {
-        double time = 2;
-        double ttime=0;
-        double nbbrick=5;
+
         switch (state) {
             case Walk:
                forward(deltaTime,level);
@@ -83,13 +99,14 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                     if (ttime <= 0) {
                         //TODO: make this shit work
                         HitBox brick = new HitBox("/resources/Lemming/brique.png");
-                        brick.setPosition(position);
+                        brick.setPosition(new Vector(position.getX(),position.getY()));
                         level.getTerrain().add(brick);
                         Drawer.getDrawer().addSomethingToDraw(brick);
                         ttime = time;
                         nbbrick++;
                     } else {
                         ttime = ttime - deltaTime;
+
                     }
                 }else {
                     this.state=LemmingsStates.Walk;
