@@ -40,8 +40,12 @@ public class Drawer {
     public void addSomethingToDraw(DrawAble something){
         toDraw.add(something);
     }
-    public void deleteSomethigToDraw(DrawAble something){
+    public void deleteSomethingToDraw(DrawAble something){
+      //  System.out.println(toDraw);
+        //TODO:change for other type of list to sort AND be able to have identical elements AND be able to delete element
         toDraw.remove(something);
+        System.out.println(toDraw);
+
     }
     public void clearDrawer(){
         toDraw.clear();

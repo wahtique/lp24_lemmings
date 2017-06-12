@@ -3,7 +3,6 @@ package sample.model;
 import javafx.scene.canvas.GraphicsContext;
 import sample.view.Drawer;
 
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.TreeMap;
 
@@ -11,9 +10,9 @@ import java.util.TreeMap;
  * Created by yann on 09/06/17.
  */
 public class Vomit extends PhysicalObject implements Collidable {
-    Boolean isFalling;
-    HitBox hitBox;
-    TreeMap<Boolean,AnimatedSprite> animation;
+    private Boolean isFalling;
+    private HitBox hitBox;
+    private TreeMap<Boolean,AnimatedSprite> animation;
 /*
     public Vomit() {
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
@@ -69,8 +68,10 @@ public class Vomit extends PhysicalObject implements Collidable {
 
     private void removethis(Level level){
         System.out.println("Am i removed ?");
-        Drawer.getDrawer().deleteSomethigToDraw(this);
-        level.getVomits().remove(this);
+        System.out.println(this);
+        Drawer.getDrawer().deleteSomethingToDraw(this);
+        //TODO: avoid the freaking iterator
+        //level.getVomits().remove(this);
     }
 
     private boolean corrupt(Level level) {
