@@ -60,7 +60,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                     } else {
                         this.state = LemmingsStates.Pls;
                         this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
-                        this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomitdetect.png");
+                        this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomidetect.png");
                         level.getTerrain().add(this);
                         this.animation.get(state).reset();
                     }
@@ -77,11 +77,13 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
             case Vomit:
                 break;
             case Construct:
+                forward(deltaTime,level);
                 if(nbbrick<=5) {
                     forward();
                     if (ttime <= 0) {
-
+                        //TODO: make this shit work
                         HitBox brick = new HitBox("/resources/Lemming/brique.png");
+                        brick.setPosition(position);
                         level.getTerrain().add(brick);
                         Drawer.getDrawer().addSomethingToDraw(brick);
                         ttime = time;

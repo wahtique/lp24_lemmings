@@ -20,7 +20,7 @@
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#onButton1" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" onAction="#onButtonConstruct" text="construct" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
          </children>

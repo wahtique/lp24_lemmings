@@ -68,8 +68,8 @@ public class MainGameController {
     }
 
     public void onMouseClick (MouseEvent e){
-        test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
-
+      //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
+        test.getVomits().add(new Vomit(new Vector(e.getX(),e.getY())));
         /*
         double time = System.nanoTime();
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
@@ -118,8 +118,13 @@ public class MainGameController {
 
 
     }
+    @FXML
     public void onButton1(){
         test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.LeavePls);
+    }
+    @FXML
+    public void onButtonConstruct(){
+        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Construct);
     }
     public void accelWorld(){
         timeSetter.setTimeSpeed(2);

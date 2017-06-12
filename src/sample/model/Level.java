@@ -46,7 +46,7 @@ public class Level {
 
     public void update(double deltatime){
         lemmingsList.forEach(l -> l.update(deltatime,this));
-        //vomits.forEach(l -> l.update(deltatime,this));
+        vomits.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){

@@ -19,12 +19,27 @@ public class Vomit extends PhysicalObject implements Collidable {
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
         this.isFalling = true;
         this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png");
-        this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling/"));
-        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/falling/dissolving"));
+        this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling"));
+        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
         Drawer.getDrawer().addSomethingToDraw(this);
+    }
+    public Vomit(Vector pos){
+        this.animation = new TreeMap<Boolean,AnimatedSprite>();
+        this.isFalling = true;
+        this.hitBox = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png");
+        this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling"));
+        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/falling"));
+        Drawer.getDrawer().addSomethingToDraw(this);
+        setPosition(pos);
+
     }
 
     public void update(double deltaTime, Level level){
+        this.speed = speed.add(this.forces.mulScal(deltaTime));
+        this.position = position.add(this.speed.mulScal(deltaTime));
+        this.animation.get(isFalling).setPosition(position);
+    //TODO: debug vomit
+        /*
         if(isFalling && !this.willBeColliding(futurePosition(deltaTime),level.getTerrain())){
             this.speed = speed.add(this.forces.mulScal(deltaTime));
             this.position = position.add(this.speed.mulScal(deltaTime));
@@ -35,10 +50,19 @@ public class Vomit extends PhysicalObject implements Collidable {
                 removethis(level);
             }
         }
+*/
 
         this.animation.get(isFalling).update(deltaTime);
 
+
     }
+
+    @Override
+    public void setPosition(Vector pos){
+        this.position = pos;
+        this.animation.get(isFalling).setPosition(position);
+    }
+
     private void removethis(Level level){
         Drawer.getDrawer().deleteSomethigToDraw(this);
         level.getVomits().remove(this);

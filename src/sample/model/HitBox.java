@@ -56,6 +56,7 @@ public class HitBox extends Sprite implements Collidable {
     @Override
     public boolean flipX(){
         System.out.println("WARNING : the hitbox is not flipped !");
+        //TODO: really flip it
         return false;
     }
 
