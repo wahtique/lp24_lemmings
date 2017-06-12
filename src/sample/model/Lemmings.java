@@ -62,19 +62,22 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable{
                             this.speed.setY(speed.add(forces.mulScal(deltaTime)).getY());
                             this.position.setY(position.add(this.speed.mulScal(deltaTime)).getY());
                         }else {
+
                             if(this.speed.getY() < 300){
                                 this.state = LemmingsStates.Walk;
-                                this.speed.setY(0);
                             }else {
                                 this.state = LemmingsStates.Pls;
 
                                 level.getTerrain().add(this);
                                 this.animation.get(state).reset();
                             }
+                             this.speed.setY(0);
                         }break;
             case LeavePls: if( this.animation.get(state).isEnded()){
                 this.state = LemmingsStates.Walk;
+                level.getTerrain().remove(this);
             };
+            break;
             case Vomit: break;
             default: break;
         }
