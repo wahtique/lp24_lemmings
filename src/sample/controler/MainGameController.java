@@ -27,6 +27,8 @@ public class MainGameController {
 
     private AnimatedSprite anim;
 
+    private SoundManager sm;
+
     public void start() throws IOException, URISyntaxException {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
@@ -53,6 +55,9 @@ public class MainGameController {
         anim.setLayer(2);
         drawer.addSomethingToDraw(anim);
 
+        sm = new SoundManager("/resources/Sound/tuturu.wav");
+        sm.playBGM();
+
     }
 
     public void update(double deltaTime) {
@@ -65,9 +70,11 @@ public class MainGameController {
 
     }
 
-    public void onMouseClick (MouseEvent e){
+    public void onMouseClick (MouseEvent e) throws IOException
+    {
+        System.out.println("click");
         test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
-
+        sm.playSound("/resources/Sound/tuturu.wav");
         /*
         double time = System.nanoTime();
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
