@@ -1,9 +1,6 @@
 package sample.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 
@@ -75,6 +72,7 @@ public class HitBox extends Sprite implements Collidable {
             }
         }
         writeImage = temp;
+        renderedImage = new ImageView(writeImage);
 
      /*   AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
         tx.translate(-renderedImage.getImage().getWidth(), 0);
