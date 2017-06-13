@@ -15,6 +15,8 @@ public class Vomit extends PhysicalObject implements Collidable {
     private HitBox hitBoxDissolv;
     private TreeMap<Boolean,AnimatedSprite> animation;
 
+    private double inTheAirCount = 0;
+
     public Vomit(Vector pos){
         super(pos);
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
@@ -25,7 +27,6 @@ public class Vomit extends PhysicalObject implements Collidable {
         this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
         Drawer.getDrawer().addSomethingToDraw(this);
         setPosition(pos);
-
     }
 
     public void update(double deltaTime, Level level){
@@ -39,10 +40,17 @@ public class Vomit extends PhysicalObject implements Collidable {
         }else if(isFalling){
             this.isFalling = false;
         }else {
-            this.speed = new Vector(0,40);
+            this.speed = new Vector(0,100);
             this.position = position.add(this.speed.mulScal(deltaTime));
+            setPosition(position);
+
             if (!corrupt(level)){
-                removethis(level);
+                inTheAirCount += deltaTime;
+                if(inTheAirCount >= 0.1)
+                    removethis(level);
+
+            }else{
+                inTheAirCount =0;
             }
         }
 
@@ -87,14 +95,14 @@ public class Vomit extends PhysicalObject implements Collidable {
 
             }
         }
-        return iAminTheAir;
+        return !iAminTheAir;
     }
 
     private boolean corruptPoint(Collidable other,Vector pos) {
 
         if (other.getClass() == Lemmings.class) {
             ((Lemmings) other).setState(LemmingsStates.LeavePls);
-          //  System.out.println("LemmingAwaken");
+            System.out.println("LemmingAwaken");
             return false;
         } else {
             ((HitBox) other).deletePoint(pos);
@@ -105,7 +113,13 @@ public class Vomit extends PhysicalObject implements Collidable {
 
     }
 
+    public void flipX(){
 
+        this.animation.get(isFalling).flipX();
+        this.animation.get(!isFalling).flipX();
+        this.hitBoxFalling.flipX();
+        this.hitBoxDissolv.flipX();
+    }
 
     @Override
     public void draw(GraphicsContext gc) {

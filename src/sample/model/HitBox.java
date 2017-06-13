@@ -1,8 +1,17 @@
 package sample.model;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Affine;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import java.util.HashSet;
 
 /**
@@ -55,9 +64,24 @@ public class HitBox extends Sprite implements Collidable {
 
     @Override
     public boolean flipX(){
-        System.out.println("WARNING : the hitbox is not flipped !");
-        //TODO: really flip it
-        return false;
+        //System.out.println("WARNING : the hitbox is not flipped !");
+        WritableImage temp = new WritableImage((int) renderedImage.getImage().getWidth(), (int) renderedImage.getImage().getHeight());
+        PixelWriter tempixel = temp.getPixelWriter();
+
+        for (int x =0;x<this.renderedImage.getImage().getWidth();x++) {
+            for (int y = 0; y < this.renderedImage.getImage().getHeight(); y++) {
+                Color color = writeImage.getPixelReader().getColor(x, y);
+                tempixel.setColor((int)temp.getWidth()-(x+1),y, color);
+            }
+        }
+        writeImage = temp;
+
+     /*   AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-renderedImage.getImage().getWidth(), 0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        op.filter(getImage());*/
+        return !isFlipped;
+        //return false;
     }
 
     public Vector getHigherCollidingPoint(Vector pos, HitBox other){
