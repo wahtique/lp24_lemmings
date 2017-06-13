@@ -6,13 +6,14 @@ import sample.view.DrawAble;
 import sample.view.Drawer;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
  * Created by yann on 12/05/17.
  */
 public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
-    double time = 2;
+    double time = 0.1;
     double ttime=0;
     double nbbrick=0;
     private HitBox feet;
@@ -20,6 +21,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private LemmingsStates state;
     private StudentData lemData;
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
+    private boolean isFlipped=false;
 
     public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body) {
         super(position, speed, forces);
@@ -98,9 +100,10 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                 if(nbbrick<=5) {
                     forward(deltaTime,level);
                     if (ttime <= 0) {
-                        //TODO: make this shit work
                         HitBox brick = new HitBox("/resources/Lemming/brique.png");
                         brick.setPosition(new Vector(position.getX(),position.getY()));
+                        if(isFlipped)
+                            brick.flipX();
                         level.getTerrain().add(brick);
                         Drawer.getDrawer().addSomethingToDraw(brick);
                         ttime = time;
@@ -110,6 +113,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
                     }
                 }else {
+                    nbbrick = 0;
                     this.state=LemmingsStates.Walk;
                 }
             default:
@@ -187,10 +191,18 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                 this.speed = speed.add(this.forces.mulScal(deltaTime));
                 this.position = position.add(this.speed.mulScal(deltaTime));
                 this.position.setY(this.position.getY() - this.feet.getCollisionDepthY(this.position, level.getTerrain()));
-                this.animation.get(state).flipX();
+                this.flipX();
             }
         } else {
             this.state = LemmingsStates.Falling;
         }
+    }
+
+
+    public void flipX(){
+        for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+            anim.getValue().flipX();
+        }
+        isFlipped = !isFlipped;
     }
 }

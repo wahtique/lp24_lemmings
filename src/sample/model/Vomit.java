@@ -27,6 +27,7 @@ public class Vomit extends PhysicalObject implements Collidable {
         this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
         Drawer.getDrawer().addSomethingToDraw(this);
         setPosition(pos);
+        //speed = speed.add(new Vector(100,0));
     }
 
     public void update(double deltaTime, Level level){
