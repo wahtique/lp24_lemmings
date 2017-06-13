@@ -70,8 +70,7 @@ public class Vomit extends PhysicalObject implements Collidable {
         System.out.println("Am i removed ?");
         System.out.println(this);
         Drawer.getDrawer().deleteSomethingToDraw(this);
-        //TODO: avoid the freaking iterator
-        //level.getVomits().remove(this);
+        level.removeVomit(this);
     }
 
     private boolean corrupt(Level level) {

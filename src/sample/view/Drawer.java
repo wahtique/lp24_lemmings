@@ -29,9 +29,7 @@ public class Drawer {
         if (cv != null){
             cv.getGraphicsContext2D().clearRect(0,0,cv.getWidth(),cv.getHeight());
             toDraw.forEach(o->o.draw(cv.getGraphicsContext2D()));
-          /*  for (DrawAble tod : toDraw){
-                tod.draw(cv.getGraphicsContext2D());
-            }*/
+
         }else{
             System.out.println("NO CANVAS");
         }

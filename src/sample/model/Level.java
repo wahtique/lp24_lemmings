@@ -11,6 +11,8 @@ public class Level {
     private HashSet<Lemmings> lemmingsList;
     private HashSet<Collidable> terrain;
     private HashSet<Vomit> vomits;
+    private HashSet<Vomit> vomitsToDel;
+
 
     public HashSet<Lemmings> getLemmingsList() {
         return lemmingsList;
@@ -36,6 +38,13 @@ public class Level {
         this.terrain = terrain;
         this.lemmingsList = lemmingss;
         this.vomits = new HashSet<>();
+        this.vomitsToDel = new HashSet<>();
+    }
+
+
+    public void removeVomit(Vomit toDel){
+        vomitsToDel.add(toDel);
+
     }
 
     public Level() {
@@ -45,6 +54,8 @@ public class Level {
     }
 
     public void update(double deltatime){
+        vomitsToDel.forEach(l -> vomits.remove(l));
+        vomitsToDel.clear();
         lemmingsList.forEach(l -> l.update(deltatime,this));
         vomits.forEach(l -> l.update(deltatime,this));
     }
