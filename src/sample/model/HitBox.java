@@ -121,7 +121,7 @@ public class HitBox extends Sprite implements Collidable {
         }
         if (higher != null) {
            // System.out.println(""+ (renderedImage.getImage().getHeight() - higher.getY()));
-            return (renderedImage.getImage().getHeight() - higher.getY());
+            return (renderedImage.getImage().getHeight() - higher.getY()-10);
         }else {
             return 0;
         }
@@ -146,11 +146,11 @@ public class HitBox extends Sprite implements Collidable {
         }
         if (higher != null) {
             //System.out.println("" +(this.renderedImage.getImage().getHeight() - higher.getY()));
-            return renderedImage.getImage().getHeight() - higher.getY();
+            return (renderedImage.getImage().getHeight() - higher.getY()-10);
         }else{
             return 0;
         }
-
+        //TODO : find out the true problem and remove this -10
 
     }
     public Image getImage(){

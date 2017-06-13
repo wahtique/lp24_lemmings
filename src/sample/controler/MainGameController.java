@@ -72,9 +72,9 @@ public class MainGameController {
         if (e.isPrimaryButtonDown()) {
             test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
         }else{
-            Vomit vomit = new Vomit(new Vector(e.getX(), e.getY()));
-            vomit.flipX();
-            test.getVomits().add(vomit);
+            //Vomit vomit = new Vomit(new Vector(e.getX(), e.getY()));
+            //vomit.flipX();
+            //test.getVomits().add(vomit);
 
         }
         /*

@@ -96,7 +96,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
             case Construct:
                 forward(deltaTime,level);
                 if(nbbrick<=5) {
-                    forward();
+                    forward(deltaTime,level);
                     if (ttime <= 0) {
                         //TODO: make this shit work
                         HitBox brick = new HitBox("/resources/Lemming/brique.png");
@@ -125,8 +125,6 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         return this.feet.willBeColliding(this.futurePosition(deltatime), terrain);
     }
 
-    public void forward() {
-    }
 
     public LemmingsStates getState() {
         return state;
