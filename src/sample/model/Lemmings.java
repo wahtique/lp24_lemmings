@@ -33,13 +33,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
-        animation = new TreeMap<LemmingsStates, AnimatedSprite>();
-        animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk/"));
-        System.out.println("created walk");
-        animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling/"));
-        animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS/"));
-        animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS/"));
-        animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct/"));
+        addAnimations();
     }
     public Lemmings(Vector position, Vector speed, String feet, String body) {
         super(position, speed);
@@ -50,12 +44,18 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
+        addAnimations();
+
+    }
+
+    private void addAnimations(){
         animation = new TreeMap<LemmingsStates, AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk"));
         animation.put(LemmingsStates.Falling, new AnimatedSprite("/resources/Lemming/Anim/falling"));
         animation.put(LemmingsStates.Pls, new AnimatedSprite("/resources/Lemming/Anim/PLS"));
         animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
         animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct"));
+        animation.put(LemmingsStates.Vomit, new AnimatedSprite("/resources/Lemming/Anim/animVomit"));
     }
 
 
@@ -102,7 +102,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                     if (isFlipped)
                         vomi.flipX();
 
+                    level.getVomits().add(vomi);
                     this.animation.get(state).reset();
+                    this.state = LemmingsStates.Walk;
                 }
                 break;
             case Construct:

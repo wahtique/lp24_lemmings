@@ -136,7 +136,7 @@ public class MainGameController {
 
     @FXML
     public void onButtonVomir(){
-        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Construct);
+        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Vomit);
     }
 
     @FXML
