@@ -126,13 +126,20 @@ public class MainGameController {
 
     }
     @FXML
-    public void onButton1(){
-        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.LeavePls);
+    public void onButtonPLS(){
+        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Pls);
     }
     @FXML
     public void onButtonConstruct(){
         test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Construct);
     }
+
+    @FXML
+    public void onButtonVomir(){
+        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Construct);
+    }
+
+    @FXML
     public void accelWorld(){
         timeSetter.setTimeSpeed(2);
     }

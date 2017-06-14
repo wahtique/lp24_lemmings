@@ -23,6 +23,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
 
+    @Deprecated
     public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body) {
         super(position, speed, forces);
         this.feet = new HitBox(feet);
@@ -56,6 +57,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         animation.put(LemmingsStates.LeavePls, new AnimatedSprite("/resources/Lemming/Anim/relevePLS"));
         animation.put(LemmingsStates.Construct, new AnimatedSprite("/resources/Lemming/Anim/construct"));
     }
+
+
     public void setPositionHitbox(Vector p) {
         super.setPosition(p);
         this.feet.setPosition(p);
@@ -94,6 +97,13 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                     level.getTerrain().remove(this);
                 }break;
             case Vomit:
+                if (this.animation.get(state).isEnded()){
+                    Vomit vomi = new Vomit(position);
+                    if (isFlipped)
+                        vomi.flipX();
+
+                    this.animation.get(state).reset();
+                }
                 break;
             case Construct:
                 forward(deltaTime,level);
@@ -201,7 +211,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     public void flipX(){
         for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
-            anim.getValue().flipX();
+            if (anim.getKey() != LemmingsStates.Pls)
+                anim.getValue().flipX();
         }
         isFlipped = !isFlipped;
     }
