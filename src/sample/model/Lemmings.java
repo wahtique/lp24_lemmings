@@ -24,6 +24,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private StudentData lemData;
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
+    private boolean isSelected = false;
 
     @Deprecated
     public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body, Level level) {
@@ -68,31 +69,41 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.body.setPosition(p);
     }
 
-    public void update(double deltaTime) {
+    public boolean isSelected() {
+        return isSelected;
+    }
 
-        switch (state) {
-            case Walk:
-               forward(deltaTime,level);
-                break;
-            case Falling:
-                falling(deltaTime);
-                break;
-            case LeavePls:
-                leavePLS(deltaTime);
-                break;
-            case Vomit:
-                vomit(deltaTime);
-                break;
-            case Construct:
-                construct(deltaTime);
-                break;
-            default:
-                break;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public void update(double deltaTime) {
+        if (!isExited()) {
+            switch (state) {
+                case Walk:
+                    forward(deltaTime, level);
+                    break;
+                case Falling:
+                    falling(deltaTime);
+                    break;
+                case LeavePls:
+                    leavePLS(deltaTime);
+                    break;
+                case Vomit:
+                    vomit(deltaTime);
+                    break;
+                case Construct:
+                    construct(deltaTime);
+                    break;
+                default:
+                    break;
+            }
+
+            //System.out.println(this.toString());
+            this.animation.get(state).update(deltaTime);
+            this.animation.get(state).setPosition(this.position);
+            this.setPositionHitbox(this.position);
         }
-        //System.out.println(this.toString());
-        this.animation.get(state).update(deltaTime);
-        this.animation.get(state).setPosition(this.position);
-        this.setPositionHitbox(this.position);
     }
 
     public boolean isGrounded(HashSet<Collidable> terrain, double deltatime) {
@@ -109,9 +120,14 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     public void vomit(double deltatime){
         if (this.animation.get(state).isEnded()){
-            Vomit vomi = new Vomit(position);
-            if (isFlipped)
+            Vomit vomi;
+            if (isFlipped){
+                vomi= new Vomit(this.position, new Vector(-50,0));
                 vomi.flipX();
+
+            }else {
+                vomi= new Vomit(this.position, new Vector(50,0));
+            }
             level.getVomits().add(vomi);
             this.animation.get(state).reset();
             this.state = LemmingsStates.Walk;
@@ -200,6 +216,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     public void draw(GraphicsContext gc) {
         this.animation.get(state).draw(gc);
+        if(isSelected){
+            this.body.draw(gc);
+        }
     }
 
     public float getLayer() {
@@ -256,6 +275,18 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
             if (anim.getKey() != LemmingsStates.Pls)
                 anim.getValue().flipX();
         }
+        this.body.flipX();
+        this.feet.flipX();
         isFlipped = !isFlipped;
+    }
+
+    public boolean isExited(){
+        if(this.willBeColliding(position,level.getExit())){
+            level.getGarbageLemmings().add(this);
+            Drawer.getDrawer().deleteSomethingToDraw(this);
+            return true;
+        }else {
+            return false;
+        }
     }
 }
