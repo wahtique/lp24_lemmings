@@ -56,7 +56,7 @@ public class Level {
     public void update(double deltatime){
         vomitsToDel.forEach(l -> vomits.remove(l));
         vomitsToDel.clear();
-        lemmingsList.forEach(l -> l.update(deltatime,this));
+        lemmingsList.forEach(l -> l.update(deltatime));
         vomits.forEach(l -> l.update(deltatime,this));
     }
 

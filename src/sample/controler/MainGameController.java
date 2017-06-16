@@ -45,10 +45,10 @@ public class MainGameController {
         test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),
                                         "resources/Lemming/hitboxes/walk/feets.png",
-                                        "resources/Lemming/hitboxes/walk/body.png");
+                                        "resources/Lemming/hitboxes/walk/body.png", test);
         Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),
                 "resources/Lemming/hitboxes/walk/feets.png",
-                "resources/Lemming/hitboxes/walk/body.png");
+                "resources/Lemming/hitboxes/walk/body.png",test);
         test.getLemmingsList().add(roger);
         test.getLemmingsList().add(paniou);
 
