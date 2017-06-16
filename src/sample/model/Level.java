@@ -9,7 +9,10 @@ import java.util.HashSet;
  */
 public class Level {
     private HashSet<Lemmings> lemmingsList;
-    private HashSet<HitBox> terrain;
+    private HashSet<Collidable> terrain;
+    private HashSet<Vomit> vomits;
+    private HashSet<Vomit> vomitsToDel;
+
 
     public HashSet<Lemmings> getLemmingsList() {
         return lemmingsList;
@@ -19,27 +22,42 @@ public class Level {
         this.lemmingsList = lemmingsList;
     }
 
-    public HashSet<HitBox> getTerrain() {
+    public HashSet<Collidable> getTerrain() {
         return terrain;
     }
 
-    public void setTerrain(HashSet<HitBox> terrain) {
+    public HashSet<Vomit> getVomits(){
+        return vomits;
+    }
+    public void setTerrain(HashSet<Collidable> terrain) {
         this.terrain = terrain;
     }
 
 
-    public Level(HashSet<HitBox> terrain, HashSet<Lemmings> lemmingss) {
+    public Level(HashSet<Collidable> terrain, HashSet<Lemmings> lemmingss) {
         this.terrain = terrain;
         this.lemmingsList = lemmingss;
+        this.vomits = new HashSet<>();
+        this.vomitsToDel = new HashSet<>();
+    }
+
+
+    public void removeVomit(Vomit toDel){
+        vomitsToDel.add(toDel);
+
     }
 
     public Level() {
         this.terrain = null;
         this.lemmingsList = null;
+        this.vomits= null;
     }
 
     public void update(double deltatime){
-        lemmingsList.forEach(l -> l.update(deltatime,terrain));
+        vomitsToDel.forEach(l -> vomits.remove(l));
+        vomitsToDel.clear();
+        lemmingsList.forEach(l -> l.update(deltatime));
+        vomits.forEach(l -> l.update(deltatime,this));
     }
 
     public void drawLevel(GraphicsContext gc){
@@ -47,4 +65,3 @@ public class Level {
         terrain.forEach(t-> t.draw(gc));
     }
 }
-
