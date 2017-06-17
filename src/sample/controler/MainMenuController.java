@@ -63,7 +63,7 @@ public class MainMenuController
     @FXML
     private void switchSceneOnButtonAction(ActionEvent event) throws IOException
     {
-        /*sm.playSound("/resources/Sound/bgm.wav");*/
+        /*sm.playSFX("/resources/Sound/bgm.wav");*/
         //we start by selecting detecting which FXML to use
         Button source = (Button) event.getSource();
         Stage stage = (Stage)source.getScene().getWindow();
