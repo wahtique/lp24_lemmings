@@ -59,7 +59,7 @@ public class SoundManager
     {
 
         stopBGM();
-        BGM.loop(177);
+        BGM.loop(-1);
 
 
     }

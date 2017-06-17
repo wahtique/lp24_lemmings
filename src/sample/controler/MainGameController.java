@@ -34,6 +34,7 @@ public class MainGameController {
 
     public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
+
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
         timeSetter = new MainGameUpdater();
@@ -51,7 +52,11 @@ public class MainGameController {
 
         sm = new SoundManager(0.5,1);
         sm.setBGM("/resources/Sound/bgm.wav");
+        sm.setBGMVolume(100);
         sm.playBGM();
+
+        sm.setSFXVolume(0.1);
+
 
     }
 
@@ -118,6 +123,13 @@ public class MainGameController {
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
                 l.setState(LemmingsStates.Vomit);
+                try {
+                    sm.playSFX("/resources/Sound/tuturu.wav");
+                }catch (Exception e){
+
+                }
+
+
             }
         } );
     }
