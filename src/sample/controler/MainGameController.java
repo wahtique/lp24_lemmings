@@ -76,10 +76,13 @@ public class MainGameController {
 
     }
 
-    public void onMouseClick (MouseEvent e){
+    public void onMouseClick (MouseEvent e) throws IOException {
       //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
             test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
+            sm.setSFXVolume(0.5);
+            sm.playSFX("/resources/Sound/tuturu.wav");
+
         }else{
             //Vomit vomit = new Vomit(new Vector(e.getX(), e.getY()));
             //vomit.flipX();
