@@ -7,9 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import sample.controler.MainGameController;
+import sample.model.SoundManager;
 
-import java.io.FileInputStream;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -45,12 +46,15 @@ public class MainMenuController
     private Button newGameLaunch;
 
 
-    public MainMenuController()
+    public MainMenuController() throws IOException
     {
+
     }
 
     @FXML
-    private void initialze(){}
+    private void initialze() throws IOException
+    {
+    }
 
     /**
      * Method detecting which button activated and calling switchToScene with the right parameter
@@ -59,6 +63,7 @@ public class MainMenuController
     @FXML
     private void switchSceneOnButtonAction(ActionEvent event) throws IOException
     {
+        /*sm.playSFX("/resources/Sound/bgm.wav");*/
         //we start by selecting detecting which FXML to use
         Button source = (Button) event.getSource();
         Stage stage = (Stage)source.getScene().getWindow();
@@ -89,6 +94,12 @@ public class MainMenuController
             try {
                 ((MainGameController) loader.getController()).start();
             } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (UnsupportedAudioFileException e)
+            {
+                e.printStackTrace();
+            } catch (LineUnavailableException e)
+            {
                 e.printStackTrace();
             }
         }

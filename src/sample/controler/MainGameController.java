@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import sample.model.*;
 import sample.view.Drawer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashSet;
@@ -27,7 +29,10 @@ public class MainGameController {
     private AnimatedSprite anim;
     MainGameUpdater timeSetter;
 
-    public void start() throws IOException, URISyntaxException {
+    private SoundManager sm;
+
+    public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
+    {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
         Sprite bg = new Sprite("resources/levels/testlevel1/bg-5.png");
@@ -54,6 +59,10 @@ public class MainGameController {
 
         test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
 
+
+        sm = new SoundManager(0.5,1);
+        sm.setBGM("/resources/Sound/bgm.wav");
+        sm.playBGM();
 
     }
 
@@ -144,4 +153,3 @@ public class MainGameController {
         timeSetter.setTimeSpeed(2);
     }
 }
-
