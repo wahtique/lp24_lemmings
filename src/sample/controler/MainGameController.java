@@ -11,6 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -22,7 +23,7 @@ public class MainGameController {
     private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<Collidable>(), new HashSet<Lemmings>());
+    private Level test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
 
     private Drawer drawer;
 
@@ -35,29 +36,17 @@ public class MainGameController {
     {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        Sprite bg = new Sprite("resources/levels/testlevel1/bg-5.png");
-        Sprite fg = new Sprite("resources/levels/testlevel1/fg1.png");
-        bg.setLayer(-10);
-        fg.setLayer(10);
-        drawer.addSomethingToDraw(bg);
-        drawer.addSomethingToDraw(fg);
-
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-
-        test.getTerrain().add(new HitBox("resources/levels/testlevel1/terrain1.png"));
-        test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),
                                         "resources/Lemming/hitboxes/walk/feets.png",
                                         "resources/Lemming/hitboxes/walk/body.png", test);
         Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),
                 "resources/Lemming/hitboxes/walk/feets.png",
                 "resources/Lemming/hitboxes/walk/body.png",test);
-        test.getLemmingsList().add(roger);
-        test.getLemmingsList().add(paniou);
-
-        test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
+        test.getLemmingsNotSpawned().add(roger);
+        test.getLemmingsNotSpawned().add(paniou);
 
 
         sm = new SoundManager(0.5,1);
@@ -76,45 +65,14 @@ public class MainGameController {
 
     }
 
-    public void onMouseClick (MouseEvent e) throws IOException {
-      //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
+    public void onMouseClick (MouseEvent e) {
+        //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
-            test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
-            sm.setSFXVolume(0.5);
-            sm.playSFX("/resources/Sound/tuturu.wav");
-
-        }else{
-            //Vomit vomit = new Vomit(new Vector(e.getX(), e.getY()));
-            //vomit.flipX();
-            //test.getVomits().add(vomit);
-
+            //test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
+            test.select(new Vector(e.getX(), e.getY()));
+        } else if(e.isSecondaryButtonDown()) {
+            test.deselect(new Vector(e.getX(),e.getY()));
         }
-        /*
-        double time = System.nanoTime();
-        //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
-//        System.out.println(e.getX()+" : "+e.getY());
-        if (e.isPrimaryButtonDown()) {
-//            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
-           // omaia.flipX();
-            star.setPosition(new Vector(e.getX(),e.getY()));
-            Vector temp = null;
-            temp = omaia.getHigherCollidingPoint(omaia.position,star);
-            if (temp != null){
-                System.out.println(temp);
-            }
-
-
-            System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
-        }else if (e.isSecondaryButtonDown()){
-//            currentColor = omaia.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
-            System.out.println(omaia.isInHitbox(new Vector(e.getX(),e.getY())));
-            System.out.println(e.getX() +" : " + e.getY());
-            timeSetter.setTimeSpeed(2);
-        }
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        omaia.draw(gc);
-        star.draw(gc);
-*/
     }
     public void autoSetCanvasDim(){
 
@@ -139,16 +97,29 @@ public class MainGameController {
     }
     @FXML
     public void onButtonPLS(){
-        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Pls);
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Pls);
+            }
+        } );
     }
     @FXML
     public void onButtonConstruct(){
-        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Construct);
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Construct);
+            }
+        } );
     }
+
 
     @FXML
     public void onButtonVomir(){
-        test.getLemmingsList().stream().findFirst().get().setState(LemmingsStates.Vomit);
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Vomit);
+            }
+        } );
     }
 
     @FXML

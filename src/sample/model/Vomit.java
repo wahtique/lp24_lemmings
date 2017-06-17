@@ -30,6 +30,20 @@ public class Vomit extends PhysicalObject implements Collidable {
         //speed = speed.add(new Vector(100,0));
     }
 
+    public Vomit(Vector pos, Vector speed){
+        super(pos);
+        this.animation = new TreeMap<Boolean,AnimatedSprite>();
+        this.isFalling = true;
+        this.hitBoxFalling = new HitBox("/resources/Lemming/vomi/hitboxes/falling.png");
+        this.hitBoxDissolv = new HitBox("resources/Lemming/vomi/hitboxes/dissolve.png");
+        this.animation.put(true,new AnimatedSprite("/resources/Lemming/vomi/falling"));
+        this.animation.put(false,new AnimatedSprite("/resources/Lemming/vomi/dissolving"));
+        Drawer.getDrawer().addSomethingToDraw(this);
+        setPosition(pos);
+        this.speed=speed;
+        //speed = speed.add(new Vector(100,0));
+    }
+
     public void update(double deltaTime, Level level){
 //        this.speed = speed.add(this.forces.mulScal(deltaTime));
 //        setPosition( position.add(this.speed.mulScal(deltaTime)));
