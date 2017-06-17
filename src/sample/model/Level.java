@@ -126,7 +126,7 @@ public class Level {
             if (ttime<=spawndelay){
                 ttime  =ttime+deltatime;
             }else {
-                this.lemmingsNotSpawned.get(0).setPosition(spawnpoint);
+                this.lemmingsNotSpawned.get(0).setPosition(new Vector(spawnpoint.getX(),spawnpoint.getY()));
                 Drawer.getDrawer().addSomethingToDraw(this.lemmingsNotSpawned.get(0));
                 this.lemmingsList.add(this.lemmingsNotSpawned.get(0));
                 this.lemmingsNotSpawned.remove(0);
