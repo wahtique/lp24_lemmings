@@ -19,10 +19,10 @@
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" onAction="#onButtonPLS" text="   PLS   " />
+            <Button mnemonicParsing="false" onAction="#onButtonConstruct" text="construct" />
+            <Button mnemonicParsing="false" onAction="#onButtonVomir" text="Vomir" />
+            <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
          </children>
          <opaqueInsets>
             <Insets />

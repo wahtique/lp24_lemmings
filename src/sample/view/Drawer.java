@@ -2,6 +2,7 @@ package sample.view;
 
 import javafx.scene.canvas.Canvas;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
@@ -10,7 +11,7 @@ import java.util.TreeSet;
 public class Drawer {
     private Drawer(){}
 
-    private TreeSet<DrawAble> toDraw = new TreeSet<>(new DrawAbleComparator());
+    private ArrayList<DrawAble> toDraw = new ArrayList<>();
     private Canvas cv = null;
 
     private static class DrawerHolder{
@@ -29,9 +30,7 @@ public class Drawer {
         if (cv != null){
             cv.getGraphicsContext2D().clearRect(0,0,cv.getWidth(),cv.getHeight());
             toDraw.forEach(o->o.draw(cv.getGraphicsContext2D()));
-          /*  for (DrawAble tod : toDraw){
-                tod.draw(cv.getGraphicsContext2D());
-            }*/
+
         }else{
             System.out.println("NO CANVAS");
         }
@@ -39,6 +38,15 @@ public class Drawer {
 
     public void addSomethingToDraw(DrawAble something){
         toDraw.add(something);
+        toDraw.sort(new DrawAbleComparator());
     }
+    public void deleteSomethingToDraw(DrawAble something){
+      //  System.out.println(toDraw);
+        toDraw.remove(something);
+        //System.out.println(toDraw);
 
+    }
+    public void clearDrawer(){
+        toDraw.clear();
+    }
 }
