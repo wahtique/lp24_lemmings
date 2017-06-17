@@ -9,6 +9,7 @@ import sample.view.Drawer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -20,7 +21,7 @@ public class MainGameController {
     private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<Collidable>(), new HashSet<Lemmings>(), new HitBox("resources/levels/testlevel1/wayout.png"));
+    private Level test = new Level(new HashSet<Collidable>(), new HitBox("resources/levels/testlevel1/wayout.png"),new ArrayList<Lemmings>());
 
     private Drawer drawer;
 
@@ -49,11 +50,8 @@ public class MainGameController {
         Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),
                 "resources/Lemming/hitboxes/walk/feets.png",
                 "resources/Lemming/hitboxes/walk/body.png",test);
-        test.getLemmingsList().add(roger);
-        test.getLemmingsList().add(paniou);
-
-        test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
-
+        test.getLemmingsNotSpawned().add(roger);
+        test.getLemmingsNotSpawned().add(paniou);
 
     }
 

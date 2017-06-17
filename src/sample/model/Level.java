@@ -14,11 +14,11 @@ import java.util.stream.Stream;
  * Created by yann on 19/05/17.
  */
 public class Level {
-    private double ttime=0;
-    private ArrayList<Lemmings> lemminagNotSpawned;
-    private HashSet<Lemmings> lemmingsList;
-    private Vector spawnpoint =new Vector(10,10);
-    private double spawndelay = 2;
+    private double ttime=5;
+    private ArrayList<Lemmings> lemmingsNotSpawned;
+    private HashSet<Lemmings> lemmingsList = new HashSet<>();
+    private Vector spawnpoint =new Vector(10,100);
+    private double spawndelay = 5;
     private HashSet<Collidable> terrain;
     private HashSet<Vomit> vomits;
     private HashSet<Vomit> vomitsToDel;
@@ -26,7 +26,7 @@ public class Level {
     private HitBox exit;
 
     public Level(String url, ArrayList<Lemmings> lts) {
-        this.lemminagNotSpawned = lts;
+        this.lemmingsNotSpawned = lts;
         this.terrain = new HashSet<>();
         this.lemmingsList = new HashSet<>();
         this.vomits = new HashSet<>();
@@ -113,8 +113,8 @@ public class Level {
         }
     }
 
-    public Level(HashSet<Collidable> terrain, HitBox exitArrayList, ArrayList<Lemmings> lts) {
-        this.lemminagNotSpawned = lts;
+    public Level(HashSet<Collidable> terrain, HitBox exit, ArrayList<Lemmings> lts) {
+        this.lemmingsNotSpawned = lts;
         this.lemmingsList= new HashSet<>();
         this.terrain = terrain;
         this.vomits = new HashSet<>();
@@ -123,14 +123,14 @@ public class Level {
     }
 
     public void spawn(double deltatime){
-            if (ttime<spawndelay){
+            if (ttime<=spawndelay){
                 ttime  =ttime+deltatime;
             }else {
-                this.lemminagNotSpawned.get(0).setPosition(spawnpoint);
-                Drawer.getDrawer().addSomethingToDraw(this.lemminagNotSpawned.get(0));
-                this.lemmingsList.add(this.lemminagNotSpawned.get(0));
-                this.lemminagNotSpawned.remove(0);
-                ttime =0;
+                this.lemmingsNotSpawned.get(0).setPosition(spawnpoint);
+                Drawer.getDrawer().addSomethingToDraw(this.lemmingsNotSpawned.get(0));
+                this.lemmingsList.add(this.lemmingsNotSpawned.get(0));
+                this.lemmingsNotSpawned.remove(0);
+                this.ttime =0;
             }
     }
 
@@ -166,7 +166,7 @@ public class Level {
     }
 
     public void update(double deltatime){
-        if (!lemminagNotSpawned.isEmpty()){
+        if (!lemmingsNotSpawned.isEmpty()){
             spawn(deltatime);
         }
         vomitsToDel.forEach(l -> vomits.remove(l));
@@ -199,5 +199,13 @@ public class Level {
     public HitBox getExit() {
 
         return exit;
+    }
+
+    public ArrayList<Lemmings> getLemmingsNotSpawned() {
+        return lemmingsNotSpawned;
+    }
+
+    public void setLemmingsNotSpawned(ArrayList<Lemmings> lemmingsNotSpawned) {
+        this.lemmingsNotSpawned = lemmingsNotSpawned;
     }
 }
