@@ -2,6 +2,12 @@ package sample.model;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
+import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -15,8 +21,7 @@ import java.util.concurrent.Executors;
  */
 public class SoundManager
 {
-    private Media BGM;
-    private MediaPlayer BGMPlayer;
+    private Clip BGM;
 
     public void playSound(String soundFile) throws IOException
     {
@@ -24,62 +29,43 @@ public class SoundManager
         Media m = new Media(urlIn.toString());
         MediaPlayer mp = new MediaPlayer(m);
         mp.setAutoPlay(true);
-        new Thread()
+        new Thread(() ->
         {
-            public void run()
+            synchronized (mp)
             {
-                synchronized (mp)
-                {
-                    mp.stop();
-                    mp.play();
-                }
+                mp.play();
             }
-        }.start();
+        }).start();
     }
 
 
 
-    public void setBGM(String musicFile)
+    public void setBGM(String musicFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException
     {
-        if (!BGM.getSource().equalsIgnoreCase(musicFile))
-        {
-            URL urlIn = getClass().getResource(musicFile);
-            BGM = new Media(urlIn.toString());
-            BGMPlayer = new MediaPlayer(BGM);
-            BGMPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        }
+        URL u = getClass().getResource(musicFile);
+        AudioInputStream BGMStream = AudioSystem.getAudioInputStream(u);
+        BGM.open(BGMStream);
     }
-    public void playBGM()
-    {
-        new Thread()
-        {
-            public void run()
-            {
-                synchronized (BGMPlayer)
-                {
-                    BGMPlayer.stop();
-                    BGMPlayer.setAutoPlay(true);
-                }
 
-            }
-        }.start();
+
+    public void playBGM() throws IOException
+    {
+
+        stopBGM();
+        BGM.loop(177);
+
+
     }
 
     public void stopBGM()
     {
-        if (BGM != null && BGMPlayer != null) BGMPlayer.stop();
+        BGM.stop();
     }
 
-    public SoundManager(String BGMPath) throws IOException
-    {
-        URL urlIn = getClass().getResource(BGMPath);
-        BGM = new Media(urlIn.toString());
-        BGMPlayer  = new MediaPlayer(BGM);
-    }
 
-    public SoundManager()
+    public SoundManager() throws LineUnavailableException
     {
-        BGM = null;
-        BGMPlayer = null;
+
+        BGM = AudioSystem.getClip();
     }
 }

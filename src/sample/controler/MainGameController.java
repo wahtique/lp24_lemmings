@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import sample.model.*;
 import sample.view.Drawer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashSet;
@@ -29,7 +31,8 @@ public class MainGameController {
 
     private SoundManager sm;
 
-    public void start() throws IOException, URISyntaxException {
+    public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
+    {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
         Sprite bg = new Sprite("resources/images/testlevel/bg.png");
@@ -55,7 +58,8 @@ public class MainGameController {
         anim.setLayer(2);
         drawer.addSomethingToDraw(anim);
 
-        sm = new SoundManager("/resources/Sound/tuturu.wav");
+        sm = new SoundManager();
+        sm.setBGM("/resources/Sound/tuturu.wav");
         sm.playBGM();
 
     }

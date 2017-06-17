@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import sample.model.SoundManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -92,6 +94,12 @@ public class MainMenuController
             try {
                 ((MainGameController) loader.getController()).start();
             } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (UnsupportedAudioFileException e)
+            {
+                e.printStackTrace();
+            } catch (LineUnavailableException e)
+            {
                 e.printStackTrace();
             }
         }
