@@ -21,7 +21,7 @@ public class MainGameController {
     private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<Collidable>(), new HitBox("resources/levels/testlevel1/wayout.png"),new ArrayList<Lemmings>());
+    private Level test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
 
     private Drawer drawer;
 
@@ -31,19 +31,9 @@ public class MainGameController {
     public void start() throws IOException, URISyntaxException {
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        Sprite bg = new Sprite("resources/levels/testlevel1/bg-5.png");
-        Sprite fg = new Sprite("resources/levels/testlevel1/fg1.png");
-        bg.setLayer(-10);
-        fg.setLayer(10);
-        drawer.addSomethingToDraw(bg);
-        drawer.addSomethingToDraw(fg);
-
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-
-        test.getTerrain().add(new HitBox("resources/levels/testlevel1/terrain1.png"));
-        test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),
                                         "resources/Lemming/hitboxes/walk/feets.png",
                                         "resources/Lemming/hitboxes/walk/body.png", test);
@@ -52,6 +42,7 @@ public class MainGameController {
                 "resources/Lemming/hitboxes/walk/body.png",test);
         test.getLemmingsNotSpawned().add(roger);
         test.getLemmingsNotSpawned().add(paniou);
+
 
     }
 

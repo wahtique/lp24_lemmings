@@ -67,7 +67,9 @@ public class Level {
                     String[] words = line.split("=");
                     switch (words[0]){
                         case "terrain":
-                            terrain.add(new HitBox(url +"/" +words[1]));
+                            HitBox trn = new HitBox(url +"/" +words[1]);
+                            terrain.add(trn);
+                            Drawer.getDrawer().addSomethingToDraw(trn);
                             break;
                         case "decor":
                             Sprite image = new Sprite(url +"/" +words[1]);
