@@ -3,6 +3,7 @@ package sample.controler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import sample.model.*;
@@ -91,6 +92,7 @@ public class MainGameController {
             test.deselect(new Vector(e.getX(),e.getY()));
         }
     }
+
     public void autoSetCanvasDim(){
 
         if (panneau.getWidth()>panneau.getHeight()) {
@@ -167,5 +169,30 @@ public class MainGameController {
     public void restartLevel() throws Exception {
         Drawer.getDrawer().clearDrawer();
         start();
+    }
+
+    public void onKeyPressed(KeyEvent e){
+
+        System.out.println(e.getText());
+        switch (e.getText()){
+            case "a":
+                onButtonPLS();
+                break;
+            case "z":
+                onButtonConstruct();
+                break;
+            case "e":
+                onButtonVomir();
+                break;
+            case "²"://tout sélectionner
+                test.getLemmingsList().forEach(l->l.setSelected(false));
+                break;
+            case "+":
+                accelWorld();
+                break;
+            case "i": //inversion de la sélection
+                test.getLemmingsList().forEach(l->l.setSelected(!(l.isSelected())));
+            default:break;
+        }
     }
 }
