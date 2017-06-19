@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import sample.model.*;
 import sample.view.Drawer;
 
@@ -12,6 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static sample.model.SoundManager.getSoundManager;
@@ -25,88 +25,60 @@ public class MainGameController {
     private Pane panneau;
 
    // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level(new HashSet<HitBox>(), new HashSet<Lemmings>());
+    private Level test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
 
     private Drawer drawer;
 
     private AnimatedSprite anim;
+    MainGameUpdater timeSetter;
 
     private SoundManager sm;
 
     public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
+
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        Sprite bg = new Sprite("resources/images/testlevel/bg.png");
-        bg.setLayer(-10);
-        drawer.addSomethingToDraw(bg);
-
-        MainGameUpdater timeSetter = new MainGameUpdater();
+        timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),
+                                        "resources/Lemming/hitboxes/walk/feets.png",
+                                        "resources/Lemming/hitboxes/walk/body.png", test);
+        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),
+                "resources/Lemming/hitboxes/walk/feets.png",
+                "resources/Lemming/hitboxes/walk/body.png",test);
+        test.getLemmingsNotSpawned().add(roger);
+        test.getLemmingsNotSpawned().add(paniou);
 
-        test.getTerrain().add(new HitBox("resources/images/LevelTest.png"));
-        test.getTerrain().forEach(o->drawer.addSomethingToDraw(o));
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/testLemming.png");
-        Lemmings roger2 = new Lemmings(new Vector(50,20), new Vector(10,0), new Vector(0,10),"resources/images/Lfeet.png","resources/images/Lbody.png");
-        test.getLemmingsList().add(roger);
-        test.getLemmingsList().add(roger2);
-        test.getLemmingsList().forEach(o->drawer.addSomethingToDraw(o));
-
-
-        //anim = new AnimatedSprite("/resources/Anim/taiste",true);
-        anim = new AnimatedSprite("/resources/Lemming/Anim/walk");
-        anim.replaceColor(Color.rgb(0,255,0), Color.rgb(0,0,0),100);
-        anim.setLayer(2);
-        drawer.addSomethingToDraw(anim);
 
 
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
+
+        sm.setSFXVolume(0.01);
+
 
     }
 
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-       anim.update(deltaTime);
+//       anim.update(deltaTime);
        test.update(deltaTime);
        drawer.draw();
      //  test.drawLevel(canvas.getGraphicsContext2D());
 
     }
 
-    public void onMouseClick (MouseEvent e) throws IOException
-    {
-        System.out.println("click");
-        test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
-        getSoundManager().playSFX("/resources/Sound/tuturu.wav");
-        /*
-        double time = System.nanoTime();
-        //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
-//        System.out.println(e.getX()+" : "+e.getY());
+    public void onMouseClick (MouseEvent e) {
+        //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
-//            omaia.modifyPixelCanvasRef(new Vector ((int) ((e.getX())), (int) ((e.getY()))), currentColor);
-           // omaia.flipX();
-            star.setPosition(new Vector(e.getX(),e.getY()));
-            Vector temp = null;
-            temp = omaia.getHigherCollidingPoint(omaia.position,star);
-            if (temp != null){
-                System.out.println(temp);
-            }
-
-
-            System.out.println("temps passé ds la boucle : " + (double)(System.nanoTime()-time)/1000000000.0);
-        }else if (e.isSecondaryButtonDown()){
-//            currentColor = omaia.getPixelColorCanvasRef(new Vector ((int)e.getX(),(int)e.getY()));
-            System.out.println(omaia.isInHitbox(new Vector(e.getX(),e.getY())));
-            System.out.println(e.getX() +" : " + e.getY());
-            timeSetter.setTimeSpeed(2);
+            //test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
+            test.select(new Vector(e.getX(), e.getY()));
+        } else if(e.isSecondaryButtonDown()) {
+            test.deselect(new Vector(e.getX(),e.getY()));
         }
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        omaia.draw(gc);
-        star.draw(gc);
-*/
     }
     public void autoSetCanvasDim(){
 
@@ -129,6 +101,52 @@ public class MainGameController {
 
 
     }
+    @FXML
+    public void onButtonPLS(){
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Pls);
+                try {
+                    sm.playSFX("/resources/Sound/sfxPls.wav");
+                }catch (Exception e){
+
+                }
+            }
+        } );
+    }
+    @FXML
+    public void onButtonConstruct(){
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Construct);
+                try {
+                    sm.playSFX("/resources/Sound/sfxBuild.wav");
+                }catch (Exception e){
+
+                }
+            }
+        } );
+    }
+
+
+    @FXML
+    public void onButtonVomir(){
+        test.getLemmingsList().forEach(l->{
+            if(l.isSelected()){
+                l.setState(LemmingsStates.Vomit);
+                try {
+                    sm.playSFX("/resources/Sound/sfxVomi.wav");
+                }catch (Exception e){
+
+                }
+
+
+            }
+        } );
+    }
+
+    @FXML
+    public void accelWorld(){
+        timeSetter.setTimeSpeed(2);
+    }
 }
-
-

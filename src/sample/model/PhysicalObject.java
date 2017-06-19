@@ -5,9 +5,12 @@ package sample.model;
  * Created by yann on 12/05/17.
  */
 public class PhysicalObject {
+    protected static final Vector gravite = new Vector(0,100);
+
     protected Vector position;
     protected Vector speed;
     protected Vector forces;
+
 
     public PhysicalObject(Vector position, Vector speed, Vector forces) {
         this.position = position;
@@ -15,10 +18,25 @@ public class PhysicalObject {
         this.forces = forces;
     }
 
+    public PhysicalObject(Vector position, Vector speed) {
+        this.position = position;
+        this.speed = speed;
+        this.forces = new Vector(0,0);
+        this.forces = this.forces.add(gravite);
+    }
+
+    public PhysicalObject(Vector position) {
+        this.position = position;
+        this.speed = new Vector(0,0);
+        this.forces = new Vector(0,0);
+        this.forces = this.forces.add(gravite);
+    }
+
     public PhysicalObject() {
         this.position = new Vector(0,0);
         this.speed = new Vector(0, 0);
         this.forces = new Vector(0, 0);
+        this.forces = this.forces.add(gravite);
     }
 
     public Vector getPosition() {
