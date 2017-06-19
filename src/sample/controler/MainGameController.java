@@ -59,11 +59,6 @@ public class MainGameController {
             timeSetter.start(this);
         }
         currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0), currentLevel);
-        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0), currentLevel);
-        currentLevel.getLemmingsNotSpawned().add(roger);
-        currentLevel.getLemmingsNotSpawned().add(paniou);
-
 
         Pls.setText("Pls :"+ currentLevel.Pls);
         Construct.setText("Construct :"+ currentLevel.Construct);
