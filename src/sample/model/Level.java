@@ -93,15 +93,6 @@ public class Level {
 
 
 
-                   /* if (words[0].contentEquals("terrain")) {
-                        terrain.add(new HitBox(url +"/" +words[1]));
-                    } else if (words[0].contentEquals("bg")) {
-                        Sprite image = new Sprite(url +"/" +words[1]);
-                        if (!words[2].isEmpty()){
-                            image.setLayer(Integer.parseInt(words[2]));
-                        }
-                        Drawer.getDrawer().addSomethingToDraw(image);
-                    } else if(words.)*/
 
                     line = input.readLine();
                 }
