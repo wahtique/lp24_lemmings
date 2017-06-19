@@ -14,13 +14,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static sample.controler.SceneSwitcher.switchToScene;
+
 /**
  * @author William
  * @since 15/05/2017
  */
 public class MainMenuController
 {
-    private static final String FXMLfolder = "sample/view/" ;
+
 
     @FXML
     private Button newGameButton;
@@ -112,23 +114,7 @@ public class MainMenuController
     }
 
 
-    /**
-     * Method switching to another scene in the same stage
-     * @param sceneName String corresponding to the name of the FXML, without file extension
-     * @param stage the stage on which we operate. Gotta find a better way to access it.
-     * @return loader the FXML loader of the scene
-    */
-    @FXML
-    private FXMLLoader switchToScene(String sceneName, Stage stage) throws IOException
-    {
-        FXMLLoader loader = new FXMLLoader();
-        /*FileInputStream fin = new FileInputStream(FXMLfolder + sceneName +".fxml");*/
-        Parent root = loader.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(FXMLfolder + sceneName +".fxml"));
-        Scene sc = new Scene(root);
-        stage.setScene(sc);
-        stage.show();
-        /*fin.close();*/
-        return loader;
-    }
+
+
 
 }
