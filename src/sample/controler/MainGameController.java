@@ -185,13 +185,13 @@ public class MainGameController {
                 onButtonVomir();
                 break;
             case "²"://tout sélectionner
-                test.getLemmingsList().forEach(l->l.setSelected(false));
+                currentLevel.getLemmingsList().forEach(l->l.setSelected(false));
                 break;
             case "+":
                 accelWorld();
                 break;
             case "i": //inversion de la sélection
-                test.getLemmingsList().forEach(l->l.setSelected(!(l.isSelected())));
+                currentLevel.getLemmingsList().forEach(l->l.setSelected(!(l.isSelected())));
             default:break;
         }
     }
