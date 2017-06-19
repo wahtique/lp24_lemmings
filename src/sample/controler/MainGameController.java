@@ -40,12 +40,8 @@ public class MainGameController {
         timeSetter = new MainGameUpdater();
         timeSetter.start(this);
 
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),
-                                        "resources/Lemming/hitboxes/walk/feets.png",
-                                        "resources/Lemming/hitboxes/walk/body.png", test);
-        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),
-                "resources/Lemming/hitboxes/walk/feets.png",
-                "resources/Lemming/hitboxes/walk/body.png",test);
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),test);
+        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),test);
         test.getLemmingsNotSpawned().add(roger);
         test.getLemmingsNotSpawned().add(paniou);
 

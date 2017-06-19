@@ -52,6 +52,19 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     }
 
+    public Lemmings(Vector position, Vector speed, Level level) {
+        super(position, speed);
+        this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
+        this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
+        this.level = level;
+        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
+        this.lemData = new StudentData();
+        this.state = LemmingsStates.Walk;
+        addAnimations();
+
+    }
+
     private void addAnimations(){
         animation = new TreeMap<LemmingsStates, AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk"));
