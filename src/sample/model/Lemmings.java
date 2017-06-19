@@ -5,10 +5,13 @@ import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 import sample.view.Drawer;
 
+import java.io.IOException;
 import java.util.DoubleSummaryStatistics;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static sample.model.SoundManager.getSoundManager;
 
 /**
  * Created by yann on 12/05/17.
@@ -127,7 +130,11 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.state = LemmingsStates.Pls;
         this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
         this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomidetect.png");
+        try {
+            getSoundManager().playSFX("/resources/Sound/sfxPls.wav");
+        }catch (Exception e){
 
+        }
         level.getTerrain().add(this);
         this.animation.get(state).reset();
     }
@@ -185,6 +192,12 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                 Drawer.getDrawer().addSomethingToDraw(brick);
                 ttime = time;
                 nbbrick++;
+                try {
+                    getSoundManager().playSFX("/resources/Sound/sfxBuild.wav");
+                }catch (Exception e){
+
+                }
+
             } else {
                 ttime = ttime - deltaTime;
 

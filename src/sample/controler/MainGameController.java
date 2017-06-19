@@ -100,13 +100,9 @@ public class MainGameController {
     public void onButtonPLS(){
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
-                if (l.setState(LemmingsStates.Pls)) {
-                    try {
-                        getSoundManager().playSFX("/resources/Sound/sfxPls.wav");
-                    } catch (Exception e) {
+                l.setState(LemmingsStates.Pls);
 
-                    }
-                }
+
             }
         } );
     }
@@ -114,13 +110,8 @@ public class MainGameController {
     public void onButtonConstruct(){
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
-                if(l.setState(LemmingsStates.Construct)) {
-                    try {
-                        getSoundManager().playSFX("/resources/Sound/sfxBuild.wav");
-                    } catch (Exception e) {
+                l.setState(LemmingsStates.Construct);
 
-                    }
-                }
             }
         } );
     }
