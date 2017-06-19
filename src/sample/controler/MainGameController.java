@@ -14,10 +14,8 @@ import sample.view.Drawer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import static sample.controler.SceneSwitcher.switchToScene;
 import static sample.model.SoundManager.getSoundManager;
@@ -171,6 +169,8 @@ public class MainGameController {
         savegame.setLevel(savegame.getLevel()+1);
         FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
         ((InterLevelController)loader.getController()).start(savegame);
+        System.gc();
+        System.runFinalization();
     }
 
     public void onKeyPressed(KeyEvent e){
