@@ -28,7 +28,7 @@ public class InterLevelController
     @FXML
     private Button interLevelMainMenuButton;
 
-    GameSession session;
+    private GameSession session;
 
     private void start(GameSession session, Boolean success)
     {
