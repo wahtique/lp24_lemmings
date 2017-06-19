@@ -2,6 +2,7 @@ package sample.controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import sample.model.*;
@@ -9,6 +10,7 @@ import sample.view.Drawer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -23,8 +25,16 @@ public class MainGameController {
     @FXML
     private Pane panneau;
 
-   // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
+    @FXML
+    private Button Vomit;
+    @FXML
+    private Button Pls;
+    @FXML
+    private Button Construct;
+
+
+    // private Color currentColor = Color.color(1, 0.0078, 0);
+    private Level test;
 
     private Drawer drawer;
 
@@ -33,20 +43,26 @@ public class MainGameController {
 
 
 
+
     public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
 
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        timeSetter = new MainGameUpdater();
-        timeSetter.start(this);
-
+        if (timeSetter == null) {
+            timeSetter = new MainGameUpdater();
+            timeSetter.start(this);
+        }
+        test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),test);
         Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),test);
         test.getLemmingsNotSpawned().add(roger);
         test.getLemmingsNotSpawned().add(paniou);
 
 
+        Pls.setText("Pls :"+test.Pls);
+        Construct.setText("Construct :"+test.Construct);
+        Vomit.setText("Vomit :"+test.Vomits);
 
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
@@ -99,18 +115,25 @@ public class MainGameController {
     @FXML
     public void onButtonPLS(){
         test.getLemmingsList().forEach(l->{
-            if(l.isSelected()){
-                l.setState(LemmingsStates.Pls);
+            if(l.isSelected() && test.Pls > 0){
+                if (l.setState(LemmingsStates.Pls)){
+                    test.Pls -= 1;
+                    Pls.setText("Pls :"+test.Pls);
 
-
+                }
             }
         } );
     }
     @FXML
     public void onButtonConstruct(){
         test.getLemmingsList().forEach(l->{
-            if(l.isSelected()){
-                l.setState(LemmingsStates.Construct);
+            if(l.isSelected()&& test.Construct > 0){
+                if (l.setState(LemmingsStates.Construct)){
+                    test.Construct -= 1;
+                    Construct.setText("Construct :"+test.Construct);
+
+
+                }
 
             }
         } );
@@ -120,13 +143,15 @@ public class MainGameController {
     @FXML
     public void onButtonVomir(){
         test.getLemmingsList().forEach(l->{
-            if(l.isSelected()){
+            if(l.isSelected() && test.Vomits > 0){
                 if (l.setState(LemmingsStates.Vomit)) {
                     try {
                         getSoundManager().playSFX("/resources/Sound/sfxVomi.wav");
                     } catch (Exception e) {
 
                     }
+                    test.Vomits -= 1;
+                    Vomit.setText("Vomit :"+test.Vomits);
                 }
 
 
@@ -137,5 +162,10 @@ public class MainGameController {
     @FXML
     public void accelWorld(){
         timeSetter.setTimeSpeed(2);
+    }
+
+    public void restartLevel() throws Exception {
+        Drawer.getDrawer().clearDrawer();
+        start();
     }
 }
