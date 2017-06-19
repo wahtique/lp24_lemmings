@@ -30,17 +30,9 @@ public class InterLevelController
 
     private GameSession session;
 
-    private void start(GameSession session, Boolean success)
+    private void start(GameSession session)
     {
-        if(success)
-        {
-            //if we can advance to the next level
-            interLevelNextButton.setDisable(false);
-
-        }else
-        {
-            interLevelNextButton.setDisable(true);
-        }
+        this.session = session;
     }
 
     @FXML

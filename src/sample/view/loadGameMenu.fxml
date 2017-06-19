@@ -24,7 +24,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="loadGameLoadButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="198.0" text="Load">
+            <Button fx:id="loadGameLoadButton" mnemonicParsing="false" onAction="#loadGame" prefHeight="44.0" prefWidth="198.0" text="Load">
                <font>
                   <Font size="20.0" />
                </font>

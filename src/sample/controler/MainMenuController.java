@@ -72,6 +72,8 @@ public class MainMenuController
     private TextField loadGameLevelTextField;
     @FXML
     private TextField newGameNameTextField;
+    @FXML
+    private Button getLoadGameLoadButton;
 
 
 
@@ -102,6 +104,7 @@ public class MainMenuController
         }
         else if (source == loadGameButton)
         {
+            savegame = null;
             switchToScene("loadGameMenu",stage);
         }
         else if(source == settingsButton)
@@ -117,7 +120,7 @@ public class MainMenuController
         {
             stage.close();
         }
-        else if(source == newGameLaunch)
+        else if(source == newGameLaunch || source == loadGameLoadButton)
         {
             FXMLLoader loader = switchToScene("mainGame",stage);
             stage.setMaximized(true);
@@ -214,7 +217,23 @@ public class MainMenuController
         {
             e.printStackTrace();
         }
+        savegame.saveGameSession();
         switchSceneOnButtonAction(event);
     }
+
+    @FXML
+    private void loadGame(ActionEvent event) throws IOException
+    {
+        if(savegame != null)
+        {
+            loadGameLoadButton.setText("Load");
+            switchSceneOnButtonAction(event);
+        }
+        else
+        {
+            loadGameLoadButton.setText("U DRUNK ?");
+        }
+    }
+
 
 }
