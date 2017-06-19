@@ -184,9 +184,14 @@ public class MainGameController {
             case "e":
                 onButtonVomir();
                 break;
-            case "²":
+            case "²"://tout sélectionner
                 test.getLemmingsList().forEach(l->l.setSelected(false));
                 break;
+            case "+":
+                accelWorld();
+                break;
+            case "i": //inversion de la sélection
+                test.getLemmingsList().forEach(l->l.setSelected(!(l.isSelected())));
             default:break;
         }
     }
