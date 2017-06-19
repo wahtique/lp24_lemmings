@@ -25,6 +25,7 @@ public class Level {
     private HashSet<Lemmings> garbageLemmings = new HashSet<>();
     private HitBox exit;
 
+
     public Level(String url, ArrayList<Lemmings> lts) {
         this.lemmingsNotSpawned = lts;
         this.terrain = new HashSet<>();

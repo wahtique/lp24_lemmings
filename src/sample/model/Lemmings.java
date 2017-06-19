@@ -28,20 +28,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
     private boolean isSelected = false;
+    private StudentData data;
 
     @Deprecated
-    public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body, Level level) {
-        super(position, speed, forces);
-        this.feet = new HitBox(feet);
-        this.body = new HitBox(body);
-        this.level = level;
-        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
-
-        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
-        this.lemData = new StudentData();
-        this.state = LemmingsStates.Walk;
-        addAnimations();
-    }
     public Lemmings(Vector position, Vector speed, String feet, String body, Level level) {
         super(position, speed);
         this.feet = new HitBox(feet);
@@ -63,6 +52,19 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
+        this.state = LemmingsStates.Walk;
+        addAnimations();
+
+    }
+
+    public Lemmings(Vector position, Vector speed, Level level,StudentData data) {
+        super(position, speed);
+        this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
+        this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
+        this.level = level;
+        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
+        this.lemData = data;
         this.state = LemmingsStates.Walk;
         addAnimations();
 
@@ -311,6 +313,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         if(this.willBeColliding(position,level.getExit())){
             level.getGarbageLemmings().add(this);
             Drawer.getDrawer().deleteSomethingToDraw(this);
+            data.setExamsAttended(data.getExamsAttended()+1);
             return true;
         }else {
             return false;
