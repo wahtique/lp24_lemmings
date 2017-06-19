@@ -15,7 +15,7 @@ public class LoadableLevel extends Level {
         this.gameSession = gameSession;
 
         for(StudentData data:gameSession.getStudents()){
-            getLemmingsNotSpawned().add(new Lemmings(new Vector(120,20), new Vector(50,0),this,data));
+            getLemmingsNotSpawned().add(new Lemmings(new Vector(120,20), new Vector(50,0),this,data,gameSession.getLevel()));
         }
 
     }

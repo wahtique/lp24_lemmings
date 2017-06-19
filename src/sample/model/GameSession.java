@@ -39,7 +39,7 @@ public class GameSession implements Serializable
     {
         this.playerName = playerName;
         this.numberOfStudents = numberOfStudents;
-        level = 0;
+        level = 1;
         students = new ArrayList<>();
         /*I had numerOfStudent to the list students*/
         for(int i = 1; i <= numberOfStudents; i++)

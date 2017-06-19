@@ -5,8 +5,6 @@ import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 import sample.view.Drawer;
 
-import java.io.IOException;
-import java.util.DoubleSummaryStatistics;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,11 +22,10 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private HitBox feet;
     private HitBox body;
     private LemmingsStates state;
-    private StudentData lemData;
+    private StudentData data;
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
     private boolean isSelected = false;
-    private StudentData data;
 
     @Deprecated
     public Lemmings(Vector position, Vector speed, String feet, String body, Level level) {
@@ -37,7 +34,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.body = new HitBox(body);
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
-        this.lemData = new StudentData();
+        this.data = new StudentData();
         this.state = LemmingsStates.Walk;
         addAnimations();
 
@@ -49,7 +46,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
-        this.lemData = new StudentData();
+        this.data = new StudentData();
         this.state = LemmingsStates.Walk;
         addAnimations();
         for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
@@ -57,16 +54,16 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         }
     }
 
-    public Lemmings(Vector position, Vector speed, LoadableLevel level,StudentData data) {
+    public Lemmings(Vector position, Vector speed, LoadableLevel level,StudentData data, int nExams) {
         super(position, speed);
         this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
         this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
 
         this.level = level;
-        this.lemData = data;
+        this.data = data;
         this.state = LemmingsStates.Walk;
         addAnimations();
-        colorNote(level);
+        colorNote(nExams);
 
 
     }
@@ -81,23 +78,23 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         animation.put(LemmingsStates.Vomit, new AnimatedSprite("/resources/Lemming/Anim/animVomit"));
     }
 
-    private void colorNote(LoadableLevel level){
-        if (data.getExamsAttended()/level.getLevel() >= 0.7){//A ou B
+    private void colorNote(int nExams){
+        if (data.getExamsAttended()/nExams >= 0.7){//A ou B
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(33, 168, 11), 50);
             }
 
-        }else if (data.getExamsAttended()/level.getLevel() >= 0.5){//C ou D
+        }else if (data.getExamsAttended()/nExams >= 0.5){//C ou D
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(158, 194, 87), 50);
             }
 
-        }else if (data.getExamsAttended()/level.getLevel() >= 0.4){//E
+        }else if (data.getExamsAttended()/nExams >= 0.4){//E
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 184, 0), 50);
             }
 
-        }else if (data.getExamsAttended()/level.getLevel() < 0.4){//F ou Fx
+        }else if (data.getExamsAttended()/nExams < 0.4){//F ou Fx
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(226, 90, 90), 50);
             }
@@ -259,12 +256,12 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     }
 
-    public StudentData getLemData() {
-        return lemData;
+    public StudentData getData() {
+        return data;
     }
 
-    public void setLemData(StudentData lemData) {
-        this.lemData = lemData;
+    public void setData(StudentData data) {
+        this.data = data;
     }
 
     public void draw(GraphicsContext gc) {
