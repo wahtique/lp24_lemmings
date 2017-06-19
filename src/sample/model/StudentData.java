@@ -29,7 +29,7 @@ public class StudentData implements Serializable
 
     public StudentData()
     {
-        examsAttended = 0;
+        examsAttended = 1;
     }
 
     @Override

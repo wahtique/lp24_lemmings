@@ -35,7 +35,7 @@ public class MainGameController {
 
 
     // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test;
+    private LoadableLevel currentLevel;
 
     private Drawer drawer;
 
@@ -45,7 +45,7 @@ public class MainGameController {
 
 
 
-    public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
+    public void start(GameSession savegame) throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
 
         drawer = Drawer.getDrawer();
@@ -54,16 +54,16 @@ public class MainGameController {
             timeSetter = new MainGameUpdater();
             timeSetter.start(this);
         }
-        test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
-        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),test);
-        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),test);
-        test.getLemmingsNotSpawned().add(roger);
-        test.getLemmingsNotSpawned().add(paniou);
+        currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+        Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0), currentLevel);
+        Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0), currentLevel);
+        currentLevel.getLemmingsNotSpawned().add(roger);
+        currentLevel.getLemmingsNotSpawned().add(paniou);
 
 
-        Pls.setText("Pls :"+test.Pls);
-        Construct.setText("Construct :"+test.Construct);
-        Vomit.setText("Vomit :"+test.Vomits);
+        Pls.setText("Pls :"+ currentLevel.Pls);
+        Construct.setText("Construct :"+ currentLevel.Construct);
+        Vomit.setText("Vomit :"+ currentLevel.Vomits);
 
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
@@ -77,19 +77,19 @@ public class MainGameController {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
 //       anim.update(deltaTime);
-       test.update(deltaTime);
+       currentLevel.update(deltaTime);
        drawer.draw();
-     //  test.drawLevel(canvas.getGraphicsContext2D());
+     //  currentLevel.drawLevel(canvas.getGraphicsContext2D());
 
     }
 
     public void onMouseClick (MouseEvent e) {
-        //  test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
+        //  currentLevel.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
-            //test.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
-            test.select(new Vector(e.getX(), e.getY()));
+            //currentLevel.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
+            currentLevel.select(new Vector(e.getX(), e.getY()));
         } else if(e.isSecondaryButtonDown()) {
-            test.deselect(new Vector(e.getX(),e.getY()));
+            currentLevel.deselect(new Vector(e.getX(),e.getY()));
         }
     }
 
@@ -116,11 +116,11 @@ public class MainGameController {
     }
     @FXML
     public void onButtonPLS(){
-        test.getLemmingsList().forEach(l->{
-            if(l.isSelected() && test.Pls > 0){
+        currentLevel.getLemmingsList().forEach(l->{
+            if(l.isSelected() && currentLevel.Pls > 0){
                 if (l.setState(LemmingsStates.Pls)){
-                    test.Pls -= 1;
-                    Pls.setText("Pls :"+test.Pls);
+                    currentLevel.Pls -= 1;
+                    Pls.setText("Pls :"+ currentLevel.Pls);
 
                 }
             }
@@ -128,11 +128,11 @@ public class MainGameController {
     }
     @FXML
     public void onButtonConstruct(){
-        test.getLemmingsList().forEach(l->{
-            if(l.isSelected()&& test.Construct > 0){
+        currentLevel.getLemmingsList().forEach(l->{
+            if(l.isSelected()&& currentLevel.Construct > 0){
                 if (l.setState(LemmingsStates.Construct)){
-                    test.Construct -= 1;
-                    Construct.setText("Construct :"+test.Construct);
+                    currentLevel.Construct -= 1;
+                    Construct.setText("Construct :"+ currentLevel.Construct);
 
 
                 }
@@ -144,16 +144,16 @@ public class MainGameController {
 
     @FXML
     public void onButtonVomir(){
-        test.getLemmingsList().forEach(l->{
-            if(l.isSelected() && test.Vomits > 0){
+        currentLevel.getLemmingsList().forEach(l->{
+            if(l.isSelected() && currentLevel.Vomits > 0){
                 if (l.setState(LemmingsStates.Vomit)) {
                     try {
                         getSoundManager().playSFX("/resources/Sound/sfxVomi.wav");
                     } catch (Exception e) {
 
                     }
-                    test.Vomits -= 1;
-                    Vomit.setText("Vomit :"+test.Vomits);
+                    currentLevel.Vomits -= 1;
+                    Vomit.setText("Vomit :"+ currentLevel.Vomits);
                 }
 
 
@@ -167,8 +167,8 @@ public class MainGameController {
     }
 
     public void restartLevel() throws Exception {
-        Drawer.getDrawer().clearDrawer();
-        start();
+        /*Drawer.getDrawer().clearDrawer();
+        *//*start();*/
     }
 
     public void onKeyPressed(KeyEvent e){
