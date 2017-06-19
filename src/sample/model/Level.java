@@ -195,6 +195,12 @@ public class Level {
             this.lemmingsList.stream().filter(l -> l.isInHitbox(pos)).findFirst().get().setSelected(true);
         }
     }
+    public void toggleSelect(Vector pos){
+        if (lemmingsList.stream().anyMatch(l -> l.isInHitbox(pos))) {
+            Lemmings temp = this.lemmingsList.stream().filter(l -> l.isInHitbox(pos)).findFirst().get();
+            temp.setSelected(!temp.isSelected());
+        }
+    }
 
     public void deselect(Vector pos) {
         if (lemmingsList.stream().anyMatch(l -> l.isInHitbox(pos) && l.isSelected())) {

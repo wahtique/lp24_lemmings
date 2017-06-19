@@ -87,7 +87,7 @@ public class MainGameController {
         //  currentLevel.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
             //currentLevel.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
-            currentLevel.select(new Vector(e.getX(), e.getY()));
+            currentLevel.toggleSelect(new Vector(e.getX(), e.getY()));
         } else if(e.isSecondaryButtonDown()) {
             currentLevel.deselect(new Vector(e.getX(),e.getY()));
         }

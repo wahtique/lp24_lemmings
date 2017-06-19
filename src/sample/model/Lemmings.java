@@ -79,7 +79,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     }
 
     private void colorNote(int nExams){
-        System.out.println(data.getExamsAttended() + "/" + nExams);
+      //  System.out.println(data.getExamsAttended() + "/" + nExams);
         double moyenne = (double)(data.getExamsAttended())/(double)(nExams);
         if (moyenne >= 0.7){//A ou B
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
