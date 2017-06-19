@@ -54,5 +54,9 @@ public class MainGameUpdater extends AnimationTimer{
         return (System.nanoTime() - startTime) / 1000000000.0;
     }
 
+    public void setMaingame(MainGameController main){
+        this.mainGame = main;
+    }
+
 
 }

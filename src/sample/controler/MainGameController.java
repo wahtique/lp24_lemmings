@@ -45,10 +45,11 @@ public class MainGameController {
     private MainGameUpdater timeSetter;
     private GameSession savegame;
 
-
+    private boolean ended = false;
 
     public void start(GameSession savegame) throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
+        ended = false;
         this.savegame = savegame;
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
@@ -77,6 +78,8 @@ public class MainGameController {
        currentLevel.update(deltaTime);
        drawer.draw();
      //  currentLevel.drawLevel(canvas.getGraphicsContext2D());
+        if (ended)
+            System.out.println("wut");
 
     }
 
@@ -169,6 +172,9 @@ public class MainGameController {
         savegame.setLevel(savegame.getLevel()+1);
         FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
         ((InterLevelController)loader.getController()).start(savegame);
+        ended = true;
+        timeSetter.setMaingame(null);
+        timeSetter = null;
         System.gc();
         System.runFinalization();
     }
