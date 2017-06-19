@@ -34,7 +34,7 @@ public class MainGameController {
 
 
     // private Color currentColor = Color.color(1, 0.0078, 0);
-    private Level test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
+    private Level test;
 
     private Drawer drawer;
 
@@ -49,9 +49,11 @@ public class MainGameController {
 
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
-        timeSetter = new MainGameUpdater();
-        timeSetter.start(this);
-
+        if (timeSetter == null) {
+            timeSetter = new MainGameUpdater();
+            timeSetter.start(this);
+        }
+        test = new Level("/resources/levels/testlevel1",new ArrayList<Lemmings>());
         Lemmings roger = new Lemmings(new Vector(120,20), new Vector(50,0),test);
         Lemmings paniou = new Lemmings(new Vector(50,20), new Vector(50,0),test);
         test.getLemmingsNotSpawned().add(roger);
@@ -160,5 +162,10 @@ public class MainGameController {
     @FXML
     public void accelWorld(){
         timeSetter.setTimeSpeed(2);
+    }
+
+    public void restartLevel() throws Exception {
+        Drawer.getDrawer().clearDrawer();
+        start();
     }
 }

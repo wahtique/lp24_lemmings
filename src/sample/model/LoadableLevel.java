@@ -19,4 +19,8 @@ public class LoadableLevel extends Level {
         }
 
     }
+
+    public int getLevel(){
+        return gameSession.getLevel();
+    }
 }
