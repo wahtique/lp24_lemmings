@@ -50,6 +50,7 @@ public class SoundManager
     {
         URL u = getClass().getResource(musicFile);
         AudioInputStream BGMStream = AudioSystem.getAudioInputStream(u);
+        BGM.close();
         BGM.open(BGMStream);
         FloatControl gainControl = (FloatControl) BGM.getControl(FloatControl.Type.MASTER_GAIN);
         float range = gainControl.getMaximum() - gainControl.getMinimum();

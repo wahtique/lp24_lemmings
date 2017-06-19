@@ -5,10 +5,13 @@ import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 import sample.view.Drawer;
 
+import java.io.IOException;
 import java.util.DoubleSummaryStatistics;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static sample.model.SoundManager.getSoundManager;
 
 /**
  * Created by yann on 12/05/17.
@@ -25,25 +28,13 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
     private boolean isSelected = false;
+    private StudentData data;
 
     @Deprecated
-    public Lemmings(Vector position, Vector speed, Vector forces, String feet, String body, Level level) {
-        super(position, speed, forces);
-        this.feet = new HitBox(feet);
-        this.body = new HitBox(body);
-        this.level = level;
-        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
-
-        // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
-        this.lemData = new StudentData();
-        this.state = LemmingsStates.Walk;
-        addAnimations();
-    }
     public Lemmings(Vector position, Vector speed, String feet, String body, Level level) {
         super(position, speed);
         this.feet = new HitBox(feet);
         this.body = new HitBox(body);
-        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
@@ -56,12 +47,27 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         super(position, speed);
         this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
         this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
-        this.body.replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 255, 255), 150);
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.lemData = new StudentData();
         this.state = LemmingsStates.Walk;
         addAnimations();
+        for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+            anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 20, 20), 50);
+        }
+    }
+
+    public Lemmings(Vector position, Vector speed, LoadableLevel level,StudentData data) {
+        super(position, speed);
+        this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
+        this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+
+        this.level = level;
+        this.lemData = data;
+        this.state = LemmingsStates.Walk;
+        addAnimations();
+        colorNote(level);
+
 
     }
 
@@ -75,6 +81,29 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         animation.put(LemmingsStates.Vomit, new AnimatedSprite("/resources/Lemming/Anim/animVomit"));
     }
 
+    private void colorNote(LoadableLevel level){
+        if (data.getExamsAttended()/level.getLevel() >= 0.7){//A ou B
+            for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+                anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(33, 168, 11), 50);
+            }
+
+        }else if (data.getExamsAttended()/level.getLevel() >= 0.5){//C ou D
+            for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+                anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(158, 194, 87), 50);
+            }
+
+        }else if (data.getExamsAttended()/level.getLevel() >= 0.4){//E
+            for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+                anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 184, 0), 50);
+            }
+
+        }else if (data.getExamsAttended()/level.getLevel() < 0.4){//F ou Fx
+            for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
+                anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(226, 90, 90), 50);
+            }
+
+        }
+    }
 
     public void setPositionHitbox(Vector p) {
         super.setPosition(p);
@@ -127,7 +156,11 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.state = LemmingsStates.Pls;
         this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
         this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomidetect.png");
+        try {
+            getSoundManager().playSFX("/resources/Sound/sfxPls.wav");
+        }catch (Exception e){
 
+        }
         level.getTerrain().add(this);
         this.animation.get(state).reset();
     }
@@ -185,6 +218,12 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                 Drawer.getDrawer().addSomethingToDraw(brick);
                 ttime = time;
                 nbbrick++;
+                try {
+                    getSoundManager().playSFX("/resources/Sound/sfxBuild.wav");
+                }catch (Exception e){
+
+                }
+
             } else {
                 ttime = ttime - deltaTime;
 
@@ -298,6 +337,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         if(this.willBeColliding(position,level.getExit())){
             level.getGarbageLemmings().add(this);
             Drawer.getDrawer().deleteSomethingToDraw(this);
+            if (data != null)
+                data.setExamsAttended(data.getExamsAttended()+1);
+
             return true;
         }else {
             return false;

@@ -25,7 +25,7 @@ import static sample.model.SoundManager.getSoundManager;
  */
 public class MainMenuController
 {
-    private static final String FXMLfolder = "sample/view/" ;
+
 
     @FXML
     private Button newGameButton;

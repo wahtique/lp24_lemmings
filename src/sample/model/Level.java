@@ -25,6 +25,11 @@ public class Level {
     private HashSet<Lemmings> garbageLemmings = new HashSet<>();
     private HitBox exit;
 
+    public int Pls = 10;
+    public int Construct = 10;
+    public int Vomits = 10;
+
+
     public Level(String url, ArrayList<Lemmings> lts) {
         this.lemmingsNotSpawned = lts;
         this.terrain = new HashSet<>();
@@ -87,20 +92,19 @@ public class Level {
                                 spawndelay= Double.parseDouble(words[3]);
                             }
                             break;
-                        default: System.out.println("Potato"); break;
+                            case "powers":
+                            if(!words[1].isEmpty() && !words[2].isEmpty() && !words[3].isEmpty()){
+                                Pls = Integer.parseInt(words[1]);
+                                Vomits = Integer.parseInt(words[3]);
+                                Construct = Integer.parseInt(words[2]);
+
+                            }
+                            break;
+                        default: break;
                     }
 
 
 
-                   /* if (words[0].contentEquals("terrain")) {
-                        terrain.add(new HitBox(url +"/" +words[1]));
-                    } else if (words[0].contentEquals("bg")) {
-                        Sprite image = new Sprite(url +"/" +words[1]);
-                        if (!words[2].isEmpty()){
-                            image.setLayer(Integer.parseInt(words[2]));
-                        }
-                        Drawer.getDrawer().addSomethingToDraw(image);
-                    } else if(words.)*/
 
                     line = input.readLine();
                 }
