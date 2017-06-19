@@ -123,11 +123,11 @@ public class SoundManager
 
     public void setSFXVolume(double SFXVolume)
     {
-        if(BGMVolume > 1)
+        if(SFXVolume > 1)
         {
             this.SFXVolume = 1;
         }
-        else if(BGMVolume < 0 )
+        else if(SFXVolume < 0 )
         {
             this.SFXVolume = 0;
         }

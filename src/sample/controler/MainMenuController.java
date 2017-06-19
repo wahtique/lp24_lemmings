@@ -6,13 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.model.SoundManager;
+import sample.model.GameSession;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import static sample.model.SoundManager.getSoundManager;
 
 /**
  * @author William
@@ -44,6 +49,30 @@ public class MainMenuController
     private Button creditsScreenBackButton;
     @FXML
     private Button newGameLaunch;
+    @FXML
+    private TextField settingsSFXTextField;
+    @FXML
+    private TextField settingsBGMTextField;
+    @FXML
+    private Button settingsSFXPlusButton;
+    @FXML
+    private Button settingsBGMPlusButton;
+    @FXML
+    private Button settingsSFXMinusButton;
+    @FXML
+    private Button settingsBGMMinusButton;
+    @FXML
+    private Button loadGameChooseButton;
+    /**reference to the GameSession we will launch*/
+    private GameSession savegame;
+    @FXML
+    private TextField loadGameNameTextField;
+    @FXML
+    private TextField loadGameLevelTextField;
+    @FXML
+    private TextField newGameNameTextField;
+
+
 
 
     public MainMenuController() throws IOException
@@ -63,7 +92,6 @@ public class MainMenuController
     @FXML
     private void switchSceneOnButtonAction(ActionEvent event) throws IOException
     {
-        /*sm.playSFX("/resources/Sound/bgm.wav");*/
         //we start by selecting detecting which FXML to use
         Button source = (Button) event.getSource();
         Stage stage = (Stage)source.getScene().getWindow();
@@ -78,6 +106,7 @@ public class MainMenuController
         else if(source == settingsButton)
         {
             switchToScene("settingsMenu",stage);
+
         }
         else if(source == creditsButton)
         {
@@ -130,6 +159,79 @@ public class MainMenuController
         stage.show();
         /*fin.close();*/
         return loader;
+    }
+    @FXML
+    private void plusSFXVolume(ActionEvent event)
+    {
+        getSoundManager().setSFXVolume(getSoundManager().getSFXVolume() + 0.1);
+        settingsSFXTextField.setText(Double.toString(getSoundManager().getSFXVolume()));
+    }
+
+    @FXML
+    private void minusSFXVolume(ActionEvent event)
+    {
+        getSoundManager().setSFXVolume(getSoundManager().getSFXVolume() - 0.1);
+        settingsSFXTextField.setText(Double.toString(getSoundManager().getSFXVolume()));
+    }
+
+
+    @FXML
+    private void plusBGMVolume(ActionEvent event)
+    {
+        getSoundManager().setSFXVolume(getSoundManager().getBGMVolume() + 0.1);
+        settingsSFXTextField.setText(Double.toString(getSoundManager().getBGMVolume()));
+    }
+
+    @FXML
+    private void minusBGMVolume(ActionEvent event)
+    {
+        getSoundManager().setSFXVolume(getSoundManager().getBGMVolume() - 0.1);
+        settingsSFXTextField.setText(Double.toString(getSoundManager().getBGMVolume()));
+    }
+
+    @FXML
+    private void chooseSaveGame(ActionEvent event)
+    {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select your save game");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("game save file","*.kkk"));
+        File f = fc.showOpenDialog(new Stage());
+        if(f.getName().endsWith(".kkk"))
+        {
+            savegame = new GameSession(f);
+            loadGameNameTextField.setText(savegame.getPlayerName());
+            loadGameLevelTextField.setText(""+savegame.getLevel());
+
+        }
+        else
+        {
+            loadGameNameTextField.setText("ERROR");
+            loadGameLevelTextField.setText("ERROR");
+        }
+
+    }
+
+    @FXML
+    private void startNewGame(ActionEvent event) throws IOException
+    {
+        String name;
+        if(newGameNameTextField.getText().equalsIgnoreCase(""))
+        {
+            name = "JeanClaudeVanDamme";
+        }
+        else
+        {
+            name = newGameNameTextField.getText();
+        }
+        try
+        {
+            savegame = new GameSession(name,7);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        switchSceneOnButtonAction(event);
     }
 
 }

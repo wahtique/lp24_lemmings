@@ -49,7 +49,6 @@ public class MainGameController {
 
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
-        sm.setSFXVolume(0.01);
 
 
     }
