@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 
+import static sample.model.SoundManager.getSoundManager;
+
 
 public class MainGameController {
     @FXML
@@ -58,9 +60,9 @@ public class MainGameController {
         anim.setLayer(2);
         drawer.addSomethingToDraw(anim);
 
-        sm = new SoundManager(0.5,1);
-        sm.setBGM("/resources/Sound/bgm.wav");
-        sm.playBGM();
+
+        getSoundManager().setBGM("/resources/Sound/bgm.wav");
+        getSoundManager().playBGM();
 
     }
 
@@ -78,7 +80,7 @@ public class MainGameController {
     {
         System.out.println("click");
         test.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
-        sm.playSFX("/resources/Sound/tuturu.wav");
+        getSoundManager().playSFX("/resources/Sound/tuturu.wav");
         /*
         double time = System.nanoTime();
         //FORMULA: (int)(mouse.getX()/gcScale-imagePositionX)-1 (all coordinates are canvas relative) gcScale should be left on 1, and you should modify only CanvasScale
