@@ -143,13 +143,6 @@ public class MainMenuController
     }
 
 
-    /**
-     * Method switching to another scene in the same stage
-     * @param sceneName String corresponding to the name of the FXML, without file extension
-     * @param stage the stage on which we operate. Gotta find a better way to access it.
-     * @return loader the FXML loader of the scene
-    */
-
     @FXML
     private void plusSFXVolume(ActionEvent event)
     {
