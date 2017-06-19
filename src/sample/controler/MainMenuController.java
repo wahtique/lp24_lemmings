@@ -90,6 +90,7 @@ public class MainMenuController
         else if(source == newGameLaunch)
         {
             FXMLLoader loader = switchToScene("mainGame",stage);
+            stage.setMaximized(true);
 
             try {
                 ((MainGameController) loader.getController()).start();

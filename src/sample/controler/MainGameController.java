@@ -47,11 +47,8 @@ public class MainGameController {
         test.getLemmingsNotSpawned().add(roger);
         test.getLemmingsNotSpawned().add(paniou);
 
-
-
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
-
         sm.setSFXVolume(0.01);
 
 
