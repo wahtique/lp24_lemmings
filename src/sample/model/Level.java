@@ -13,7 +13,9 @@ import java.util.stream.Stream;
 /**
  * Created by yann on 19/05/17.
  */
+
 public class Level {
+
     private double ttime=5;
     private ArrayList<Lemmings> lemmingsNotSpawned;
     private HashSet<Lemmings> lemmingsList = new HashSet<>();
