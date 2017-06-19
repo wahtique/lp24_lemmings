@@ -12,7 +12,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static sample.model.SoundManager.getSoundManager;
 
@@ -32,7 +31,7 @@ public class MainGameController {
     private AnimatedSprite anim;
     MainGameUpdater timeSetter;
 
-    private SoundManager sm;
+
 
     public void start() throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
@@ -52,7 +51,7 @@ public class MainGameController {
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
 
-        sm.setSFXVolume(0.01);
+        getSoundManager().setSFXVolume(1);
 
 
     }
@@ -101,11 +100,12 @@ public class MainGameController {
     public void onButtonPLS(){
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
-                l.setState(LemmingsStates.Pls);
-                try {
-                    sm.playSFX("/resources/Sound/sfxPls.wav");
-                }catch (Exception e){
+                if (l.setState(LemmingsStates.Pls)) {
+                    try {
+                        getSoundManager().playSFX("/resources/Sound/sfxPls.wav");
+                    } catch (Exception e) {
 
+                    }
                 }
             }
         } );
@@ -114,11 +114,12 @@ public class MainGameController {
     public void onButtonConstruct(){
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
-                l.setState(LemmingsStates.Construct);
-                try {
-                    sm.playSFX("/resources/Sound/sfxBuild.wav");
-                }catch (Exception e){
+                if(l.setState(LemmingsStates.Construct)) {
+                    try {
+                        getSoundManager().playSFX("/resources/Sound/sfxBuild.wav");
+                    } catch (Exception e) {
 
+                    }
                 }
             }
         } );
@@ -129,11 +130,12 @@ public class MainGameController {
     public void onButtonVomir(){
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
-                l.setState(LemmingsStates.Vomit);
-                try {
-                    sm.playSFX("/resources/Sound/sfxVomi.wav");
-                }catch (Exception e){
+                if (l.setState(LemmingsStates.Vomit)) {
+                    try {
+                        getSoundManager().playSFX("/resources/Sound/sfxVomi.wav");
+                    } catch (Exception e) {
 
+                    }
                 }
 
 
