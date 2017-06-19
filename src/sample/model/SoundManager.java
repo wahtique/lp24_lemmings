@@ -21,9 +21,12 @@ import java.util.concurrent.Executors;
  */
 public class SoundManager
 {
+
     private Clip BGM;
     private double SFXVolume;
     private double BGMVolume;
+
+
 
     public void playSFX(String soundFile) throws IOException
     {
@@ -70,11 +73,27 @@ public class SoundManager
     }
 
 
-    public SoundManager(double BGMVolume, double SFXVolume) throws LineUnavailableException
+    private SoundManager()
     {
-        setBGMVolume(BGMVolume);
-        setSFXVolume(SFXVolume);
-        BGM = AudioSystem.getClip();
+        setBGMVolume(1);
+        setSFXVolume(1);
+        try
+        {
+            BGM = AudioSystem.getClip();
+        } catch (LineUnavailableException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private static class SoundManagerHolder
+    {
+        private final static SoundManager instance = new SoundManager();
+    }
+
+    public static SoundManager getSoundManager()
+    {
+        return SoundManagerHolder.instance;
     }
 
     public double getBGMVolume()

@@ -14,6 +14,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import static sample.model.SoundManager.getSoundManager;
+
 
 public class MainGameController {
     @FXML
@@ -46,10 +48,9 @@ public class MainGameController {
         test.getLemmingsNotSpawned().add(paniou);
 
 
-        sm = new SoundManager(0.5,1);
-        sm.setBGM("/resources/Sound/bgm.wav");
-        sm.setBGMVolume(100);
-        sm.playBGM();
+
+        getSoundManager().setBGM("/resources/Sound/bgm.wav");
+        getSoundManager().playBGM();
 
         sm.setSFXVolume(0.01);
 

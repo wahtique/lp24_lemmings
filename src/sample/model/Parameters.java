@@ -13,7 +13,6 @@ public class Parameters implements Serializable
 {
     private int SFXVolume;
     private int musicVolume;
-    private int generalVolume;
 
     public Parameters() throws Exception
     {
@@ -21,14 +20,12 @@ public class Parameters implements Serializable
         {
             SFXVolume = 100;
             musicVolume = 100;
-            generalVolume = 100;
         }
         else
         {
             FileInputStream fin = new FileInputStream("general.settings");
             ObjectInputStream oin = new ObjectInputStream(fin);
             Parameters param = (Parameters) oin.readObject();
-            this.generalVolume = param.getGeneralVolume();
             this.musicVolume = param.getMusicVolume();
             this.SFXVolume = param.getSFXVolume();
             oin.close();
@@ -68,23 +65,12 @@ public class Parameters implements Serializable
         this.musicVolume = musicVolume;
     }
 
-    public int getGeneralVolume()
-    {
-        return generalVolume;
-    }
-
-    public void setGeneralVolume(int generalVolume)
-    {
-        this.generalVolume = generalVolume;
-    }
-
     @Override
     public String toString()
     {
         return "Parameters{" +
                 "SFXVolume=" + SFXVolume +
                 ", musicVolume=" + musicVolume +
-                ", generalVolume=" + generalVolume +
                 '}';
     }
 }
