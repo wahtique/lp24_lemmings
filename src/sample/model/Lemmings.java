@@ -79,22 +79,24 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     }
 
     private void colorNote(int nExams){
-        if (data.getExamsAttended()/nExams >= 0.7){//A ou B
+        System.out.println(data.getExamsAttended() + "/" + nExams);
+        double moyenne = (double)(data.getExamsAttended())/(double)(nExams);
+        if (moyenne >= 0.7){//A ou B
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(33, 168, 11), 50);
             }
 
-        }else if (data.getExamsAttended()/nExams >= 0.5){//C ou D
+        }else if (moyenne >= 0.6){//C ou D
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(158, 194, 87), 50);
             }
 
-        }else if (data.getExamsAttended()/nExams >= 0.4){//E
+        }else if (moyenne >= 0.4){//E
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 184, 0), 50);
             }
 
-        }else if (data.getExamsAttended()/nExams < 0.4){//F ou Fx
+        }else if (moyenne < 0.2){//F ou Fx
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(226, 90, 90), 50);
             }

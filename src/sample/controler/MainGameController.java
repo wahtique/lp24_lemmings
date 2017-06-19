@@ -173,8 +173,9 @@ public class MainGameController {
         FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
         ((InterLevelController)loader.getController()).start(savegame);
         ended = true;
-        timeSetter.setMaingame(null);
-        timeSetter = null;
+      //  timeSetter.setMaingame(null);
+        timeSetter.stop();
+      //  timeSetter = null;
         System.gc();
         System.runFinalization();
     }
