@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.MainMenuController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.MainMenuController">
    <children>
-      <Button fx:id="creditsScreenBackButton" layoutX="241.0" layoutY="310.0" mnemonicParsing="false" onAction="#switchSceneOnButtonAction" text="Back to Main Menu" />
+      <Button fx:id="creditsScreenBackButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" onAction="#switchSceneOnButtonAction" text="Back to Main Menu">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
+      <Label layoutX="548.0" layoutY="217.0" text="Lead developper : &#9;&#9;&#9;Jean Poree de Ridder&#10;Developpers : &#9;&#9;&#9;&#9;Ahtique, Ame, LaisseTomber&#10;AI expert developper : &#9;&#9;Yann Le Chevanton&#10;&#10;Lead Artistic Director : &#9;&#9;NaejDoree &#10;Animator : &#9;&#9;&#9;&#9;Naej &#10;UI Designer :&#9;&#9;&#9;&#9;Wylzhard&#10;&#10;Sound designer : &#9;&#9;&#9;Jean Poree&#10;&#10;Marketing : &#9;&#9;&#9;&#9;William Veal Phan">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

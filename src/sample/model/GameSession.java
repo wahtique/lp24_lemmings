@@ -88,8 +88,7 @@ public class GameSession implements Serializable
             {
                 f.mkdir();
             }
-
-            FileOutputStream fout = new FileOutputStream("savedGames/"+playerName);
+            FileOutputStream fout = new FileOutputStream("savedGames/"+playerName+".kkk");
             ObjectOutputStream oout = new ObjectOutputStream(fout);
             oout.writeObject(this);
             oout.close();
@@ -104,12 +103,12 @@ public class GameSession implements Serializable
         }
     }
 
-    /**Constructor used to load a game. The existence of the savedgame should be tested before*/
-    public GameSession(String name)
+    /**Constructor used to load a game.*/
+    public GameSession(File f)
     {
         try
         {
-            FileInputStream fin = new FileInputStream("savedGames/"+name);
+            FileInputStream fin = new FileInputStream(f);
             ObjectInputStream oin = new ObjectInputStream(fin);
 
             GameSession session = (GameSession) oin.readObject();
