@@ -90,7 +90,12 @@ public class GameSession implements Serializable
             {
                 f.mkdir();
             }
-            FileOutputStream fout = new FileOutputStream("savedGames/"+playerName+".kkk");
+            f = new File("savedGames/"+playerName+".kkk");
+            if(f.exists())
+            {
+                f.delete();
+            }
+            FileOutputStream fout = new FileOutputStream(f);
             ObjectOutputStream oout = new ObjectOutputStream(fout);
             oout.writeObject(this);
             oout.close();
