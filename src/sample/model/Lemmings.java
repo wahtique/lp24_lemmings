@@ -96,7 +96,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(255, 184, 0), 50);
             }
 
-        }else if (moyenne < 0.2){//F ou Fx
+        }else if (moyenne < 0.4){//F ou Fx
             for(Map.Entry<LemmingsStates, AnimatedSprite> anim : animation.entrySet()){
                 anim.getValue().replaceColor(Color.rgb(0, 255, 0), Color.rgb(226, 90, 90), 50);
             }

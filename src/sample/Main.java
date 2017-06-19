@@ -24,12 +24,7 @@ public class Main extends Application
 
     public static void main(String[] args) throws Exception
     {
-       /* GameSession g = new GameSession("William",3);
-        System.out.println(g);
-        g.saveGameSession();
 
-        GameSession gbis = new GameSession("William");
-        System.out.println(gbis);*/
         launch(args);
     }
 
