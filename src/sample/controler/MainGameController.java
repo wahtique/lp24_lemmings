@@ -55,7 +55,7 @@ public class MainGameController {
         sm.setBGMVolume(100);
         sm.playBGM();
 
-        sm.setSFXVolume(0.1);
+        sm.setSFXVolume(0.01);
 
 
     }
@@ -105,6 +105,11 @@ public class MainGameController {
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
                 l.setState(LemmingsStates.Pls);
+                try {
+                    sm.playSFX("/resources/Sound/sfxPls.wav");
+                }catch (Exception e){
+
+                }
             }
         } );
     }
@@ -113,6 +118,11 @@ public class MainGameController {
         test.getLemmingsList().forEach(l->{
             if(l.isSelected()){
                 l.setState(LemmingsStates.Construct);
+                try {
+                    sm.playSFX("/resources/Sound/sfxBuild.wav");
+                }catch (Exception e){
+
+                }
             }
         } );
     }
@@ -124,7 +134,7 @@ public class MainGameController {
             if(l.isSelected()){
                 l.setState(LemmingsStates.Vomit);
                 try {
-                    sm.playSFX("/resources/Sound/tuturu.wav");
+                    sm.playSFX("/resources/Sound/sfxVomi.wav");
                 }catch (Exception e){
 
                 }

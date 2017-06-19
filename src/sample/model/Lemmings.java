@@ -114,6 +114,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.state = LemmingsStates.Pls;
         this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
         this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomidetect.png");
+
         level.getTerrain().add(this);
         this.animation.get(state).reset();
     }
