@@ -1,21 +1,25 @@
 package sample.controler;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import sample.model.*;
 import sample.view.Drawer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import static sample.controler.SceneSwitcher.switchToScene;
 import static sample.model.SoundManager.getSoundManager;
 
 
@@ -40,14 +44,14 @@ public class MainGameController {
     private Drawer drawer;
 
     private AnimatedSprite anim;
-    MainGameUpdater timeSetter;
-
+    private MainGameUpdater timeSetter;
+    private GameSession savegame;
 
 
 
     public void start(GameSession savegame) throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
-
+        this.savegame = savegame;
         drawer = Drawer.getDrawer();
         drawer.setCanvas(canvas);
         if (timeSetter == null) {
@@ -166,9 +170,12 @@ public class MainGameController {
         timeSetter.setTimeSpeed(2);
     }
 
-    public void restartLevel() throws Exception {
-        /*Drawer.getDrawer().clearDrawer();
-        *//*start();*/
+
+    public void quitLevel() throws Exception {
+        Drawer.getDrawer().clearDrawer();
+        savegame.setLevel(savegame.getLevel()+1);
+        FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
+        ((InterLevelController)loader.getController()).start(savegame);
     }
 
     public void onKeyPressed(KeyEvent e){

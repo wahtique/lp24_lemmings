@@ -23,7 +23,7 @@
             <Button fx:id="Construct" mnemonicParsing="false" onAction="#onButtonConstruct" text="construct" />
             <Button fx:id="Vomit" mnemonicParsing="false" onAction="#onButtonVomir" text="Vomir" />
             <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
-            <Button mnemonicParsing="false" onAction="#restartLevel" text="Restart" />
+            <Button mnemonicParsing="false" onAction="#quitLevel" text="quit" />
          </children>
          <opaqueInsets>
             <Insets />

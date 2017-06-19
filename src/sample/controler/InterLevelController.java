@@ -30,7 +30,7 @@ public class InterLevelController
 
     private GameSession session;
 
-    private void start(GameSession session)
+    public void start(GameSession session)
     {
         this.session = session;
     }
