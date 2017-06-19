@@ -30,6 +30,8 @@ public class GameSession implements Serializable
      * When loading, we will use the parameters already existing.*/
     private Parameters profileSettings;
 
+
+
     /**
      * Method creating a new game session from scratch. Used mainly to start a new game.
      * @param playerName The name of the player AND the savegame
