@@ -10,9 +10,7 @@ import java.util.HashSet;
 //TODO document this
 public interface Collidable extends DrawAble {
     boolean willBeColliding(Vector pos, HashSet<Collidable> others);
-    boolean willBeColliding(Vector pos, Collidable other);
     boolean isInHitbox(Vector pos);
-    double getCollisionDepthY(Vector pos, Collidable other);
     double getCollisionDepthY(Vector pos, HashSet<Collidable> others);
 
 }

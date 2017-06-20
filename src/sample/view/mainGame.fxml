@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <GridPane fx:id="panneau" onKeyPressed="#onKeyPressed" prefHeight="1200.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.MainGameController">
    <columnConstraints>
@@ -29,6 +31,11 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Label text="Loading ..." GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font size="70.0" />
+         </font>
+      </Label>
       <Canvas fx:id="canvas" cache="true" cacheHint="SPEED" height="1080.0" onMousePressed="#onMouseClick" width="1920.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

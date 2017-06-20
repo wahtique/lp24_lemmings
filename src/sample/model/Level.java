@@ -184,9 +184,11 @@ public class Level {
         lemmingsList.forEach(l -> l.update(deltatime));
         vomits.forEach(l -> l.update(deltatime,this));
         this.getGarbageLemmings().forEach(l-> lemmingsList.remove(l));
+        this.getGarbageLemmings().forEach(l-> terrain.remove(l));
         this.garbageLemmings.clear();
     }
 
+    @Deprecated
     public void drawLevel(GraphicsContext gc){
         lemmingsList.forEach(l-> l.draw(gc));
         terrain.forEach(t-> t.draw(gc));
@@ -195,6 +197,12 @@ public class Level {
     public void select(Vector pos){
         if (lemmingsList.stream().anyMatch(l -> l.isInHitbox(pos) && !l.isSelected())) {
             this.lemmingsList.stream().filter(l -> l.isInHitbox(pos)).findFirst().get().setSelected(true);
+        }
+    }
+    public void toggleSelect(Vector pos){
+        if (lemmingsList.stream().anyMatch(l -> l.isInHitbox(pos))) {
+            Lemmings temp = this.lemmingsList.stream().filter(l -> l.isInHitbox(pos)).findFirst().get();
+            temp.setSelected(!temp.isSelected());
         }
     }
 

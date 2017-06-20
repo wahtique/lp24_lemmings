@@ -111,7 +111,7 @@ public class AnimatedSprite extends Sprite {
         renderedImage = new ImageView(listOfImages.get(currentImage));
     }
 
-
+    @Deprecated
     public AnimatedSprite(ArrayList<String> urls) {
         super();
         listOfImages = new ArrayList<WritableImage>();
