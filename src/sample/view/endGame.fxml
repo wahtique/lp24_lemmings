@@ -6,19 +6,19 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.endGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controler.EndGameController">
    <children>
-      <Label fx:id="endGameMentionLabel" layoutX="576.0" layoutY="159.0" text="Mention" textAlignment="CENTER">
+      <Label fx:id="endGameMentionLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="143.0" text="Mention" textAlignment="CENTER">
          <font>
             <Font size="41.0" />
          </font>
       </Label>
-      <Label fx:id="endGameScoreLabel" layoutX="620.0" layoutY="265.0" text="Score" textAlignment="CENTER">
+      <Label fx:id="endGameScoreLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="276.0" text="Score" textAlignment="CENTER">
          <font>
             <Font size="31.0" />
          </font>
       </Label>
-      <Button fx:id="endGameBackButton" layoutX="536.0" layoutY="429.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="92.0" prefWidth="247.0" text="Back to main menu" textAlignment="CENTER">
+      <Button fx:id="endGameBackButton" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="432.0" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="92.0" prefWidth="247.0" text="Back to main menu" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>

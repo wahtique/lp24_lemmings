@@ -52,6 +52,13 @@ public class EndGameController
         /*the proportion of student which should validate to have won the game*/
         double proportion = session.getStudents().size()/2;
 
+        for(StudentData d : session.getStudents())
+        {
+            if(d.getExamsAttended() >= maxLevel - 1)
+            {
+                score += d.getExamsAttended() * (lemmingsOK/proportion);
+            }
+        }
         if(lemmingsOK >= Math.floor(proportion))
         {
             endGameMentionLabel.setText("Congrats !");
@@ -61,7 +68,6 @@ public class EndGameController
             endGameMentionLabel.setText("You are a disgrace.");
         }
 
-        score = score * (lemmingsOK/session.getStudents().size());
 
         endGameScoreLabel.setText("Score : " + score);
     }
@@ -71,6 +77,7 @@ public class EndGameController
      * go back to the main menu screen when the endGameBackButton is clicked
      * @param event the click event
      */
+    @FXML
     private void backToMainMenu(ActionEvent event)
     {
         Stage s = (Stage)((Button)event.getSource()).getScene().getWindow();
