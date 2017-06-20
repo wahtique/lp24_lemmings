@@ -14,7 +14,6 @@ import java.util.stream.Stream;
  * Created by yann on 19/05/17.
  */
 
-//TODO document this
 
 public class Level {
 
@@ -34,6 +33,11 @@ public class Level {
     public int Vomits = 10;
 
 
+    /**
+     * build our level from the corresponding resources
+     * @param url to our resource file
+     * @param lts lemmings to put in our level
+     */
     public Level(String url, ArrayList<Lemmings> lts) {
         this.lemmingsNotSpawned = lts;
         this.terrain = new HashSet<>();

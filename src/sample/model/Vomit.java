@@ -6,11 +6,10 @@ import sample.view.Drawer;
 import java.util.HashSet;
 import java.util.TreeMap;
 
-/**
+/**Result of puking
  * Created by yann on 09/06/17.
  */
 
-//TODO document this
 
 public class Vomit extends PhysicalObject implements Collidable {
     private Boolean isFalling;
@@ -19,7 +18,8 @@ public class Vomit extends PhysicalObject implements Collidable {
     private TreeMap<Boolean,AnimatedSprite> animation;
 
     private double inTheAirCount = 0;
-//TODO:faire en sorte qu'il réagisse à la hitbox des pieds au lieu de celle du body
+
+    //TODO:faire en sorte qu'il réagisse à la hitbox des pieds au lieu de celle du body
     public Vomit(Vector pos){
         super(pos);
         this.animation = new TreeMap<Boolean,AnimatedSprite>();
