@@ -57,6 +57,8 @@ public class MainGameController {
     /**Boolean used to check if the game will normally be ended, used to dedug some things */
     private boolean ended = false;
 
+
+    private final static int MAXLEVEL = 3;
     /**
      * Method used to initialise the game
      * @param savegame The save we will load
@@ -221,9 +223,14 @@ public class MainGameController {
      */
     public void quitLevel() throws Exception {
         Drawer.getDrawer().clearDrawer();
-        savegame.setLevel(savegame.getLevel()+1);
-        FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
-        ((InterLevelController)loader.getController()).start(savegame);
+        if (savegame.getLevel()<MAXLEVEL) {
+            savegame.setLevel(savegame.getLevel() + 1);
+            FXMLLoader loader = switchToScene("interLevel", (Stage) canvas.getScene().getWindow());
+            ((InterLevelController) loader.getController()).start(savegame);
+        }else{
+            //TODO: launch the end of the game
+        }
+
         ended = true;
         timeSetter.stop();
         System.gc();
