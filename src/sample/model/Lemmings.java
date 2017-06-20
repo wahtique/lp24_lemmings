@@ -17,7 +17,6 @@ import static sample.model.SoundManager.getSoundManager;
  * Created by yann on 12/05/17.
  */
 
-//TODO document this
 public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private double time = 0.1;
     private double ttime=0;
@@ -61,6 +60,14 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         }
     }
 
+    /**
+     * Build a lemmings
+     * @param position vector giving its spawning position
+     * @param speed vector giving its original speed
+     * @param level reference to the level on which to spawn
+     * @param data reference to the StudentData linked to this Lemming
+     * @param nExams the number of exams already attended by this lemming. Should be removed...one day
+     */
     public Lemmings(Vector position, Vector speed, LoadableLevel level,StudentData data, int nExams) {
         super(position, speed);
         this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
@@ -76,6 +83,9 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
 
     }
 
+    /**
+     * add the annimation used to display this Lemming
+     */
     private void addAnimations(){
         animation = new TreeMap<LemmingsStates, AnimatedSprite>();
         animation.put(LemmingsStates.Walk, new AnimatedSprite("/resources/Lemming/Anim/walk"));
@@ -86,6 +96,10 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         animation.put(LemmingsStates.Vomit, new AnimatedSprite("/resources/Lemming/Anim/animVomit"));
     }
 
+    /**
+     * color the Lemming's shirt according to its errr level of academic failure
+     * @param nExams number of exams attended
+     */
     private void colorNote(int nExams){
       //  System.out.println(data.getExamsAttended() + "/" + nExams);
         double moyenne = (double)(data.getExamsAttended())/(double)(nExams);
@@ -346,6 +360,10 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         isFlipped = !isFlipped;
     }
 
+    /**
+     * Engrish name for a proper method saying if the Lemming exited the level
+     * @return true if it is, false if not
+     */
     public boolean isExited(){
         if(this.willBeColliding(position,level.getExit())){
             level.getGarbageLemmings().add(this);

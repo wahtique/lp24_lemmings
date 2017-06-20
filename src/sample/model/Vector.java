@@ -1,5 +1,9 @@
 package sample.model;
-//TODO document this
+
+/**
+ * Vector class to model 2D positions
+ * @author Yann
+ */
 public class Vector {
     private double x;
     private double y;

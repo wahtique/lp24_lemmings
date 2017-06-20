@@ -1,10 +1,9 @@
 package sample.model;
 
 
-/**
+/**An object with a physical existence in our virtual level
  * Created by yann on 12/05/17.
  */
-//TODO document this
 public class PhysicalObject {
     protected static final Vector gravite = new Vector(0,100);
 
