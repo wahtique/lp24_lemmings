@@ -75,16 +75,16 @@ public class MainGameController {
         }
         switch (savegame.getLevel()){
             case 1:
-                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/lvl1");
                 break;
             case 2:
-                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/lvl2");
                 break;
             case 3:
-                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/lvl3");
                 break;
             default:
-                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/lvl3");
                 break;
 
         }
