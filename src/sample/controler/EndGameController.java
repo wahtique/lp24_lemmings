@@ -35,8 +35,7 @@ public class EndGameController
      */
     public void start(GameSession session)
     {
-        //TODO refactor the harcoded max level
-        int maxLevel = 3;
+        int maxLevel = MainGameController.MAXLEVEL;
         /*the score*/
         double score = 0;
         /*the number of lemmings who validated their semester*/
