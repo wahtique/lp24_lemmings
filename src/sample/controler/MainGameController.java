@@ -4,10 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import sample.model.*;
 import sample.view.Drawer;
 
@@ -41,6 +43,9 @@ public class MainGameController {
     private Button Pls;
     @FXML
     private Button Construct;
+
+    @FXML
+    private Label fps;
 
     /**The model of the level */
     private LoadableLevel currentLevel;
@@ -106,7 +111,9 @@ public class MainGameController {
      * @param deltaTime the time passed since the last frame, in seconds
      */
     public void update(double deltaTime) {
-       //System.out.println("FPS : "+ 1/deltaTime );
+        fps.setText("  FPS : "+ ((int)(1/deltaTime)));
+
+        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
        currentLevel.update(deltaTime);
        drawer.draw();
