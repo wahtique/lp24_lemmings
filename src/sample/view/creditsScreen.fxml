@@ -11,7 +11,7 @@
          <font>
             <Font size="19.0" />
          </font></Button>
-      <Label layoutX="548.0" layoutY="217.0" text="Lead developper : &#9;&#9;&#9;Jean Poree de Ridder&#10;Developpers : &#9;&#9;&#9;&#9;Ahtique, Ame, LaisseTomber&#10;AI expert developper : &#9;&#9;Yann Le Chevanton&#10;&#10;Lead Artistic Director : &#9;&#9;NaejDoree &#10;Animator : &#9;&#9;&#9;&#9;Naej &#10;UI Designer :&#9;&#9;&#9;&#9;Wylzhard&#10;&#10;Sound designer : &#9;&#9;&#9;Jean Poree&#10;&#10;Marketing : &#9;&#9;&#9;&#9;William Veal Phan">
+      <Label layoutX="478.0" layoutY="71.0" text="TEAM NOOBIES&#10;&#10;Lead developper : Jean Poree de Ridder&#10;Developpers : &#9;Ahtique, Ame, LaisseTomber&#10;AI expert developper :  Yann Le Chevanton&#10;&#10;Lead Artistic Director : NaejDoree &#10;Animator : Naej &#10;UI Designer : Wylzhard&#10;&#10;Sound designer : Jean Poree&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#10;Marketing : William Veal Phan&#10;&#10;&#10;&#10;Special Thanks to :&#10;&#10;CD(Rivelink)&#10;Naej's father&#10;Mr. Google&#10;Big Brother " textAlignment="CENTER">
          <font>
             <Font size="17.0" />
          </font>
