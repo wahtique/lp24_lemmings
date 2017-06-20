@@ -47,6 +47,11 @@ public class MainGameController {
     @FXML
     private Label fps;
 
+    @FXML
+    private Label timerText;
+
+    private double timer = 117;
+
     /**The model of the level */
     private LoadableLevel currentLevel;
 
@@ -112,6 +117,17 @@ public class MainGameController {
      */
     public void update(double deltaTime) {
         fps.setText("  FPS : "+ ((int)(1/deltaTime)));
+        timer -= deltaTime;
+        if (timer<0 || (currentLevel.getLemmingsList().size() == 0 && timer < 100) ){
+            try {
+                quitLevel();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }else{
+            timerText.setText("Time left : "+((int)timer));
+        }
 
         //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();

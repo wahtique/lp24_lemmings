@@ -41,7 +41,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="1">
          <children>
             <Label fx:id="fps" text="00" />
-            <Label fx:id="timer" scaleShape="false" text="0:00" />
+            <Label fx:id="timerText" scaleShape="false" text="0:00" />
          </children>
       </HBox>
    </children>
