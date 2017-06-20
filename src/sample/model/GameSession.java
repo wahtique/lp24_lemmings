@@ -151,6 +151,24 @@ public class GameSession implements Serializable
                 '}';
     }
 
+    /**
+     * Build a String to be used with the GUI. Prettier than the one above
+     * @return a String to be displayed in the GUI
+     */
+    public String toDisplayString()
+    {
+        String result = playerName + "\n" +
+                "Current level : " + (level - 1) + "\n" +
+                "Exams attended by your lemmings :\n";
+        int i =1;
+        for (StudentData d : students)
+        {
+            result += "Student " + i + " : " + d.getExamsAttended() + "\n";
+            ++i;
+        }
+        return result;
+    }
+
     public Parameters getProfileSettings()
     {
         return profileSettings;

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.model.GameSession;
 
@@ -34,11 +35,16 @@ public class InterLevelController
     /**Current GameSession used in the level just played*/
     private GameSession session;
 
+    @FXML
+    private Label interLevelStatsLabel;
+
     /**method initializing the scene; Should be called first
      * @param session current GameSession*/
     public void start(GameSession session)
     {
         this.session = session;
+        interLevelStatsLabel.setText(session.toDisplayString());
+
     }
 
     /**Method to replay the level we just left. It should reload the GameSession so that the changes applied when played doesn't exist anymore
