@@ -60,10 +60,6 @@ public class MainGameController {
     /**
      * Method used to initialise the game
      * @param savegame The save we will load
-     * @throws IOException
-     * @throws URISyntaxException
-     * @throws LineUnavailableException
-     * @throws UnsupportedAudioFileException
      */
     public void start(GameSession savegame) throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
@@ -75,7 +71,22 @@ public class MainGameController {
             timeSetter = new MainGameUpdater();
             timeSetter.start(this);
         }
-        currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+        switch (savegame.getLevel()){
+            case 1:
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                break;
+            case 2:
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                break;
+            case 3:
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                break;
+            default:
+                currentLevel = new LoadableLevel(savegame,"/resources/levels/testlevel1");
+                break;
+
+        }
+
 
         Pls.setText("Pls :"+ currentLevel.Pls);
         Construct.setText("Construct :"+ currentLevel.Construct);
