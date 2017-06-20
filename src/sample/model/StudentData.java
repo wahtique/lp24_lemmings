@@ -25,7 +25,7 @@ public class StudentData implements Serializable
     }
 
     /**
-     * build a new student data which indicate it cleared 1 level by default.
+     * build a new student data which indicate it cleared 1 level by default to avoid some bug
      */
     public StudentData()
     {
