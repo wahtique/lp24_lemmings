@@ -26,6 +26,8 @@
             <Button fx:id="Vomit" mnemonicParsing="false" onAction="#onButtonVomir" text="Vomir" />
             <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
             <Button mnemonicParsing="false" onAction="#quitLevel" text="quit" />
+            <Label fx:id="timer" text="0:00" />
+            <Label fx:id="fps" text="00" />
          </children>
          <opaqueInsets>
             <Insets />
