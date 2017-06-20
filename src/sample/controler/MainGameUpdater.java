@@ -3,11 +3,10 @@ package sample.controler;
 import javafx.animation.AnimationTimer;
 import sample.controler.MainGameController;
 
-/**
+/**Update the main game
  * Created by naej on 08/05/17.
  */
 
-//TODO document this
 
 public class MainGameUpdater extends AnimationTimer{
 

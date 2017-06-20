@@ -11,7 +11,6 @@ import sample.view.DrawAble;
  * Base class used to handle images in a simple way
  * @author Jean
  */
-//TODO document this
 public class Sprite implements DrawAble {
     protected boolean isFlipped;
     protected float layer;
@@ -31,6 +30,11 @@ public class Sprite implements DrawAble {
         position = new Vector(0,0);
     }
 
+    /**
+     * convert position from the referential of the canvas to the local referential
+     * @param v position
+     * @return position in the local referential
+     */
     protected Vector fromCanvasToLocal(Vector v){
         return v.add(position.mulScal(-1));
     }

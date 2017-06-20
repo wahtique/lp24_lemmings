@@ -15,10 +15,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-/**
+/**Animated sprite
  * Created by naej on 12/05/17.
  */
-//TODO document this
 public class AnimatedSprite extends Sprite {
 
     private boolean isLooping;
@@ -27,6 +26,10 @@ public class AnimatedSprite extends Sprite {
     private int framerate = 6;
     private double currentTime = 0;
 
+    /**
+     * Build a new AnimatedSprite from a file
+     * @param url the url of the resource from which to build the AnimatedSprite
+     */
     public AnimatedSprite(String url) {
         super();
         listOfImages = new ArrayList<WritableImage>();
