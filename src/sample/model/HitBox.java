@@ -21,7 +21,6 @@ public class HitBox extends Sprite implements Collidable {
     }
 
     public boolean isInHitbox(Vector pos){
-       // System.out.print(".");
         return (this.getPixelColorCanvasRef(pos).getOpacity() != 0);
 
     }
@@ -81,7 +80,7 @@ public class HitBox extends Sprite implements Collidable {
         return !isFlipped;
         //return false;
     }
-
+    @Deprecated
     public Vector getHigherCollidingPoint(Vector pos, HitBox other){
         Vector temp =null;
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
@@ -97,6 +96,7 @@ public class HitBox extends Sprite implements Collidable {
         }
         return temp;
     }
+    @Deprecated
     public double getCollisionDepthY(Vector pos, Collidable other){
         Vector higher =null;
         for (int y =0;y<this.renderedImage.getImage().getHeight();y++){
@@ -124,6 +124,7 @@ public class HitBox extends Sprite implements Collidable {
             return 0;
         }
     }
+
     public double getCollisionDepthY(Vector pos, HashSet<Collidable> others){
         Vector higher =null;
 

@@ -21,13 +21,20 @@ import static sample.controler.SceneSwitcher.switchToScene;
 import static sample.model.SoundManager.getSoundManager;
 
 
+/**
+ * Class used to control and run the main game
+ * @author Jean
+ */
 public class MainGameController {
+    /**The canvas where the game is drawn  */
     @FXML
     private Canvas canvas;
 
+    /**The panel where all the elements are, used to compute the resizing     */
     @FXML
     private Pane panneau;
 
+    /**The differents buttons */
     @FXML
     private Button Vomit;
     @FXML
@@ -35,18 +42,29 @@ public class MainGameController {
     @FXML
     private Button Construct;
 
-
-    // private Color currentColor = Color.color(1, 0.0078, 0);
+    /**The model of the level */
     private LoadableLevel currentLevel;
 
+    /**The object used to draw in the canvas */
     private Drawer drawer;
 
-    private AnimatedSprite anim;
+    /**The object that will call the update function, allowing us to set the time speed */
     private MainGameUpdater timeSetter;
+
+    /**The save we will load */
     private GameSession savegame;
 
+    /**Boolean used to check if the game will normally be ended, used to dedug some things */
     private boolean ended = false;
 
+    /**
+     * Method used to initialise the game
+     * @param savegame The save we will load
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws LineUnavailableException
+     * @throws UnsupportedAudioFileException
+     */
     public void start(GameSession savegame) throws IOException, URISyntaxException, LineUnavailableException, UnsupportedAudioFileException
     {
         ended = false;
@@ -66,33 +84,39 @@ public class MainGameController {
         getSoundManager().setBGM("/resources/Sound/bgm.wav");
         getSoundManager().playBGM();
 
-        getSoundManager().setSFXVolume(1);
 
 
     }
 
+    /**
+     * The game updater function
+     * @param deltaTime the time passed since the last frame, in seconds
+     */
     public void update(double deltaTime) {
        //System.out.println("FPS : "+ 1/deltaTime );
        autoSetCanvasDim();
-//       anim.update(deltaTime);
        currentLevel.update(deltaTime);
        drawer.draw();
-     //  currentLevel.drawLevel(canvas.getGraphicsContext2D());
         if (ended)
             System.out.println("wut");
 
     }
 
+    /**
+     * Actions that will take effect on click
+     * @param e the mouse event
+     */
     public void onMouseClick (MouseEvent e) {
-        //  currentLevel.getLemmingsList().stream().findFirst().get().setPosition(new Vector(e.getX(),e.getY()));
         if (e.isPrimaryButtonDown()) {
-            //currentLevel.getVomits().add(new Vomit(new Vector(e.getX(), e.getY())));
             currentLevel.toggleSelect(new Vector(e.getX(), e.getY()));
         } else if(e.isSecondaryButtonDown()) {
             currentLevel.deselect(new Vector(e.getX(),e.getY()));
         }
     }
 
+    /**
+     * Fuction used to resize automatically the canvas
+     */
     public void autoSetCanvasDim(){
 
         if (panneau.getWidth()>panneau.getHeight()) {
@@ -107,13 +131,17 @@ public class MainGameController {
 
         }
     }
+
+    @Deprecated
     public void dumbAutoSetCanvasDim(){
 
         canvas.setScaleY(panneau.getHeight() / panneau.getPrefHeight());
         canvas.setScaleX(panneau.getWidth() / panneau.getPrefWidth());
-
-
     }
+
+    /**
+     * That will happen if you press on the PLS button
+     */
     @FXML
     public void onButtonPLS(){
         currentLevel.getLemmingsList().forEach(l->{
@@ -121,11 +149,14 @@ public class MainGameController {
                 if (l.setState(LemmingsStates.Pls)){
                     currentLevel.Pls -= 1;
                     Pls.setText("Pls :"+ currentLevel.Pls);
-
                 }
             }
         } );
     }
+
+    /**
+     * That will happen if you press on the Construct button
+     */
     @FXML
     public void onButtonConstruct(){
         currentLevel.getLemmingsList().forEach(l->{
@@ -142,6 +173,9 @@ public class MainGameController {
     }
 
 
+    /**
+     * That will happen if you press on the Vomit button
+     */
     @FXML
     public void onButtonVomir(){
         currentLevel.getLemmingsList().forEach(l->{
@@ -161,25 +195,34 @@ public class MainGameController {
         } );
     }
 
+
+    /**
+     * That will happen if you press on the ">> x2" button
+     */
     @FXML
     public void accelWorld(){
         timeSetter.setTimeSpeed(2);
     }
 
-
+    /**
+     * Function used to end a game
+     * @throws Exception
+     */
     public void quitLevel() throws Exception {
         Drawer.getDrawer().clearDrawer();
         savegame.setLevel(savegame.getLevel()+1);
         FXMLLoader loader = switchToScene("interLevel",(Stage)canvas.getScene().getWindow());
         ((InterLevelController)loader.getController()).start(savegame);
         ended = true;
-      //  timeSetter.setMaingame(null);
         timeSetter.stop();
-      //  timeSetter = null;
         System.gc();
         System.runFinalization();
     }
 
+    /**
+     * Keyboard shortcuts
+     * @param e keyboard event
+     */
     public void onKeyPressed(KeyEvent e){
 
         System.out.println(e.getText());

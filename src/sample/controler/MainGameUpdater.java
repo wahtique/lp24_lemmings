@@ -46,10 +46,6 @@ public class MainGameUpdater extends AnimationTimer{
         this.timeSpeed = timeSpeed;
     }
 
-    public void setMainGame(MainGameController mainGame) {
-        this.mainGame = mainGame;
-    }
-
     public double getAbsoluteTimeSpend(){
         return (System.nanoTime() - startTime) / 1000000000.0;
     }

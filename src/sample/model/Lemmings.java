@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
+
+
 import static sample.model.SoundManager.getSoundManager;
 
 /**
@@ -26,6 +28,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private TreeMap<LemmingsStates, AnimatedSprite> animation;
     private boolean isFlipped=false;
     private boolean isSelected = false;
+    private Sprite selection;
+
 
     @Deprecated
     public Lemmings(Vector position, Vector speed, String feet, String body, Level level) {
@@ -39,11 +43,12 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         addAnimations();
 
     }
-
+    @Deprecated
     public Lemmings(Vector position, Vector speed, Level level) {
         super(position, speed);
         this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
         this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+        this.selection = new Sprite("/resources/Lemming/selection/walk.png");
         this.level = level;
         // System.out.println(this.body.areColorsEqualsPrecision(Color.rgb(0,255,0),Color.rgb(0,250,0),1));
         this.data = new StudentData();
@@ -58,6 +63,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         super(position, speed);
         this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
         this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
+        this.selection = new Sprite("/resources/Lemming/selection/walk.png");
 
         this.level = level;
         this.data = data;
@@ -108,6 +114,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         super.setPosition(p);
         this.feet.setPosition(p);
         this.body.setPosition(p);
+        this.selection.setPosition(p);
     }
 
     public boolean isSelected() {
@@ -155,6 +162,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         this.state = LemmingsStates.Pls;
         this.body = new HitBox("resources/Lemming/hitboxes/pls/body.png");
         this.feet = new HitBox("resources/Lemming/hitboxes/pls/vomidetect.png");
+
+        this.selection = new Sprite("resources/Lemming/selection/pls.png");
         try {
             getSoundManager().playSFX("/resources/Sound/sfxPls.wav");
         }catch (Exception e){
@@ -185,6 +194,8 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
             this.state = LemmingsStates.Walk;
             this.body = new HitBox("resources/Lemming/hitboxes/walk/body.png");
             this.feet = new HitBox("resources/Lemming/hitboxes/walk/feets.png");
+
+            this.selection = new Sprite("resources/Lemming/selection/walk.png");
             level.getTerrain().remove(this);
         }
     }
@@ -269,7 +280,7 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     public void draw(GraphicsContext gc) {
         this.animation.get(state).draw(gc);
         if(isSelected){
-            this.body.draw(gc);
+            this.selection.draw(gc);
         }
     }
 
@@ -277,27 +288,28 @@ public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
         return 0;
     }
 
+    @Override
     public boolean willBeColliding(Vector pos, HashSet<Collidable> others) {
         return this.body.willBeColliding(pos, others);
     }
+
 
     public boolean willBeColliding(Vector pos, Collidable other) {
         return this.body.willBeColliding(pos, other);
 
     }
 
+    @Override
     public boolean isInHitbox(Vector pos) {
         return this.body.isInHitbox(pos);
     }
 
-    public double getCollisionDepthY(Vector pos, Collidable other) {
-        return this.body.getCollisionDepthY(pos, other);
-    }
-
+    @Override
     public double getCollisionDepthY(Vector pos, HashSet<Collidable> others) {
         return this.body.getCollisionDepthY(pos, others);
     }
 
+    @Override
     public String toString() {
         return "[ " + this.state + " pos:" + this.position.toString() + " ]";
     }

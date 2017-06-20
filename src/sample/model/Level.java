@@ -182,9 +182,11 @@ public class Level {
         lemmingsList.forEach(l -> l.update(deltatime));
         vomits.forEach(l -> l.update(deltatime,this));
         this.getGarbageLemmings().forEach(l-> lemmingsList.remove(l));
+        this.getGarbageLemmings().forEach(l-> terrain.remove(l));
         this.garbageLemmings.clear();
     }
 
+    @Deprecated
     public void drawLevel(GraphicsContext gc){
         lemmingsList.forEach(l-> l.draw(gc));
         terrain.forEach(t-> t.draw(gc));

@@ -152,20 +152,12 @@ public class Vomit extends PhysicalObject implements Collidable {
         return this.hitBoxFalling.willBeColliding(pos,others);
     }
 
-    @Override
-    public boolean willBeColliding(Vector pos, Collidable other) {
-        return this.hitBoxFalling.willBeColliding(pos,other);
-    }
 
     @Override
     public boolean isInHitbox(Vector pos) {
         return this.hitBoxFalling.isInHitbox(pos);
     }
 
-    @Override
-    public double getCollisionDepthY(Vector pos, Collidable other) {
-        return this.hitBoxFalling.getCollisionDepthY(pos,other);
-    }
 
     @Override
     public double getCollisionDepthY(Vector pos, HashSet<Collidable> others) {
