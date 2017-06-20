@@ -11,9 +11,11 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.util.HashSet;
 
-/**
+/**Class defining the Hitbox of the different objects displayed on screen
  * Created by naej on 12/05/17.
  */
+
+//TODO document this
 public class HitBox extends Sprite implements Collidable {
 
     public HitBox(String url){

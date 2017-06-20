@@ -13,9 +13,11 @@ import java.util.TreeMap;
 
 import static sample.model.SoundManager.getSoundManager;
 
-/**
+/**Class defining our Lemmings' behaviour
  * Created by yann on 12/05/17.
  */
+
+//TODO document this
 public class Lemmings extends PhysicalObject implements DrawAble, Collidable {
     private double time = 0.1;
     private double ttime=0;

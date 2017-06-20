@@ -15,26 +15,34 @@ import java.net.URISyntaxException;
 
 import static sample.controler.SceneSwitcher.switchToScene;
 
-/**
+/**Controller class for the interLevel scene
  * @author William
  * @since 19/06/2017
  */
 public class InterLevelController
 {
+    /**Button allowing to replay the current level*/
     @FXML
     private Button interLevelReplayButton;
+    /**Button leading to the next level.*/
     @FXML
     private Button interLevelNextButton;
+
+    /**Button leading back to the Main menu*/
     @FXML
     private Button interLevelMainMenuButton;
-
+    /**Current GameSession used in the level just played*/
     private GameSession session;
 
+    /**method initializing the scene; Should be called first
+     * @param session current GameSession*/
     public void start(GameSession session)
     {
         this.session = session;
     }
 
+    /**Method to replay the level we just left. It should reload the GameSession so that the changes applied when played doesn't exist anymore
+     * @param event the click event*/
     @FXML
     private void replayLevel(ActionEvent event) throws IOException, UnsupportedAudioFileException, LineUnavailableException, URISyntaxException
     {
@@ -45,6 +53,8 @@ public class InterLevelController
         ((MainGameController) loader.getController()).start(session);
     }
 
+    /**Method allowing to play the next Level. Save the current GameSession before using the same in the next.
+     * @param event click event*/
     @FXML
     private void nextLevel(ActionEvent event) throws URISyntaxException, UnsupportedAudioFileException, LineUnavailableException, IOException
     {
@@ -55,6 +65,8 @@ public class InterLevelController
         ((MainGameController) loader.getController()).start(session);
     }
 
+    /**Method leading back to the main Menu. By default, save the current game
+     * @param event click event*/
     @FXML
     private void backToMainMenu(ActionEvent event)
     {
