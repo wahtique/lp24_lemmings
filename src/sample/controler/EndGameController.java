@@ -43,10 +43,9 @@ public class EndGameController
 
         for(StudentData d : session.getStudents())
         {
-            if(d.getExamsAttended() >= maxLevel - 1)
+            if(d.getExamsAttended() >= maxLevel)
             {
                 ++lemmingsOK;
-                score += d.getExamsAttended();
             }
         }
         /*the proportion of student which should validate to have won the game*/
@@ -54,9 +53,10 @@ public class EndGameController
 
         for(StudentData d : session.getStudents())
         {
+            /*the -1 is to compensae for the original offset*/
             if(d.getExamsAttended() >= maxLevel - 1)
             {
-                score += d.getExamsAttended() * (lemmingsOK/proportion);
+                score += (d.getExamsAttended()-1) * (lemmingsOK/proportion);
             }
         }
         if(lemmingsOK >= Math.floor(proportion))

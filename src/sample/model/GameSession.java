@@ -163,7 +163,7 @@ public class GameSession implements Serializable
         int i =1;
         for (StudentData d : students)
         {
-            result += "Student " + i + " : " + d.getExamsAttended() + "\n";
+            result += "Student " + i + " : " + (d.getExamsAttended()-1) + "\n";
             ++i;
         }
         return result;
