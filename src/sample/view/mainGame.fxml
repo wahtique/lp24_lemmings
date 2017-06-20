@@ -17,17 +17,16 @@
    <rowConstraints>
       <RowConstraints maxHeight="1380.0" minHeight="10.0" percentHeight="95.0" prefHeight="1142.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="1046.0" minHeight="10.0" percentHeight="5.0" prefHeight="58.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1046.0" minHeight="10.0" percentHeight="5.0" prefHeight="58.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="1786.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <children>
             <Button fx:id="Pls" mnemonicParsing="false" onAction="#onButtonPLS" text="   PLS   " />
             <Button fx:id="Construct" mnemonicParsing="false" onAction="#onButtonConstruct" text="construct" />
             <Button fx:id="Vomit" mnemonicParsing="false" onAction="#onButtonVomir" text="Vomir" />
             <Button mnemonicParsing="false" onAction="#accelWorld" text="&gt;&gt;  x2" />
             <Button mnemonicParsing="false" onAction="#quitLevel" text="quit" />
-            <Label fx:id="timer" text="0:00" wrapText="true" />
-            <Label fx:id="fps" text="00" />
          </children>
          <opaqueInsets>
             <Insets />
@@ -39,5 +38,11 @@
          </font>
       </Label>
       <Canvas fx:id="canvas" cache="true" cacheHint="SPEED" height="1080.0" onMousePressed="#onMouseClick" width="1920.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="1">
+         <children>
+            <Label fx:id="fps" text="00" />
+            <Label fx:id="timer" scaleShape="false" text="0:00" />
+         </children>
+      </HBox>
    </children>
 </GridPane>
