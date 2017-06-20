@@ -13,6 +13,7 @@ import java.io.IOException;
 import static sample.controler.SceneSwitcher.switchToScene;
 
 /**
+ * controller for the endgame
  * @author William
  * @since 20/06/2017
  */
