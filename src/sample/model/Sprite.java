@@ -7,9 +7,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import sample.view.DrawAble;
 
-
 /**
- * Created by naej on 11/05/17.
+ * Base class used to handle images in a simple way
+ * @author Jean
  */
 public class Sprite implements DrawAble {
     protected boolean isFlipped;

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Created by naej on 06/06/17.
+ * Class used to print drawable in a simple way
+ * @author Jean
  */
 public class Drawer {
     private Drawer(){}
