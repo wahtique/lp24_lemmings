@@ -9,6 +9,9 @@ import java.util.TreeMap;
 /**
  * Created by yann on 09/06/17.
  */
+
+//TODO document this
+
 public class Vomit extends PhysicalObject implements Collidable {
     private Boolean isFalling;
     private HitBox hitBoxFalling;

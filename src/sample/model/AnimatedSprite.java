@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 /**
  * Created by naej on 12/05/17.
  */
+//TODO document this
 public class AnimatedSprite extends Sprite {
 
     private boolean isLooping;

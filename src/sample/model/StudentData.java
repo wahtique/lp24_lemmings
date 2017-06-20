@@ -14,9 +14,6 @@ public class StudentData implements Serializable
      * This is equivalent to the number of levels he cleared*/
     private int examsAttended;
 
-    /*More fields will / can be added latter according to our needs*/
-
-
     public int getExamsAttended()
     {
         return examsAttended;
@@ -27,6 +24,9 @@ public class StudentData implements Serializable
         this.examsAttended = examsAttended;
     }
 
+    /**
+     * build a new student data which indicate it cleared 1 level by default.
+     */
     public StudentData()
     {
         examsAttended = 1;

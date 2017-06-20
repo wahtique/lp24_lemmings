@@ -9,6 +9,7 @@ import java.util.TreeSet;
  * Class used to print drawable in a simple way
  * @author Jean
  */
+//TODO document this
 public class Drawer {
     private Drawer(){}
 

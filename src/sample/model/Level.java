@@ -10,9 +10,11 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-/**
+/**Modelization of our levels
  * Created by yann on 19/05/17.
  */
+
+//TODO document this
 
 public class Level {
 

@@ -4,6 +4,7 @@ package sample.model;
 /**
  * Created by yann on 12/05/17.
  */
+//TODO document this
 public class PhysicalObject {
     protected static final Vector gravite = new Vector(0,100);
 

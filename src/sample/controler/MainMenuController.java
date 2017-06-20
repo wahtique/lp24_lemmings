@@ -3,8 +3,6 @@ package sample.controler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -21,13 +19,15 @@ import static sample.controler.SceneSwitcher.switchToScene;
 import static sample.model.SoundManager.getSoundManager;
 
 /**
+ * Class used to control the menu : navigation, loading saves, launching games, changing parameters...
  * @author William
  * @since 15/05/2017
  */
+
 public class MainMenuController
 {
 
-
+    /*references to FXML elements*/
     @FXML
     private Button newGameButton;
     @FXML
@@ -76,8 +76,6 @@ public class MainMenuController
     private Button getLoadGameLoadButton;
 
 
-
-
     public MainMenuController() throws IOException
     {
 
@@ -89,7 +87,7 @@ public class MainMenuController
     }
 
     /**
-     * Method detecting which button activated and calling switchToScene with the right parameter
+     * Method detecting which button activated and switching to the right scene
      * @param event event triggering the method
     * */
     @FXML
@@ -127,13 +125,7 @@ public class MainMenuController
 
             try {
                 ((MainGameController) loader.getController()).start(savegame);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (UnsupportedAudioFileException e)
-            {
-                e.printStackTrace();
-            } catch (LineUnavailableException e)
-            {
+            } catch (URISyntaxException | UnsupportedAudioFileException | LineUnavailableException e) {
                 e.printStackTrace();
             }
         }
@@ -145,38 +137,53 @@ public class MainMenuController
 
     }
 
-
+    /**
+     * increment the SFX volume of +0.1
+     */
     @FXML
-    private void plusSFXVolume(ActionEvent event)
+    private void plusSFXVolume()
     {
         getSoundManager().setSFXVolume(getSoundManager().getSFXVolume() + 0.1);
         settingsSFXTextField.setText(Double.toString(getSoundManager().getSFXVolume()));
     }
 
+    /**
+     * increment the SFX volume of -0.1
+     */
     @FXML
-    private void minusSFXVolume(ActionEvent event)
+    private void minusSFXVolume()
     {
         getSoundManager().setSFXVolume(getSoundManager().getSFXVolume() - 0.1);
         settingsSFXTextField.setText(Double.toString(getSoundManager().getSFXVolume()));
     }
 
 
+    /**
+     * increment the BGM volume of +0.1
+     */
     @FXML
-    private void plusBGMVolume(ActionEvent event)
+    private void plusBGMVolume()
     {
         getSoundManager().setSFXVolume(getSoundManager().getBGMVolume() + 0.1);
         settingsSFXTextField.setText(Double.toString(getSoundManager().getBGMVolume()));
     }
 
+    /**
+     * increment the SFX volume of -0.1
+     */
     @FXML
-    private void minusBGMVolume(ActionEvent event)
+    private void minusBGMVolume()
     {
         getSoundManager().setSFXVolume(getSoundManager().getBGMVolume() - 0.1);
         settingsSFXTextField.setText(Double.toString(getSoundManager().getBGMVolume()));
     }
 
+
+    /**
+     * Method allowing to choose the saveGame with a FileChoose popup
+     */
     @FXML
-    private void chooseSaveGame(ActionEvent event)
+    private void chooseSaveGame()
     {
         FileChooser fc = new FileChooser();
         fc.setTitle("Select your save game");
@@ -197,6 +204,10 @@ public class MainMenuController
 
     }
 
+    /**Method triggered by the newGameLaunchButton. Start a new game with the name specified in newGameNAmeTextField
+     * if no name is specified, we use the Van Damme.
+     * The GameSession is saved at the default (and only for now) save directory
+     * @param event click that triggered the event*/
     @FXML
     private void startNewGame(ActionEvent event) throws IOException
     {
@@ -221,6 +232,9 @@ public class MainMenuController
         switchSceneOnButtonAction(event);
     }
 
+    /**Start a game from an already existing GameSession selected with the chooseSaveGame method.
+     * If no saveGAme is already selected, we gently inquire about the health of the user.
+     * @param event the click which triggered this method*/
     @FXML
     private void loadGame(ActionEvent event) throws IOException
     {

@@ -11,6 +11,7 @@ import sample.view.DrawAble;
  * Base class used to handle images in a simple way
  * @author Jean
  */
+//TODO document this
 public class Sprite implements DrawAble {
     protected boolean isFlipped;
     protected float layer;
