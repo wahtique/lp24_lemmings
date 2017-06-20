@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import static sample.controler.SceneSwitcher.switchToScene;
 import static sample.model.SoundManager.getSoundManager;
 
-
+//TODO document this
 public class MainGameController {
     @FXML
     private Canvas canvas;

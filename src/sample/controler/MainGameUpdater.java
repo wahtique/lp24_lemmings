@@ -6,6 +6,9 @@ import sample.controler.MainGameController;
 /**
  * Created by naej on 08/05/17.
  */
+
+//TODO document this
+
 public class MainGameUpdater extends AnimationTimer{
 
     private float timeSpeed = 1;

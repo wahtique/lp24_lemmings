@@ -1,5 +1,5 @@
 package sample.model;
-
+//TODO document this
 public class Vector {
     private double x;
     private double y;

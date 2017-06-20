@@ -26,8 +26,9 @@ public class GameSession implements Serializable
     private int numberOfStudents;
 
     /**The profile settings we will use when we play.
-     *When creating a new game, it will use the general settings.
-     * When loading, we will use the parameters already existing.*/
+     * When creating a new game, it will use the general settings.
+     * When loading, we will use the parameters already existing.
+     * Not used for now, may be useful later.*/
     private Parameters profileSettings;
 
 
@@ -36,6 +37,7 @@ public class GameSession implements Serializable
      * Method creating a new game session from scratch. Used mainly to start a new game.
      * @param playerName The name of the player AND the savegame
      * @param numberOfStudents The number of students we will play with
+     * @throws Exception because why not
      */
     public GameSession(String playerName, int numberOfStudents) throws Exception
     {
@@ -110,7 +112,10 @@ public class GameSession implements Serializable
         }
     }
 
-    /**Constructor used to load a game.*/
+    /**
+     * Constructor used when loading a game.
+     * @param f the file froom which we will load the GameSession
+     */
     public GameSession(File f)
     {
         try

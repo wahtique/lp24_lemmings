@@ -11,6 +11,7 @@ import sample.view.DrawAble;
 /**
  * Created by naej on 11/05/17.
  */
+//TODO document this
 public class Sprite implements DrawAble {
     protected boolean isFlipped;
     protected float layer;

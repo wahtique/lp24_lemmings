@@ -2,32 +2,29 @@ package sample.model;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
 import javax.sound.sampled.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.time.Duration;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-/**
+/**Class managing the sound effects. Singleton.
  * @author William
  * @since 12/06/2017
  */
+
 public class SoundManager
 {
 
+    /**Background music*/
     private Clip BGM;
     private double SFXVolume;
     private double BGMVolume;
 
 
-
+    /**
+     * Play a SFX
+     * @param soundFile the path to the file. From /src
+     * @throws IOException if the file does not exist
+     */
     public void playSFX(String soundFile) throws IOException
     {
         URL urlIn = getClass().getResource(soundFile);
@@ -44,8 +41,13 @@ public class SoundManager
         }).start();
     }
 
-
-
+    /**
+     * set the BGM from a file and adjust the volume
+     * @param musicFile path to the file, from /src
+     * @throws IOException if the file does not exist
+     * @throws UnsupportedAudioFileException should be wav
+     * @throws LineUnavailableException if it can't read the stream
+     */
     public void setBGM(String musicFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException
     {
         URL u = getClass().getResource(musicFile);
@@ -58,7 +60,10 @@ public class SoundManager
         gainControl.setValue(gain);
     }
 
-
+    /**
+     * Play the BGM actually stored
+     * @throws IOException if the BGM isnt set properly
+     */
     public void playBGM() throws IOException
     {
 
@@ -68,12 +73,17 @@ public class SoundManager
 
     }
 
+    /**
+     * Stop the BGM
+     */
     public void stopBGM()
     {
         BGM.stop();
     }
 
-
+    /**
+     * Build a new SoundManager with default volume parameter = 1 and BGM = null
+     */
     private SoundManager()
     {
         setBGMVolume(1);
@@ -87,11 +97,18 @@ public class SoundManager
         }
     }
 
+    /**
+     * private class holding the singleton
+     */
     private static class SoundManagerHolder
     {
         private final static SoundManager instance = new SoundManager();
     }
 
+    /**
+     * static method used to access to the singleton
+     * @return the SoundManager
+     */
     public static SoundManager getSoundManager()
     {
         return SoundManagerHolder.instance;
@@ -102,6 +119,10 @@ public class SoundManager
         return BGMVolume;
     }
 
+    /**
+     * set the BGM volume, between 0 and 1
+     * @param BGMVolume set to 1 if >1, 0 if <0
+     */
     public void setBGMVolume(double BGMVolume)
     {
         if(BGMVolume > 1)
@@ -122,6 +143,10 @@ public class SoundManager
         return SFXVolume;
     }
 
+    /**
+     * set the SFX volume
+     * @param SFXVolume set to 1 if >1, 0 if <0
+     */
     public void setSFXVolume(double SFXVolume)
     {
         if(SFXVolume > 1)
