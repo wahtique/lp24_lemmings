@@ -12,7 +12,8 @@ import java.awt.image.WritableRaster;
 import java.util.HashSet;
 
 /**
- * Created by naej on 12/05/17.
+ * Class used to handle pixel collisions
+ * @author Jean
  */
 public class HitBox extends Sprite implements Collidable {
 
@@ -20,15 +21,29 @@ public class HitBox extends Sprite implements Collidable {
         super(url);
     }
 
+    /**
+     * Used to know if the coordinate is in the hitbox
+     * @param pos coordinate
+     * @return
+     */
     public boolean isInHitbox(Vector pos){
         return (this.getPixelColorCanvasRef(pos).getOpacity() != 0);
 
     }
 
+    /**
+     * Delete a pixel  of the hitbox
+     * @param pos coordinate of the pixel
+     */
     public boolean deletePoint(Vector pos){
         return this.modifyPixelCanvasRef(pos, Color.color(0,0,0,0)) ;
     }
 
+    /**
+     * Used to detect collisions between hitboxes
+     * @param pos position of the hitbox
+     * @param other other hitbox
+     */
     public boolean willBeColliding(Vector pos, Collidable other){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
@@ -42,6 +57,11 @@ public class HitBox extends Sprite implements Collidable {
         }
         return false;
     }
+    /**
+     * Used to detect collisions between hitboxes
+     * @param pos position of the hitbox
+     * @param others other hitboxes
+     */
     public boolean willBeColliding(Vector pos, HashSet<Collidable> others){
 
         for (int x =0;x<this.renderedImage.getImage().getWidth();x++){
@@ -125,6 +145,11 @@ public class HitBox extends Sprite implements Collidable {
         }
     }
 
+    /**
+     * Allows to detect the depth of a collision
+     * @param pos
+     * @param others
+     */
     public double getCollisionDepthY(Vector pos, HashSet<Collidable> others){
         Vector higher =null;
 
